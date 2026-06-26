@@ -1,0 +1,22 @@
+# LoL Stats - Dependencies
+# Install with: pip install -r requirements.txt
+
+# Web backend
+FastAPI>=0.110.0
+uvicorn[standard]>=0.29.0
+
+# HTTP requests (Riot API, DataDragon, Live Client API)
+requests>=2.31.0
+httpx>=0.27.0
+
+# GUI Framework for the transparent overlay window
+PySide6>=6.5.0
+
+# Windows API bindings for overlay window management
+pywin32>=306
+
+# Excel import (Coach K strategy spreadsheet)
+openpyxl>=3.1.0
+
+# Data validation
+pydantic>=2.0.0

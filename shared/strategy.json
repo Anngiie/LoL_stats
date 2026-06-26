@@ -1,0 +1,3821 @@
+{
+  "version": 2,
+  "last_updated": "2026-06-26T04:01:37.325223+00:00",
+  "champions": {
+    "Alistar": {
+      "vs_support": {
+        "early_strength": "Weak",
+        "more_info": "VS Morgana MAX W so you break\nthe shield during the combo.",
+        "strengths": [
+          "Makes the lane \"even\"",
+          "Strong engage / disengage",
+          "OP Dives with R"
+        ],
+        "weaknesses": [
+          "Level 1 very weak",
+          "No threat early vs bully lanes",
+          "Sylas pick threat"
+        ],
+        "how_to_play": [
+          "Match roams and be present with your team or dive 2v1",
+          "Stop his engage with abilities (Janna Q, Poppy W, Morgana E)",
+          "Force him to stay in lane, pressure with poke or freeze (don't dive)"
+        ],
+        "counters": [
+          "Janna",
+          "Rakan",
+          "Morgana",
+          "Poppy",
+          "Thresh",
+          "Karma"
+        ]
+      },
+      "with_jungler": {},
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Bard": {
+      "vs_support": {
+        "early_strength": "Depends",
+        "more_info": "Very ADC dependant for matchup (!)\nIf ADC can 1v2 lane, he is extremly\nstrong in the game",
+        "strengths": [
+          "OP roams",
+          "Catch with R (not recommend long range R)",
+          "Strong carry build (damage/tank) soloq"
+        ],
+        "weaknesses": [
+          "Exposed on trades bad vs CC / Hook",
+          "Low range early game can suffer vs",
+          "poke"
+        ],
+        "how_to_play": [
+          "Punish in lane phase when trying to poke you (hook / cc)",
+          "Force him to stay in lane (if possible) or match roams or be first",
+          "For range champions play prio with wave and poke with range adv."
+        ],
+        "counters": [
+          "Blitzcrank",
+          "Leona",
+          "Elise",
+          "Nautilus",
+          "Pyke",
+          "Lux"
+        ]
+      },
+      "with_jungler": {},
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Blitzcrank": {
+      "vs_support": {
+        "early_strength": "Depends",
+        "more_info": "Struggles a lot vs dash ADC like\nEzreal, Lucian, Vayne...",
+        "strengths": [
+          "Hook into kill",
+          "Strong roams",
+          "Very good into Squishy teams"
+        ],
+        "weaknesses": [
+          "Bad vs Tanky teams",
+          "Bad vs Melee champs (tanky)",
+          "Bad vs dash champions"
+        ],
+        "how_to_play": [
+          "Q had very long CD, force it and punish after",
+          "Vision on him makes it easy to play against (mid/lategame)",
+          "Squishy support in general (without Aftershock) play around that"
+        ],
+        "counters": [
+          "Alistar",
+          "Braum",
+          "Amumu",
+          "Leona",
+          "Rakan",
+          "Ornn"
+        ]
+      },
+      "with_jungler": {},
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Braum": {
+      "vs_support": {
+        "early_strength": "Depends",
+        "more_info": "You can W towards a minion to\nengage (care with this).\nNeed E for trades (2 sequences).",
+        "strengths": [
+          "Passive OP with ADC that can proc fast",
+          "Strong vs Melee comps (more passives)",
+          "Strong when E matter a lot (MF R, Ornn R...)"
+        ],
+        "weaknesses": [
+          "Bad roams",
+          "Bad vs range / poke",
+          "No engage champion"
+        ],
+        "how_to_play": [
+          "Don't get hit by Q in lane => punish when on CD",
+          "Roam and put pressure in map, care ADC must have waveclear",
+          "Poke in lane and get advantage with range (he can't engage)"
+        ],
+        "counters": [
+          "Rakan",
+          "Janna",
+          "Milio",
+          "Zilean",
+          "Karma",
+          "Senna"
+        ]
+      },
+      "with_jungler": {},
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Janna": {
+      "vs_support": {
+        "early_strength": "Weak",
+        "more_info": "Janna HAS to look to create pressure\nwith good roams and play around\nstrong carry champions (bruisers)\nCancel R if possible in fights (Naut R)",
+        "strengths": [
+          "Enchanter that can roam",
+          "Strong scaling",
+          "Very good disengage and teamfight",
+          "VERY FAST (can abuse S16 homeguards)"
+        ],
+        "weaknesses": [
+          "No sustain",
+          "Really bad dives",
+          "Weak in lane",
+          "HAS to play with a strong teammate"
+        ],
+        "how_to_play": [
+          "Nami & Sona outsustain and win trades easy in lane",
+          "Hook champs OP because win lane and also pressure with roams and",
+          "can match roams (Janna strength)",
+          "Mages HAVE to win lane, but it should be simple if paired with strong ADC"
+        ],
+        "counters": [
+          "Nami",
+          "Sona",
+          "Bard",
+          "Nautilus",
+          "Blitzcrank",
+          "Pyke",
+          "Thresh",
+          "Zyra",
+          "Vel'koz"
+        ]
+      },
+      "with_jungler": {},
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Karma": {
+      "vs_support": {
+        "early_strength": "Strong",
+        "more_info": "Outscales engage and can build\neasy HP vs them. Build Shurelyas,\nRedemption vs Shield Breakers.",
+        "strengths": [
+          "Strong early trades",
+          "Good poke, good lane prio",
+          "Strong scaling (shield build)"
+        ],
+        "weaknesses": [
+          "Bad dives",
+          "Weak roams",
+          "Serpents Fang => different build"
+        ],
+        "how_to_play": [
+          "Zyra is skill matchup (or mages) hit Q on wave for prio level 2 to win",
+          "Roam and put pressure around the map if ADC can 1v2",
+          "Q of Rell and R of Blitzcrank break shields"
+        ],
+        "counters": [
+          "Blitzcrank",
+          "Sona",
+          "Nami",
+          "Nautilus",
+          "Rell",
+          "Soraka"
+        ]
+      },
+      "with_jungler": {},
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Leona": {
+      "vs_support": {
+        "early_strength": "Strong",
+        "more_info": "Heal is probably better on Leona\nmost of the times, ignite vs \nhealing champs.\nEnemy ADC forced to go cleanse",
+        "strengths": [
+          "Strong skirmishes",
+          "Good roams / dives",
+          "Strong R against no mobility champions",
+          "Insanly tank with W + Protoplasm"
+        ],
+        "weaknesses": [
+          "Needs follow up CC + DMG (!)",
+          "No sustain can suffer before 1st reset",
+          "Hard commited to her engage",
+          "Enemy team getting MERCS (tenacity)"
+        ],
+        "how_to_play": [
+          "Match roams and be present with your team or dive 2v1",
+          "Force her to stay in lane",
+          "Stop her engage with abilities (Janna Q, Poppy W, Alistar Q)",
+          "Peel the target she CC's (Taric, TK, Milio, Janna R...)"
+        ],
+        "counters": [
+          "Janna",
+          "Alistar",
+          "Morgana",
+          "Poppy",
+          "Braum",
+          "Taric",
+          "Tahm Kench",
+          "Milio",
+          "Renata"
+        ]
+      },
+      "with_jungler": {},
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Lulu": {
+      "vs_support": {
+        "early_strength": "Strong",
+        "more_info": "VS Hook champions build Health\nand stronger early if well position.\nForced to match roams (!)",
+        "strengths": [
+          "Good damage with Q+E early and AAs",
+          "W big CC in skirmishes",
+          "Strong powerspike lvl6 care paired HyperCarry"
+        ],
+        "weaknesses": [
+          "Low range poke, can't dive enemy pre 6",
+          "No sustain only prevent damage (E)",
+          "Weak roams (if you pick Engage, roam)"
+        ],
+        "how_to_play": [
+          "You outrange with abilities or you have better trade + sustain",
+          "Nami is skill matchup because Nami W is for trade and close range",
+          "Mages HAVE to punish to win & enchanters is AFK lane (depends ADC)"
+        ],
+        "counters": [
+          "Lux",
+          "Seraphine",
+          "Soraka",
+          "Vel'koz",
+          "Karma",
+          "Sona"
+        ]
+      },
+      "with_jungler": {},
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Lux": {
+      "vs_support": {
+        "early_strength": "Strong",
+        "more_info": "Really strong support if paired with\nCaitlyn, Varus and Ashe. If not she\nloses a lot of power in lane/game.",
+        "strengths": [
+          "Poke, long range",
+          "Burst support",
+          "Carry build (support build also good)"
+        ],
+        "weaknesses": [
+          "Decent roams but no recommended",
+          "Very lane focused champion",
+          "Bad at dives but good at taking tower"
+        ],
+        "how_to_play": [
+          "Zyra/Karma is skill matchup hit Q on wave for prio level 2 to win",
+          "Roam if lane is weaker",
+          "Look to all-in / trade when she wastes spells (missposition)"
+        ],
+        "counters": [
+          "Pyke",
+          "Nautilus",
+          "Rell",
+          "Blitzcrank",
+          "Leona",
+          "Shaco"
+        ]
+      },
+      "with_jungler": {},
+      "with_adc": {
+        "strength": "Weak",
+        "synergy": "Engage",
+        "gameplan": "Mage = weak til level 3\nRoam whenever you can or look to all in.\nConcede prio early most likely",
+        "how_to_trade": "Once Lux is level 3 you can look to all in\nCAN'T DO LONG TRADES\nWait for Lux CD to be back",
+        "when_to_roam": "(EASY) Once Lux has \"Lost Chapter\"\nshe doesn't exist, feel free to roam\nIf you have kill potential look for it",
+        "best_supports": [
+          "Nautilus",
+          "Leona",
+          "Rell",
+          "Alistar",
+          "Pyke",
+          "Thresh",
+          "Nami",
+          "Pantheon",
+          "Amumu",
+          "Zoe"
+        ]
+      },
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Maokai": {
+      "vs_support": {
+        "early_strength": "Strong",
+        "more_info": "You have to play around your\nAftershock in lane (if you have).\nIf not up, careful!",
+        "strengths": [
+          "Single target CC (W)",
+          "OP Ult team CC (R)",
+          "E vision / objective control"
+        ],
+        "weaknesses": [
+          "Hard commited to the engage (W)",
+          "Squishy for the playstyle (patient)",
+          "Long CD after W+Q"
+        ],
+        "how_to_play": [
+          "Shields or sustain vs E (even if you don't go AP)",
+          "Something to tank or disengage your R (Neeko W, Milio R...)",
+          "Build Mikael vs CC OP => do it instant when he W someone"
+        ],
+        "counters": [
+          "Milio",
+          "Karma",
+          "Morgana",
+          "Lulu",
+          "Neeko",
+          "Renata"
+        ]
+      },
+      "with_jungler": {
+        "early": "Strong",
+        "pathing": "Ganking",
+        "synergy": "Enchanter",
+        "vision_level1": "Sweeper start level 1. Cover my entrance\navoid enemy getting information.\nWarding trinket if you want info in enemy jungle.",
+        "gameplan": "If you play strong botlane, play around that\nIf your ADC is not the main carry (Ziggs)\nplay with Mao towards the carry (top/mid).",
+        "important_info": "Very good with Hypercarry + Enchanter.\nHe has engage + creates space with R.\nStrong early to transition weak botlanes.",
+        "best_supports": [
+          "Lulu",
+          "Milio",
+          "Nami",
+          "Seraphine",
+          "Soraka",
+          "Senna",
+          "Leona",
+          "Sona",
+          "Rakan",
+          "Bard"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Milio": {
+      "vs_support": {
+        "early_strength": "Depends",
+        "more_info": "ADC dependant for matchup (!)\nForced to match roams (!)",
+        "strengths": [
+          "Strong with Lucian/Ashe/Aphe/Jinx/Cait ..",
+          "High range hypercarry or Lucian combo",
+          "Good scaling & OP R vs CC (Lillia, Leona...)"
+        ],
+        "weaknesses": [
+          "Bad dives",
+          "Weak early / roams",
+          "HAS to play with a strong teammate"
+        ],
+        "how_to_play": [
+          "Roam if lane is weaker",
+          "Prio into freeze if lane is stronger and then roam when ADC can 1v2",
+          "Pressure the map not the lane to win the game"
+        ],
+        "counters": [
+          "Blitzcrank",
+          "Sona",
+          "Bard",
+          "Pyke",
+          "Nautilus"
+        ]
+      },
+      "with_jungler": {},
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Morgana": {
+      "vs_support": {
+        "early_strength": "Depends",
+        "more_info": "Need E vs engage, you can play\nfor 2 sequence trades or focus\nother player (bait shield)",
+        "strengths": [
+          "Hit Q or FF",
+          "Good roams",
+          "First target threat (Q)"
+        ],
+        "weaknesses": [
+          "Bad vs range / poke",
+          "Can't dive if Q miss (roaming opp)",
+          "Bad vs dash champions / assasins"
+        ],
+        "how_to_play": [
+          "Force her to miss Q => punish when on CD",
+          "Vision on her makes it easy to play against (mid/lategame)",
+          "Match roams or get something 2v1"
+        ],
+        "counters": [
+          "Karma",
+          "Soraka",
+          "Lulu",
+          "Lux",
+          "Milio",
+          "Vel'koz"
+        ]
+      },
+      "with_jungler": {
+        "early": "Average",
+        "pathing": "Full Clear",
+        "synergy": "Both",
+        "vision_level1": "Need to secure her clear, if against strong\njungler, drop a ward to defend a possible invade.\nSweeper start if not to secure ganks.",
+        "gameplan": "You need to involve another carry with\nMorgana and you to make a play.\nNo need to play around Morgana",
+        "important_info": "Morgana works with any support champ.\nVoidgrubs are easy to contest\nPlay around a strong carry top/mid/adc",
+        "best_supports": [
+          "Pantheon",
+          "Rell",
+          "Lulu",
+          "Blitzcrank",
+          "Nautilus",
+          "Pyke",
+          "Soraka",
+          "Thresh",
+          "Alistar",
+          "Bard"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Nami": {
+      "vs_support": {
+        "early_strength": "Strong",
+        "more_info": "Build HP if lane is very diffcult\nvs ALL-IN (Moonstone, Helia, Mikael)\nImperial Mandate 1st still very strong",
+        "strengths": [
+          "Strong early trades",
+          "Sustain",
+          "Very Strong 1st item Spike (mandate)"
+        ],
+        "weaknesses": [
+          "Bad dives",
+          "Weak roams",
+          "Mana problems if spam early minutes"
+        ],
+        "how_to_play": [
+          "Roam if lane is weaker",
+          "Prio into freeze if lane is stronger and then roam when ADC can 1v2",
+          "Pressure the map not the lane to win the game"
+        ],
+        "counters": [
+          "Nautilus",
+          "Leona",
+          "Pyke",
+          "Pantheon",
+          "Elise"
+        ]
+      },
+      "with_jungler": {},
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Nautilus": {
+      "vs_support": {
+        "early_strength": "Strong",
+        "more_info": "You have to play around your\nAftershock in lane (if you have).\nIf not up, careful!",
+        "strengths": [
+          "Strong skirmishes",
+          "Good roams / dives",
+          "Hook, point and click CC (R), first target"
+        ],
+        "weaknesses": [
+          "Needs follow up CC + DMG (!)",
+          "No sustain can suffer before 1st reset",
+          "Squishy without Aftershock (!)"
+        ],
+        "how_to_play": [
+          "Match roams and be present with your team or dive 2v1",
+          "Force him to stay in lane",
+          "Let him int with engage, disengage properly"
+        ],
+        "counters": [
+          "Leona",
+          "Braum",
+          "Morgana",
+          "Ornn",
+          "Neeko",
+          "Zyra"
+        ]
+      },
+      "with_jungler": {
+        "early": "Average",
+        "pathing": "Ganking",
+        "synergy": "Enchanter",
+        "vision_level1": "Sweeper start level 1. Cover my entrance\navoid enemy getting information.\nWarding trinket if you want info in enemy jungle.",
+        "gameplan": "If you play strong botlane, play around that\nIf your ADC is not the main carry (Ziggs)\nplay with Naut towards the carry (top/mid).",
+        "important_info": "Very good with Hypercarry + Enchanter.\nHe has engage + creates space with R.\nGood early to transition weak botlanes.",
+        "best_supports": [
+          "Lulu",
+          "Milio",
+          "Nami",
+          "Seraphine",
+          "Soraka",
+          "Senna",
+          "Bard",
+          "Sona",
+          "Rakan",
+          "Taric"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Poppy": {
+      "vs_support": {
+        "early_strength": "Strong",
+        "more_info": "If lane is not winning Poppy can\nroam and create chaotic game, \nyou are force to match",
+        "strengths": [
+          "OP vs dashes (W)",
+          "R very strong for fights/objectives",
+          "Verstile with HoB/Afershock"
+        ],
+        "weaknesses": [
+          "Bad when enemy no dashes",
+          "Bad vs Mages/Enchanters",
+          "Not an engage champion"
+        ],
+        "how_to_play": [
+          "Don't play near walls",
+          "Match roams or get something 2v1",
+          "Play with range and poke/play for tower"
+        ],
+        "counters": [
+          "Karma",
+          "Nami",
+          "Janna",
+          "Thresh",
+          "Braum",
+          "Tahm Kench"
+        ]
+      },
+      "with_jungler": {
+        "early": "Strong",
+        "pathing": "Ganking",
+        "synergy": "Both",
+        "vision_level1": "Start sweeper 95% of the times.\nAvoid enemy getting information where\nPoppy is starting. Good for gank setup",
+        "gameplan": "If you play strong botlane, play around that\nIf your ADC is not the main carry (Ziggs)\nplay with Poppy towards the carry.",
+        "important_info": "Poppy works with any support champ.\nVoidgrubs are easy to contest\nNo need to play around Poppy",
+        "best_supports": [
+          "Lulu",
+          "Rell",
+          "Thresh",
+          "Milio",
+          "Neeko",
+          "Rakan",
+          "Alistar",
+          "Nautilus",
+          "Taric",
+          "Bard"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Pyke": {
+      "vs_support": {
+        "early_strength": "Strong",
+        "more_info": "In midgame ward in his jungle\nso his Umbral Glaive pops early",
+        "strengths": [
+          "Very strong laning phase",
+          "Very strong early roams",
+          "First target threat (hook)"
+        ],
+        "weaknesses": [
+          "Bad in lategame / squishy",
+          "Bad when his team lacks CC",
+          "Bad vs a lot of mobility"
+        ],
+        "how_to_play": [
+          "Match roams (ping as well) and give vision around that",
+          "Defensive vision in river to see where he moves",
+          "Play earlygame to deny him instead of looking to do your plays"
+        ],
+        "counters": [
+          "Rakan",
+          "Nautilus",
+          "Thresh",
+          "Leona",
+          "Poppy",
+          "Elise"
+        ]
+      },
+      "with_jungler": {},
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Rakan": {
+      "vs_support": {
+        "early_strength": "Weak",
+        "more_info": "Build MERCS vs heavy CC supp\n(Leona, Lissandra, Lux...)\nQ is the most important spell to\nhit to survive lane",
+        "strengths": [
+          "Neutral lane, sustain with Q",
+          "Strong followup engage (dive comps)",
+          "Good scaling, strong fights"
+        ],
+        "weaknesses": [
+          "Weak lane",
+          "Not that strong as solo engage",
+          "Lacks early damage for skirmishes"
+        ],
+        "how_to_play": [
+          "Bully him in lane / you can CC and kill him easier than other engage",
+          "Match roams or roam first or get something 2v1",
+          "Stop his R engage if possible (Lissandra R, Leona Q+R, Milio Q)",
+          "Don't let him hit Q in lane or your poke is useless"
+        ],
+        "counters": [
+          "Poppy",
+          "Nautilus",
+          "Morgana",
+          "Lulu",
+          "Lux",
+          "Zyra",
+          "Leona",
+          "Lissandra",
+          "Milio"
+        ]
+      },
+      "with_jungler": {},
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Rell": {
+      "vs_support": {
+        "early_strength": "Strong",
+        "more_info": "Build Verdant Barrier vs \ndisengage abilities to engage\nwith Rell",
+        "strengths": [
+          "Strong skirmishes",
+          "Good roams / dives",
+          "A lot of CC / break shields"
+        ],
+        "weaknesses": [
+          "Flash reliant",
+          "Needs follow up damage",
+          "Outscaled by enchanters"
+        ],
+        "how_to_play": [
+          "Stop her engage with abilities (Janna Q, Poppy W, Alistar Q)",
+          "Match her roams and be present with your team or dive 2v1",
+          "Force her to stay in lane and not impact the map"
+        ],
+        "counters": [
+          "Janna",
+          "Thresh",
+          "Braum",
+          "Poppy",
+          "Alistar",
+          "Renata"
+        ]
+      },
+      "with_jungler": {},
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Renata": {
+      "vs_support": {
+        "early_strength": "Depends",
+        "more_info": "Works really well with a duo for\nW comms and wave states\nCleanse counters R on ADC",
+        "strengths": [
+          "W very strong paired with bully ADC",
+          "R strong in teamfights vs ALL-IN"
+        ],
+        "weaknesses": [
+          "Bad roams / hard to dive (?)",
+          "Bad vs range / poke",
+          "Needs to play vs engage"
+        ],
+        "how_to_play": [
+          "Play with range and poke if Mage / Enchanter",
+          "Roam if playing Engage, ADC can 1v2"
+        ],
+        "counters": [
+          "Lux",
+          "Seraphine",
+          "Nami",
+          "Karma",
+          "Zyra",
+          "Soraka"
+        ]
+      },
+      "with_jungler": {},
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Senna": {
+      "vs_support": {
+        "early_strength": "Weak",
+        "more_info": "Good vs free lanes like:\nRakan, Zilean, Janna, Braum...\n\nRoam for souls in the jungle.\n\nNot strong atm (needs change)",
+        "strengths": [
+          "Global R",
+          "Good scaling with enchanter build",
+          "and souls",
+          "\"Versatile build\" AD or Enchanter"
+        ],
+        "weaknesses": [
+          "Can't dive",
+          "Bad roam",
+          "Not strong early game",
+          "Struggles vs Poke",
+          "Struggles vs Engage",
+          "You get OS lategame"
+        ],
+        "how_to_play": [
+          "Freeze the lane after wave crashes and ggwp",
+          "Roam, she can't dive your ADC or hurt him",
+          "Pressure the map not the lane to win the game",
+          "Force early objectives, invade enemy jungle"
+        ],
+        "counters": [
+          "Karma",
+          "Lux",
+          "Neeko",
+          "Blitzcrank",
+          "Pyke",
+          "Thresh",
+          "Pantheon",
+          "Elise",
+          "Leona",
+          "Rell",
+          "Seraphine",
+          "Soraka",
+          "Nautilus",
+          "Sona",
+          "Bard"
+        ]
+      },
+      "with_jungler": {},
+      "with_adc": {
+        "strength": "Weak",
+        "synergy": "Engage",
+        "gameplan": "Weak, try to scale. Don't force many fights.\nAll in is ok, no long trades. Wait for ganks.",
+        "how_to_trade": "Short trades so Senna can get souls.\nAvoid getting poked a lot, try to use your\nHP so Senna can farm and not get low.",
+        "when_to_roam": "(HARD) When wave crashes or\nthe next 2 waves are non-cannon\n(EASY) If she build \"Statik\"",
+        "best_supports": [
+          "Nautilus",
+          "Tahm Kench",
+          "Leona",
+          "Alistar",
+          "Braum",
+          "Maokai",
+          "Shen",
+          "Trundle"
+        ]
+      },
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Seraphine": {
+      "vs_support": {
+        "early_strength": "Strong",
+        "more_info": "If paired with Ashe they can kill\nyour ADC very easy with Ashe\nArrow, be careful with roams, be\nbotlane on cannon waves.",
+        "strengths": [
+          "OP with Ashe combo",
+          "Strong poke and long range",
+          "Strong 5v5 with R and W",
+          "Forces your ADC to play with Cleanse"
+        ],
+        "weaknesses": [
+          "Bad dives",
+          "Weak roams",
+          "HAS to play with a strong teammate",
+          "Can't move well around sidelanes"
+        ],
+        "how_to_play": [
+          "Roam if lane is weaker",
+          "Prio into freeze if lane is stronger and then roam when ADC can 1v2",
+          "Pressure the map not the lane to win the game",
+          "Force her to facecheck vision, easy traps"
+        ],
+        "counters": [
+          "Nautilus",
+          "Rell",
+          "Leona",
+          "Pyke",
+          "Blitzcrank",
+          "Pantheon",
+          "Elise",
+          "Bard",
+          "Maokai"
+        ]
+      },
+      "with_jungler": {},
+      "with_adc": {
+        "strength": "Weak",
+        "synergy": "Engage",
+        "gameplan": "Mage = weak til level 3\nRoam whenever you can or look to all in.\nConcede prio early most likely",
+        "how_to_trade": "CAN'T DO LONG TRADES\nWait for Seraphine CD to be back",
+        "when_to_roam": "(EASY) Anytime",
+        "best_supports": [
+          "Nautilus",
+          "Leona",
+          "Rell",
+          "Alistar",
+          "Pyke",
+          "Sona",
+          "Nami",
+          "Pantheon",
+          "Amumu",
+          "Senna"
+        ]
+      },
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Sona": {
+      "vs_support": {
+        "early_strength": "Depends",
+        "more_info": "VS Hook champions build Health.\nForced to match roams (!)",
+        "strengths": [
+          "Sustain in lane",
+          "Best scaling enchanter in the game",
+          "Fast on map with E / OP teamfights"
+        ],
+        "weaknesses": [
+          "Bad dives",
+          "Weak early / roams",
+          "HAS to play with a strong teammate"
+        ],
+        "how_to_play": [
+          "Roam ASAP put pressure on the map",
+          "Freeze the waves DON'T perma push OR Dive if possible",
+          "Do early objectives (force early soul)"
+        ],
+        "counters": [
+          "Leona",
+          "Nautilus",
+          "Elise",
+          "Pyke",
+          "Thresh",
+          "Blitzcrank"
+        ]
+      },
+      "with_jungler": {},
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Soraka": {
+      "vs_support": {
+        "early_strength": "Strong",
+        "more_info": "Very ADC dependant for matchup (!)\nIf enemy ADC can wave clear, \nengage is OP",
+        "strengths": [
+          "Huge sustain vs no burst",
+          "Bullies weak lanes pretty easy",
+          "Strong scaling"
+        ],
+        "weaknesses": [
+          "Bad dives",
+          "Weak roams",
+          "Has to hit Q to play (dodge forward)"
+        ],
+        "how_to_play": [
+          "Roam if lane is weaker",
+          "Prio into freeze if lane is stronger and then roam when ADC can 1v2",
+          "Pressure the map not the lane to win the game"
+        ],
+        "counters": [
+          "Bard",
+          "Sona",
+          "Maokai",
+          "Blitzcrank",
+          "Pyke",
+          "Elise"
+        ]
+      },
+      "with_jungler": {},
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Tahm Kench": {
+      "vs_support": {
+        "early_strength": "Depends",
+        "more_info": "W from bushes can be a problem\nward it or respect and play with \nwave",
+        "strengths": [
+          "R against Vi, Malza, Noct, Liss R...",
+          "Strong vs melee champions",
+          "Decent early skirmishes"
+        ],
+        "weaknesses": [
+          "Bad vs dash champions",
+          "Bad vs range champs / comp",
+          "Lack of identity if no good use of R"
+        ],
+        "how_to_play": [
+          "Dodge Q => long cd => punish",
+          "Don't get hit by W, if you have dash hold it",
+          "Poke & punish when you have windows to do so or play with prio"
+        ],
+        "counters": [
+          "Blitzcrank",
+          "Rell",
+          "Rakan",
+          "Soraka",
+          "Thresh",
+          "Pyke"
+        ]
+      },
+      "with_jungler": {},
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Taric": {
+      "vs_support": {
+        "early_strength": "Strong",
+        "more_info": "Taric gets countered when \nenemy ADC goes for Cleanse and\nignite but antiheal is bad to build",
+        "strengths": [
+          "Strong R for teamfights",
+          "Sustain with objectives",
+          "One of the strongest lvl3-4 in the game"
+        ],
+        "weaknesses": [
+          "Bad roams",
+          "Bad vs poke",
+          "Weak vs dashes/can't hit AAs"
+        ],
+        "how_to_play": [
+          "Roam and impact the map",
+          "Play with range and poke, don't play all in vs him",
+          "Focus him first in fights (earlygame important)",
+          "Track R CD, he can't fight back to back plays (useless)"
+        ],
+        "counters": [
+          "Soraka",
+          "Janna",
+          "Bard",
+          "Lulu",
+          "Seraphine",
+          "Zyra",
+          "Karma",
+          "Milio",
+          "Morgana"
+        ]
+      },
+      "with_jungler": {
+        "early": "Average",
+        "pathing": "Full Clear",
+        "synergy": "Both"
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Thresh": {
+      "vs_support": {
+        "early_strength": "Strong",
+        "more_info": "Control Ward to deny the W click(!)\nMikael good vs hook threat",
+        "strengths": [
+          "Strong laning phase / Good roams",
+          "W OP to move in midgame (rotations)",
+          "First target threat / Good peel"
+        ],
+        "weaknesses": [
+          "Bad vs range / poke",
+          "No sustain",
+          "No real engage later in the game"
+        ],
+        "how_to_play": [
+          "Force him to miss hook => punish when on CD",
+          "Vision on him makes it easy to play against (mid/lategame)",
+          "Squishy support in general (without Aftershock) play around that"
+        ],
+        "counters": [
+          "Lulu",
+          "Mel",
+          "Morgana",
+          "Lux",
+          "Zyra",
+          "Blitzcrank"
+        ]
+      },
+      "with_jungler": {},
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Yuumi": {
+      "vs_support": {
+        "early_strength": "Depends",
+        "more_info": "DON'T PLAY LANE IF YOU CAN'T\nPERMA KILL THEM 2V2 OR DIVE\nMOVE MOVE MOVE MOVE MOVE",
+        "strengths": [
+          "Has 2 fighting summoner spells (!)",
+          "Very good scaling",
+          "Can be strong early depends on ADC"
+        ],
+        "weaknesses": [
+          "Can't dive",
+          "Can't roam",
+          "Can't skirmish early (crab move)"
+        ],
+        "how_to_play": [
+          "ROAM / FREEZE THE LANE IF STRONGER",
+          "DO EARLY DRAGONS",
+          "INVADE ENEMY JUNGLE"
+        ],
+        "counters": [
+          "Pantheon",
+          "Elise",
+          "Bard",
+          "Nautilus",
+          "Pyke",
+          "Leona"
+        ]
+      },
+      "with_jungler": {},
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Zilean": {
+      "vs_support": {
+        "early_strength": "Weak",
+        "more_info": "Zilean is good vs: Rakan, Braum, \nRenata",
+        "strengths": [
+          "PRAY FOR LATEGAME PLS DON'T FF",
+          "Really good scaling",
+          "Strong paired with fed jungle/top bruiser",
+          "Counters comps that burst 1 target",
+          "Decent roams for an enchanter"
+        ],
+        "weaknesses": [
+          "Cannon minion >>> Zilean trades",
+          "Weak lane",
+          "Weak early minutes",
+          "Weak level 1-6",
+          "No prio",
+          "Can't Dive pre lvl 6"
+        ],
+        "how_to_play": [
+          "Freeze the lane after wave crashes and ggwp",
+          "Roam, grandpa can't dive your ADC or hurt him",
+          "Pressure the map not the lane to win the game",
+          "The only players that lose against Zilean it's because they are scared",
+          "to trade in lane vs him, he does no damage, he can't get prio, he can't",
+          "fight early",
+          "Force early objectives, invade enemy jungle"
+        ],
+        "counters": [
+          "Lulu",
+          "Nami",
+          "Soraka",
+          "Karma",
+          "Sona",
+          "Bard",
+          "Blitzcrank",
+          "Pyke",
+          "Thresh",
+          "Pantheon",
+          "Leona",
+          "Rell",
+          "Nautilus",
+          "Lux",
+          "Zyra"
+        ]
+      },
+      "with_jungler": {},
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Zyra": {
+      "vs_support": {
+        "early_strength": "Strong",
+        "more_info": "Really strong support if paired with\nCaitlyn, Varus and Ashe. If not she\nloses a lot of power in lane/game.",
+        "strengths": [
+          "Poke, long range",
+          "Burst support",
+          "Carry build"
+        ],
+        "weaknesses": [
+          "Decent roams but no recommended",
+          "Very lane focused champion",
+          "\"Bad\" at dives but good at taking tower"
+        ],
+        "how_to_play": [
+          "Lux/Karma is skill matchup hit E/Q on wave for prio level 2 to win",
+          "Roam if lane is weaker",
+          "Look to all-in / trade when she wastes spells (missposition)"
+        ],
+        "counters": [
+          "Leona",
+          "Neeko",
+          "Rell",
+          "Seraphine",
+          "Pantheon",
+          "Elise"
+        ]
+      },
+      "with_jungler": {
+        "early": "Average",
+        "pathing": "Full Clear",
+        "synergy": "Engage",
+        "vision_level1": "Need to secure her clear, if against strong\njungler, drop a ward to defend a possible invade.\nSweeper start if not to secure ganks.",
+        "gameplan": "Zyra can hard carry when ahead.\nPlay around her CC+DMG => strong.\nIf ADC can 1v2, play with Zyra.",
+        "important_info": "Play around neutral objectives (R)\nAllow Zyra to full clear for items.\nDon't overforce outside objectives.",
+        "best_supports": [
+          "Rell",
+          "Alistar",
+          "Rakan",
+          "Bard",
+          "Leona",
+          "Pyke",
+          "Pantheon",
+          "Nautilus",
+          "Thresh",
+          "Blitzcrank"
+        ]
+      },
+      "with_adc": {
+        "strength": "Weak",
+        "synergy": "Engage",
+        "gameplan": "Mage = weak til level 3\nRoam whenever you can or look to all in.\nConcede prio early most likely",
+        "how_to_trade": "Once Zyra is level 3 you can look to all in\nCAN'T DO LONG TRADES\nWait for Zyra CD to be back",
+        "when_to_roam": "(EASY) Once Zyra has AP\nshe doesn't exist, feel free to roam.\nIf you have kill potential look for it",
+        "best_supports": [
+          "Nautilus",
+          "Leona",
+          "Rell",
+          "Alistar",
+          "Pyke",
+          "Thresh",
+          "Nami",
+          "Pantheon",
+          "Amumu",
+          "Morgana"
+        ]
+      },
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Amumu": {
+      "vs_support": {
+        "early_strength": "Depends"
+      },
+      "with_jungler": {
+        "early": "Average",
+        "pathing": "Ganking",
+        "synergy": "Both",
+        "vision_level1": "Need to secure his clear, if against strong\njungler, drop a ward to defend a possible invade.\nSweeper start if not to secure ganks.",
+        "gameplan": "Secure his clear til level 6.\nYou need to involve another carry with\nAmumu and you to make a play.",
+        "important_info": "Amumu works with any support champ.\nPlay around Amumu R\nVoidgrubs are easy to contest",
+        "best_supports": [
+          "Zyra",
+          "Nami",
+          "Lulu",
+          "Milio",
+          "Nautilus",
+          "Pyke",
+          "Soraka",
+          "Seraphine",
+          "Alistar",
+          "Bard"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Ambessa": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Average",
+        "pathing": "Hybrid",
+        "synergy": "Both",
+        "vision_level1": "Need to secure first clear, if against strong \njungler, make sure you ward the opposite side\nAmbessa starts. Sweeper start if not.",
+        "gameplan": "Good champion to play around if your \nADC can 1v2 botlane, CC will help secure\na lot of kills and snowball with her.",
+        "important_info": "Strong with 1 item spike, very strong\nwith 2 items. When Ambessa has item\nplay more aggro with her.",
+        "best_supports": [
+          "Rakan",
+          "Rell",
+          "Leona",
+          "Nautilus",
+          "Alistar",
+          "Pantheon",
+          "Elise",
+          "Lulu",
+          "Milio",
+          "Nami"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Bel'Veth": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Strong",
+        "pathing": "Full Clear",
+        "synergy": "Both",
+        "vision_level1": "Bel'Veth NEEDS to invade.\n1- Ward enemy jungle for early information\n2- If Bel'Veth invades, use wards to cover camps",
+        "gameplan": "Be ready to move towards Bel'Veth plays.\nThe entire first 14 min the most important\nchampion is Bel'Veth.",
+        "important_info": "Bel'Veth loves voidgrubs (be rdy).\nPerma invade play aggro in enemy jng.\nSpikes good with 1 item, OP with 2\nitems.",
+        "best_supports": [
+          "Soraka",
+          "Janna",
+          "Nautilus",
+          "Leona",
+          "Bard",
+          "Rell",
+          "Rakan",
+          "Elise",
+          "Pantheon",
+          "Poppy",
+          "Lulu",
+          "Milio",
+          "Thresh",
+          "Karma",
+          "Annie"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Brand": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Strong",
+        "pathing": "Full Clear",
+        "synergy": "Engage",
+        "vision_level1": "Need to secure his clear, if against strong\njungler, drop a ward to defend a possible invade.\nWeaker jungler, ward to see where enemy starts.",
+        "gameplan": "CC + DMG => OP\nYou want to sync up with Brand plays\nif you can CC he will ONE SHOT.",
+        "important_info": "Brand is VERY STRONG in skirmishes\nand starts being a threat level 3.\nPlay around neutral objectives.",
+        "best_supports": [
+          "Rell",
+          "Nautilus",
+          "Alistar",
+          "Maokai",
+          "Bard",
+          "Pantheon",
+          "Thresh",
+          "Poppy",
+          "Blitzcrank",
+          "Rakan"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Briar": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Strong",
+        "pathing": "Hybrid",
+        "synergy": "Both",
+        "vision_level1": "Sweeper start level 1. Cover my entrance\navoid enemy getting information where\nBriar is starting to make it easy for her to\ninvade the enemy jungle without them knowing.",
+        "gameplan": "Good champion to play around if your \nADC can 1v2 botlane, Briar has to\nsnowball early to have good game.",
+        "important_info": "Strong with 1 item spike, very strong\nwith 2 items. When Briar has item\nplay more aggro with her.",
+        "best_supports": [
+          "Soraka",
+          "Janna",
+          "Nautilus",
+          "Leona",
+          "Bard",
+          "Rell",
+          "Rakan",
+          "Elise",
+          "Pantheon",
+          "Poppy",
+          "Lulu",
+          "Milio",
+          "Thresh",
+          "Karma",
+          "Zilean"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Cho'Gath": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Average",
+        "pathing": "Ganking",
+        "synergy": "Both",
+        "vision_level1": "Need to secure his clear, if against strong\njungler, drop a ward to defend a possible invade.\nSweeper start if not to secure ganks.",
+        "gameplan": "You need to involve another carry with\nCho'Gath and you to make a play.\nLaners have more value than Cho'Gath.",
+        "important_info": "Cho'Gath works with any support champ.\nPlay around neutral objectives (R)",
+        "best_supports": [
+          "Rell",
+          "Nami",
+          "Lulu",
+          "Milio",
+          "Nautilus",
+          "Pyke",
+          "Soraka",
+          "Pantheon",
+          "Alistar",
+          "Bard"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Darius": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Strong",
+        "pathing": "Hybrid",
+        "synergy": "Both",
+        "vision_level1": "Need to secure first clear, if against strong \njungler, make sure you ward the opposite side\nDarius starts. Sweeper start if not.",
+        "gameplan": "Good champion to play around if your \nADC can 1v2 botlane, CC will help secure\na lot of kills and snowball with her.",
+        "important_info": "Strong with 1 item spike, very strong\nwith 2 items. When Darius has item\nplay more aggro with him.",
+        "best_supports": [
+          "Rakan",
+          "Rell",
+          "Leona",
+          "Nautilus",
+          "Alistar",
+          "Pantheon",
+          "Elise",
+          "Lulu",
+          "Milio",
+          "Nami"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Diana": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Weak",
+        "pathing": "Full Clear",
+        "synergy": "Engage",
+        "vision_level1": "Start warding trinket 100%.\nDefensive vision level 1 in your jungle entrance\nat 1:20 to avoid early invades.",
+        "gameplan": "Diana has to full clear.\nIf Diana doesn't get punished early game\nyou are winning. Sync up with her => OP",
+        "important_info": "Diana loves voidgrubs.\nPlay after level 6.\nDon't overforce plays til 1 or 2 items.",
+        "best_supports": [
+          "Rell",
+          "Alistar",
+          "Rakan",
+          "Maokai",
+          "Leona",
+          "Pyke",
+          "Pantheon",
+          "Nautilus",
+          "Annie",
+          "Braum"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Dr. Mundo": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Average",
+        "pathing": "Full Clear",
+        "synergy": "Enchanter",
+        "vision_level1": "Start warding trinket 100%.\nDefensive vision level 1 against strong jungler.\nWard enemy jungle level 1 against weak jungler.",
+        "gameplan": "Slow game, play enchanter if you can.\nMake sure you don't overforce fights\nin early, and later if even you will win.",
+        "important_info": "Mundo has a very fast jungle clear.\nStrong in neutral objective, needs to farm.\nDon't expect ganks from Mundo.",
+        "best_supports": [
+          "Lulu",
+          "Milio",
+          "Nami",
+          "Soraka",
+          "Seraphine",
+          "Sona",
+          "Zilean",
+          "Senna",
+          "Lux",
+          "Zyra"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Ekko": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Weak",
+        "pathing": "Full Clear",
+        "synergy": "Engage",
+        "vision_level1": "Start warding trinket 100%.\nDefensive vision level 1 in your jungle entrance\nat 1:20 to avoid early invades.",
+        "gameplan": "Ekko has to full clear.\nIf Ekko doesn't get punished early game\nyou are winning. Sync up with him => OP",
+        "important_info": "Play sidelane attack with Ekko\nDon't overforce plays til 1 or 2 items",
+        "best_supports": [
+          "Rell",
+          "Alistar",
+          "Rakan",
+          "Maokai",
+          "Leona",
+          "Pyke",
+          "Pantheon",
+          "Nautilus",
+          "Thresh",
+          "Blitzcrank"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Elise": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Strong",
+        "pathing": "Ganking",
+        "synergy": "Engage",
+        "vision_level1": "Start sweeper 95% of the times.\nAvoid enemy getting information where\nElise is starting. Good for gank setup",
+        "gameplan": "Be ready to move towards Elise plays.\nThe entire first 14 min the most important\nchampion is Elise.",
+        "important_info": "Perma invade play aggro in enemy jng.\nSet up dives or ganks with Elise.\nSync up anytime you can to make a play",
+        "best_supports": [
+          "Rell",
+          "Alistar",
+          "Rakan",
+          "Maokai",
+          "Leona",
+          "Pyke",
+          "Pantheon",
+          "Nautilus",
+          "Thresh",
+          "Blitzcrank"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Evelynn": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Weak",
+        "pathing": "Full Clear",
+        "synergy": "Engage",
+        "vision_level1": "Start warding trinket 100%.\nDefensive vision level 1 in your jungle entrance\nat 1:20 to avoid early invades.",
+        "gameplan": "Evelynn has to full clear.\nIf Evelynn doesn't get punished early\ngame you are HARD winning.",
+        "important_info": "Play after level 6.\nDon't overforce plays before 6.\nWarding jungle entrance big priority.",
+        "best_supports": [
+          "Rell",
+          "Alistar",
+          "Rakan",
+          "Maokai",
+          "Leona",
+          "Pyke",
+          "Pantheon",
+          "Nautilus",
+          "Thresh",
+          "Blitzcrank"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Fiddlesticks": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Weak",
+        "pathing": "Full Clear",
+        "synergy": "Engage",
+        "vision_level1": "Start warding trinket 100%.\nDefensive vision level 1 in your jungle entrance\nat 1:20 to avoid early invades.",
+        "gameplan": "Fiddle has to full clear.\nIf Fiddle doesn't get punished early\ngame you are HARD winning.",
+        "important_info": "Fiddle loves voidgrubs.\nPlay after level 6. Play around objectives.\nMake sure you deny enemy vision for R.",
+        "best_supports": [
+          "Rell",
+          "Alistar",
+          "Rakan",
+          "Maokai",
+          "Leona",
+          "Pyke",
+          "Pantheon",
+          "Nautilus",
+          "Thresh",
+          "Blitzcrank"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Gragas": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Average",
+        "pathing": "Ganking",
+        "synergy": "Both",
+        "vision_level1": "Sweeper start level 1. Cover my entrance\navoid enemy getting information.",
+        "gameplan": "You need to involve another carry with\nGragas and you to make a play.\nLaners have more value than Gragas.",
+        "important_info": "Good burst damage, careful if you can't\nOne Shot in one rotation, usually involve\nteammates in your plays.",
+        "best_supports": [
+          "Rell",
+          "Nami",
+          "Lulu",
+          "Milio",
+          "Nautilus",
+          "Pyke",
+          "Soraka",
+          "Pantheon",
+          "Alistar",
+          "Bard"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Graves": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Strong",
+        "pathing": "Full Clear",
+        "synergy": "Engage",
+        "vision_level1": "Start warding trinket 100%.\nDefensive vision level 1 against strong jungler.\nWard enemy jungle level 1 against weak jungler.",
+        "gameplan": "Graves can carry very easy when ahead.\nPlay around him CC+DMG => strong.\nIf ADC can 1v2, play with Graves.",
+        "important_info": "Graves can invade or can just full clear.\nIf potion start he might invade.\nSync up anytime you can with him.",
+        "best_supports": [
+          "Rell",
+          "Alistar",
+          "Rakan",
+          "Maokai",
+          "Leona",
+          "Pyke",
+          "Pantheon",
+          "Nautilus",
+          "Thresh",
+          "Blitzcrank"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Gwen": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Weak",
+        "pathing": "Full Clear",
+        "synergy": "Both",
+        "vision_level1": "Start warding trinket 100%.\nDefensive vision level 1 in your jungle entrance\nat 1:20 to avoid early invades.",
+        "gameplan": "Gwen has to full clear.\nIf Gwen doesn't get punished early game\nyou are winning. Sync up with her => OP",
+        "important_info": "Play sidelane attack with Gwen\nDon't overforce plays til 1 or 2 items\nGwen loves voidgrubs.",
+        "best_supports": [
+          "Rell",
+          "Leona",
+          "Pantheon",
+          "Nautilus",
+          "Lulu",
+          "Milio",
+          "Yuumi",
+          "Karma",
+          "Rakan",
+          "Bard"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Hecarim": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Weak",
+        "pathing": "Full Clear",
+        "synergy": "Enchanter",
+        "vision_level1": "Start warding trinket 100%.\nDefensive vision level 1 in your jungle entrance\nat 1:20 to avoid early invades.",
+        "gameplan": "Hecarim has to full clear.\nIf Heca doesn't get punished early game\nyou are winning. Sync up with him => OP",
+        "important_info": "Hecarim loves voidgrubs.\nDon't overforce plays, 1 or 2 items strong.\nAddicted to full clear careful to overforce.",
+        "best_supports": [
+          "Lulu",
+          "Milio",
+          "Nami",
+          "Seraphine",
+          "Soraka",
+          "Yuumi",
+          "Zilean",
+          "Sona",
+          "Rakan",
+          "Taric"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Ivern": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Average",
+        "pathing": "Hybrid",
+        "synergy": "Engage",
+        "vision_level1": "Sweeper start level 1. Cover my entrance\navoid enemy getting information.\nIf warding trinket not bad to cover for first clear.",
+        "gameplan": "Ivern is a support in the jungle, he comes\nto a lane and afk/cover and play with them.\nFind who can carry in your team.",
+        "important_info": "Tank is broken with Ivern because of\nthe value of his shield and the damage.\nIvern plays around you.",
+        "best_supports": [
+          "Braum",
+          "Alistar",
+          "Rell",
+          "Leona",
+          "Pantheon",
+          "Nautilus",
+          "Shen",
+          "Poppy",
+          "Skarner",
+          "Maokai"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Jarvan IV": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Strong",
+        "pathing": "Ganking",
+        "synergy": "Enchanter",
+        "vision_level1": "Sweeper start level 1. Cover my entrance\navoid enemy getting information.\nWarding trinket if you want info in enemy jungle.",
+        "gameplan": "If you play strong botlane, play around that\nIf your ADC is not the main carry (Ziggs)\nplay with J4 towards the carry (top/mid).",
+        "important_info": "Very good with Hypercarry + Enchanter.\nHe has engage + creates space with R.\nStrong early to transition weak botlanes.",
+        "best_supports": [
+          "Lulu",
+          "Milio",
+          "Nami",
+          "Seraphine",
+          "Soraka",
+          "Senna",
+          "Zilean",
+          "Sona",
+          "Rakan",
+          "Taric"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Jax": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Average",
+        "pathing": "Hybrid",
+        "synergy": "Both",
+        "vision_level1": "Need to secure his clear, if against strong\njungler, drop a ward to defend a possible invade.\nSweeper start if not to secure ganks.",
+        "gameplan": "Jax can carry very easy when ahead.\nPlay around him CC+DMG => strong.\nIf ADC can 1v2, play with Jax.",
+        "important_info": "Counter of Xin Zhao.\nBig powerspike at 1 and 2 items.\nSync up anytime you can with him.",
+        "best_supports": [
+          "Taric",
+          "Leona",
+          "Pantheon",
+          "Nautilus",
+          "Lulu",
+          "Milio",
+          "Yuumi",
+          "Karma",
+          "Rakan",
+          "Bard"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Karthus": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Weak",
+        "pathing": "Full Clear",
+        "synergy": "Engage",
+        "vision_level1": "Start warding trinket 100%.\nDefensive vision level 1 in your jungle entrance\nat 1:20 to avoid early invades.",
+        "gameplan": "Karthus has to full clear.\nIf Karthus doesn't get punished early\ngame you are HARD winning.",
+        "important_info": "Karthus loves voidgrubs.\nDon't overforce plays in general.\nSlow game, play for his farm",
+        "best_supports": [
+          "Rell",
+          "Alistar",
+          "Rakan",
+          "Maokai",
+          "Leona",
+          "Pyke",
+          "Pantheon",
+          "Nautilus",
+          "Thresh",
+          "Blitzcrank"
+        ]
+      },
+      "with_adc": {
+        "strength": "Depends",
+        "synergy": "Engage",
+        "gameplan": "You can fight early, if he has Exhaust better\nOnce Karthus has some components you can\nroam. You can all in CC and look to kill.",
+        "how_to_trade": "All in and after CC fall back, if you are\nwinning pretty hard the trade you can\ncontinue.",
+        "when_to_roam": "(EASY) Once Karthus has \"Lost Chapter\"\nfeel free to roam.\nIf you have kill potential look for it",
+        "best_supports": [
+          "Pyke",
+          "Nautilus",
+          "Leona",
+          "Pantheon",
+          "Rell",
+          "Janna",
+          "Thresh"
+        ]
+      },
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Kayn": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Average",
+        "pathing": "Hybrid",
+        "synergy": "Both",
+        "vision_level1": "Enemy jungle strong => ward secure clear\nEnemy jungle weak => ward enemy jungle for\ninfo (Kayn can abuse this)",
+        "gameplan": "Be ready to move towards Kayn plays.\nThe entire first 14 min the most important\nchampion is Kayn.",
+        "important_info": "Blue Kayn => engage good (CC+DMG)\nRed Kayn => enchanter good\nKayn loves to do voidgrubs",
+        "best_supports": [
+          "Nautilus",
+          "Rell",
+          "Leona",
+          "Pantheon",
+          "Elise",
+          "Lulu",
+          "Nami",
+          "Milio",
+          "Janna",
+          "Soraka"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Kha'Zix": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Weak",
+        "pathing": "Full Clear",
+        "synergy": "Engage",
+        "vision_level1": "Start warding trinket 100%.\nDefensive vision level 1 in your jungle entrance\nat 1:20 to avoid early invades.",
+        "gameplan": "Kha'Zix can carry very easy when ahead.\nPlay around him CC+DMG => strong.\nIf ADC can 1v2, play with Kha'Zix.",
+        "important_info": "Play sidelane attack with Kha'Zix\nDon't overforce plays til level 6.\nSync up for invades with Kha'Zix",
+        "best_supports": [
+          "Rell",
+          "Leona",
+          "Galio",
+          "Thresh",
+          "Nautilus",
+          "Pyke",
+          "Shen",
+          "Pantheon",
+          "Alistar",
+          "Bard"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Kindred": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Strong",
+        "pathing": "Hybrid",
+        "synergy": "Both",
+        "vision_level1": "Start warding trinket 100%.\nDefensive vision level 1 against strong jungler.\nWard enemy jungle level 1 against weak jungler.",
+        "gameplan": "Be ready to move towards Kindred plays.\nThe entire first 14 min the most important\nchampion is Kindred.",
+        "important_info": "Kindred can invade or can just full clear.\nSync up anytime you can with him.\n4 marks is good, 1 item spike if ahead OP",
+        "best_supports": [
+          "Nautilus",
+          "Rell",
+          "Leona",
+          "Pantheon",
+          "Braum",
+          "Lulu",
+          "Neeko",
+          "Zilean",
+          "Milio",
+          "Janna"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Lee Sin": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Strong",
+        "pathing": "Ganking",
+        "synergy": "Engage",
+        "vision_level1": "Start sweeper 95% of the times.\nAvoid enemy getting information where\nLee Sin is starting. Good for gank setup",
+        "gameplan": "Good champion to play around if your \nADC can 1v2 botlane, CC will help secure\na lot of kills and snowball with him.",
+        "important_info": "Lee Sin is very flexible champion, he can\nplay for him, for objectives, for laners...\nIdentify in game whats the win condition.",
+        "best_supports": [
+          "Rell",
+          "Alistar",
+          "Rakan",
+          "Maokai",
+          "Leona",
+          "Pyke",
+          "Pantheon",
+          "Nautilus",
+          "Thresh",
+          "Neeko"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Lillia": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Average",
+        "pathing": "Full Clear",
+        "synergy": "Engage",
+        "vision_level1": "Lillia CAN invade VS weak junglers.\n1- Ward enemy jungle for early information\n2- If Lillia invades, use wards to cover camps",
+        "gameplan": "CC + DMG => OP\nYou want to sync up with Lillia plays\nif you can CC she will ONE SHOT.",
+        "important_info": "Lillia loves voidgrubs.\nDon't overforce til level 6 and 1 or 2 items\nAddicted to full clear careful to overforce.",
+        "best_supports": [
+          "Rell",
+          "Alistar",
+          "Rakan",
+          "Maokai",
+          "Leona",
+          "Pyke",
+          "Pantheon",
+          "Nautilus",
+          "Thresh",
+          "Blitzcrank"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Master Yi": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Weak",
+        "pathing": "Full Clear",
+        "synergy": "Enchanter",
+        "vision_level1": "Start warding trinket 100%.\nDefensive vision level 1 in your jungle entrance\nat 1:20 to avoid early invades.",
+        "gameplan": "Master Yi has to full clear.\nIf Yi doesn't get punished early game\nyou are winning. Sync up with him => OP",
+        "important_info": "Weak in early skirmishes and with\nenchanter vs engage this can be tricky.\nMake sure you ward jungle entrances.",
+        "best_supports": [
+          "Lulu",
+          "Milio",
+          "Soraka",
+          "Taric",
+          "Sona",
+          "Nami",
+          "Karma",
+          "Zilean",
+          "Rakan",
+          "Yuumi"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Mordekaiser": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Weak",
+        "pathing": "Full Clear",
+        "synergy": "Both",
+        "vision_level1": "Start warding trinket 100%.\nDefensive vision level 1 against strong jungler.\nWard enemy jungle level 1 against weak jungler.",
+        "gameplan": "Slow game, play enchanter if you can.\nMake sure you don't overforce fights\nin early, and later if even you will win.",
+        "important_info": "Strong in neutral objective (R), needs to\nfarm. Don't expect ganks from Morde.",
+        "best_supports": [
+          "Lulu",
+          "Milio",
+          "Nami",
+          "Soraka",
+          "Bard",
+          "Sona",
+          "Rell",
+          "Leona",
+          "Alistar",
+          "Pantheon"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Naafiri": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Strong",
+        "pathing": "Hybrid",
+        "synergy": "Both",
+        "vision_level1": "Defensive vision level 1 against strong jungler.\nWard enemy jungle level 1 against weak jungler.\nYou can ward botlane or sweeper for matchup.",
+        "gameplan": "Naafiri can carry very easy when ahead.\nPlay around him CC+DMG => strong.\nIf ADC can 1v2, play with Naafiri.",
+        "important_info": "Naafiri can invade or can just full clear.\nSync up anytime you can with him.\nNaafiri can dive easy with his W.",
+        "best_supports": [
+          "Rell",
+          "Alistar",
+          "Rakan",
+          "Karma",
+          "Leona",
+          "Lulu",
+          "Pantheon",
+          "Nautilus",
+          "Thresh",
+          "Janna"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Nasus": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Weak",
+        "pathing": "Full Clear",
+        "synergy": "Enchanter",
+        "vision_level1": "Start warding trinket 100%.\nDefensive vision level 1 against strong jungler.\nWard enemy jungle level 1 against weak jungler.",
+        "gameplan": "Slow game, play enchanter if you can.\nMake sure you don't overforce fights\nin early, and later if even you will win.",
+        "important_info": "Strong in neutral objective, needs to farm.\nDon't expect ganks from Nasus.\nAvoid overforce early fights.",
+        "best_supports": [
+          "Lulu",
+          "Milio",
+          "Nami",
+          "Soraka",
+          "Seraphine",
+          "Sona",
+          "Zilean",
+          "Senna",
+          "Lux",
+          "Morgana"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Neeko": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Average",
+        "pathing": "Hybrid",
+        "synergy": "Engage",
+        "vision_level1": "Defensive vision level 1 against strong jungler.\nWard enemy jungle level 1 against weak jungler.\nYou can ward botlane or sweeper for matchup.",
+        "gameplan": "You need to involve another carry with\nNeeko and you to make a play.\nLaners have more value than Neeko.",
+        "important_info": "Good burst damage, careful if you can't\nOne Shot in one rotation, usually involve\nteammates in your plays.",
+        "best_supports": [
+          "Rell",
+          "Alistar",
+          "Rakan",
+          "Maokai",
+          "Leona",
+          "Pyke",
+          "Pantheon",
+          "Nautilus",
+          "Thresh",
+          "Blitzcrank"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Nidalee": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Strong",
+        "pathing": "Full Clear",
+        "synergy": "Engage",
+        "vision_level1": "Sweeper start level 1. Cover my entrance\navoid enemy getting information.\nWarding trinket if you want info in enemy jungle.",
+        "gameplan": "Be ready to move towards Nidalee plays.\nThe entire first 14 min the most important\nchampion is Nidalee.",
+        "important_info": "Perma invade play aggro in enemy jng.\nSync up anytime you can to make a play\nGet enemy jungle behind.",
+        "best_supports": [
+          "Rell",
+          "Alistar",
+          "Rakan",
+          "Maokai",
+          "Leona",
+          "Pyke",
+          "Pantheon",
+          "Nautilus",
+          "Thresh",
+          "Blitzcrank"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Nocturne": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Average",
+        "pathing": "Full Clear",
+        "synergy": "Both",
+        "vision_level1": "Start warding trinket 100%.\nDefensive vision level 1 against strong jungler.\nWard enemy jungle level 1 against weak jungler.",
+        "gameplan": "Nocturne has to full clear.\nIf Noct doesn't get punished early game\nyou are winning. Level 6 big Power Spike.",
+        "important_info": "Play sidelane attack with Nocturne (R)\nDon't overforce plays til level 6.\nSync up for invades with Nocturne",
+        "best_supports": [
+          "Taric",
+          "Seraphine",
+          "Pantheon",
+          "Leona",
+          "Rell",
+          "Shen",
+          "Janna",
+          "Karma",
+          "Rakan",
+          "Bard"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Nunu": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Average",
+        "pathing": "Ganking",
+        "synergy": "Enchanter",
+        "vision_level1": "Sweeper start level 1. Cover my entrance\navoid enemy getting information.\nWarding trinket if you want info in enemy jungle.",
+        "gameplan": "If you play strong botlane, play around that\nIf your ADC is not the main carry (Ziggs)\nplay with Nunu towards the carry (top/mid).",
+        "important_info": "Very good with Hypercarry + Enchanter.\nHe has engage + creates space with R.\nStrong early to transition weak botlanes.",
+        "best_supports": [
+          "Lulu",
+          "Milio",
+          "Nami",
+          "Seraphine",
+          "Soraka",
+          "Senna",
+          "Zilean",
+          "Sona",
+          "Rakan",
+          "Taric"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Olaf": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Strong",
+        "pathing": "Full Clear",
+        "synergy": "Enchanter",
+        "vision_level1": "Defensive vision level 1 against strong jungler.\nWard enemy jungle level 1 against weak jungler.\nYou can ward botlane or sweeper for matchup.",
+        "gameplan": "Olaf has to full clear.\nIf Olaf doesn't get punished early game\nyou are winning. Sync up with him => OP",
+        "important_info": "Need R to play the game.\nStrong in neutral objective, needs to farm.\nDon't expect ganks from Mundo.",
+        "best_supports": [
+          "Lulu",
+          "Milio",
+          "Nami",
+          "Seraphine",
+          "Soraka",
+          "Senna",
+          "Zilean",
+          "Sona",
+          "Rakan",
+          "Taric"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Pantheon": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Strong",
+        "pathing": "Ganking",
+        "synergy": "Engage",
+        "vision_level1": "Start sweeper 95% of the times.\nAvoid enemy getting information where\nPantheon is starting. Good for gank setup",
+        "gameplan": "Good champion to play around if your \nADC can 1v2 botlane, CC will help secure\na lot of kills and snowball with him.",
+        "important_info": "Pantheon is very flexible champion, he can\nplay for him, for objectives, for laners...\nIdentify in game whats the win condition.",
+        "best_supports": [
+          "Rell",
+          "Alistar",
+          "Rakan",
+          "Maokai",
+          "Leona",
+          "Pyke",
+          "Elise",
+          "Nautilus",
+          "Thresh",
+          "Blitzcrank"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Qiyana": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Weak",
+        "pathing": "Full Clear",
+        "synergy": "Engage",
+        "vision_level1": "Start warding trinket 100%.\nDefensive vision level 1 in your jungle entrance\nat 1:20 to avoid early invades.",
+        "gameplan": "Qiyana has to full clear.\nIf Qiyana doesn't get punished early game\nyou are winning. Sync up with her => OP",
+        "important_info": "Play sidelane attack with Qiyana\nDon't overforce plays til 1 item and lvl 6\nPlay around neutral objectives (R)",
+        "best_supports": [
+          "Rell",
+          "Alistar",
+          "Rakan",
+          "Maokai",
+          "Leona",
+          "Pyke",
+          "Pantheon",
+          "Nautilus",
+          "Thresh",
+          "Blitzcrank"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Rammus": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Average",
+        "pathing": "Ganking",
+        "synergy": "Enchanter",
+        "vision_level1": "Sweeper start level 1. Cover my entrance\navoid enemy getting information.\nWarding trinket if you want info in enemy jungle.",
+        "gameplan": "If you play strong botlane, play around that\nIf your ADC is not the main carry (Ziggs)\nplay with Rammus towards the carry.",
+        "important_info": "Very good with Hypercarry + Enchanter.\nHe has engage + creates space with R.\nStrong early to transition weak botlanes.",
+        "best_supports": [
+          "Lulu",
+          "Milio",
+          "Nami",
+          "Seraphine",
+          "Soraka",
+          "Senna",
+          "Zilean",
+          "Sona",
+          "Rakan",
+          "Taric"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Rek'Sai": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Strong",
+        "pathing": "Ganking",
+        "synergy": "Engage",
+        "vision_level1": "Start sweeper 95% of the times.\nAvoid enemy getting information where\nRek'Sai is starting. Good for gank setup",
+        "gameplan": "Rek'Sai can carry when ahead.\nPlay around him CC+DMG => strong.\nIf ADC can 1v2, play with Rek'Sai.",
+        "important_info": "Attack sidelane together with Rek'Sai.\nSet up dives or ganks with Rek'Sai.\nSync up anytime you can to make a play",
+        "best_supports": [
+          "Rell",
+          "Alistar",
+          "Rakan",
+          "Elise",
+          "Leona",
+          "Pyke",
+          "Pantheon",
+          "Nautilus",
+          "Thresh",
+          "Blitzcrank"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Rengar": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Average",
+        "pathing": "Hybrid",
+        "synergy": "Both",
+        "vision_level1": "Defensive vision level 1 against strong jungler.\nWard enemy jungle level 1 against weak jungler.\nYou can ward botlane or sweeper for matchup.",
+        "gameplan": "Rengar has to full clear.\nIf Rengar doesn't get punished early game\nyou are winning. Level 6 big Power Spike.",
+        "important_info": "Play sidelane attack with Rengar\nDon't overforce plays til level 6.\nSync up for invades with Rengar",
+        "best_supports": [
+          "Lulu",
+          "Rell",
+          "Thresh",
+          "Milio",
+          "Neeko",
+          "Rakan",
+          "Yuumi",
+          "Nautilus",
+          "Taric",
+          "Bard"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Rumble": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Average",
+        "pathing": "Full Clear",
+        "synergy": "Engage",
+        "vision_level1": "Start warding trinket 100%.\nDefensive vision level 1 in your jungle entrance\nat 1:20 to avoid early invades.",
+        "gameplan": "Rumble has to full clear.\nIf Rumble doesn't get punished early game\nyou are winning. Sync up with him => OP",
+        "important_info": "Play around the R CD, slow it down\nDon't overforce plays til 1 item and lvl 6\nPlay around neutral objectives (R)",
+        "best_supports": [
+          "Rell",
+          "Alistar",
+          "Rakan",
+          "Maokai",
+          "Leona",
+          "Pyke",
+          "Pantheon",
+          "Nautilus",
+          "Thresh",
+          "Blitzcrank"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Sejuani": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Strong",
+        "pathing": "Ganking",
+        "synergy": "Both",
+        "vision_level1": "Sweeper start level 1. Cover my entrance\navoid enemy getting information.\nYou can ward botlane or sweeper for matchup.",
+        "gameplan": "You need to involve another carry with\nSejuani and you to make a play.",
+        "important_info": "Very good with Hypercarry + Enchanter.\nHe has engage + creates space with R.\nStrong early to transition weak botlanes.",
+        "best_supports": [
+          "Lulu",
+          "Milio",
+          "Nami",
+          "Alistar",
+          "Braum",
+          "Senna",
+          "Leona",
+          "Pantheon",
+          "Rakan",
+          "Rell"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Sett": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Strong",
+        "pathing": "Ganking",
+        "synergy": "Both",
+        "vision_level1": "Need to secure his clear, if against strong\njungler, drop a ward to defend a possible invade.\nSweeper start if not to secure ganks.",
+        "gameplan": "Play around him CC+DMG => strong.\nIf ADC can 1v2, play with Sett.",
+        "important_info": "Strong with 1 item spike, very strong\nwith 2 items. When Sett has item\nplay more aggro with him.",
+        "best_supports": [
+          "Taric",
+          "Leona",
+          "Pantheon",
+          "Nautilus",
+          "Lulu",
+          "Neeko",
+          "Rell",
+          "Karma",
+          "Rakan",
+          "Bard"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Shaco": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Strong",
+        "pathing": "Ganking",
+        "synergy": "Engage",
+        "vision_level1": "Start sweeper 95% of the times.\nAvoid enemy getting information where\nShaco is starting. Good for gank setup",
+        "gameplan": "Get deep vision whenever you can with\nyour ward item and allow Shaco to look\nfor easy invades (follow if possible)",
+        "important_info": "Play sidelane attack with Shaco\nSync up for invades with Shaco\nGet enemy jungle behind",
+        "best_supports": [
+          "Rell",
+          "Alistar",
+          "Rakan",
+          "Maokai",
+          "Leona",
+          "Pyke",
+          "Elise",
+          "Nautilus",
+          "Thresh",
+          "Blitzcrank"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Shyvana": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Weak",
+        "pathing": "Full Clear",
+        "synergy": "Both",
+        "vision_level1": "Start warding trinket 100%.\nDefensive vision level 1 against strong jungler.\nWard enemy jungle level 1 against weak jungler.",
+        "gameplan": "Shyvana has to full clear.\nIf Shyv doesn't get punished early game\nyou are winning. Wait for items to play.",
+        "important_info": "Play objectives with Shyvana.\nDon't overforce plays, look crossmap if\nbehind in the objective setup.",
+        "best_supports": [
+          "Taric",
+          "Nami",
+          "Pantheon",
+          "Leona",
+          "Rell",
+          "Shen",
+          "Janna",
+          "Karma",
+          "Rakan",
+          "Bard"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Skarner": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Average",
+        "pathing": "Ganking",
+        "synergy": "Enchanter",
+        "vision_level1": "Sweeper start level 1. Cover my entrance\navoid enemy getting information.\nWarding trinket if you want info in enemy jungle.",
+        "gameplan": "If you play strong botlane, play around that\nIf your ADC is not the main carry (Ziggs)\nplay with Skarner towards the carry.",
+        "important_info": "Very good with Hypercarry + Enchanter.\nHe has engage + creates space with R.\nAlways involve a carry in the plays",
+        "best_supports": [
+          "Lulu",
+          "Milio",
+          "Nami",
+          "Seraphine",
+          "Soraka",
+          "Senna",
+          "Leona",
+          "Sona",
+          "Rakan",
+          "Bard"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Sylas": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Strong",
+        "pathing": "Hybrid",
+        "synergy": "Engage",
+        "vision_level1": "Start sweeper 95% of the times.\nAvoid enemy getting information where\nSylas is starting. Care with level 1 invades.",
+        "gameplan": "Sylas can carry when ahead.\nPlay around him CC+DMG => strong.\nIf ADC can 1v2, play with Sylas.",
+        "important_info": "Attack sidelane together with Sylas\nSet up dives or ganks with Sylas\nSync up anytime you can to make a play",
+        "best_supports": [
+          "Rell",
+          "Alistar",
+          "Rakan",
+          "Elise",
+          "Leona",
+          "Pyke",
+          "Pantheon",
+          "Nautilus",
+          "Thresh",
+          "Blitzcrank"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Taliyah": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Average",
+        "pathing": "Full Clear",
+        "synergy": "Engage",
+        "vision_level1": "Start sweeper 70% of the times.\nGood to set up ganks. \nCare with level 1 invades, ward if it can happen.",
+        "gameplan": "Taliyah can hard carry when ahead.\nPlay around her CC+DMG => strong.\nIf ADC can 1v2, play with Taliyah.",
+        "important_info": "Attack sidelane together with Taliyah\nSet up dives or ganks with Taliyah\nSync up anytime you can to make a play",
+        "best_supports": [
+          "Rell",
+          "Alistar",
+          "Rakan",
+          "Elise",
+          "Leona",
+          "Pyke",
+          "Pantheon",
+          "Nautilus",
+          "Thresh",
+          "Blitzcrank"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Talon": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Strong",
+        "pathing": "Hybrid",
+        "synergy": "Engage",
+        "vision_level1": "Start warding trinket 100%.\nDefensive vision level 1 against strong jungler.\nWard enemy jungle level 1 against weak jungler.",
+        "gameplan": "Talon can carry very easy when ahead.\nPlay around him CC+DMG => strong.\nIf ADC can 1v2, play with Talon",
+        "important_info": "Perma invade play aggro in enemy jng.\nSync up anytime you can to make a play\nGet enemy jungle behind.",
+        "best_supports": [
+          "Rell",
+          "Alistar",
+          "Rakan",
+          "Maokai",
+          "Leona",
+          "Pyke",
+          "Pantheon",
+          "Nautilus",
+          "Thresh",
+          "Blitzcrank"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Teemo": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Weak",
+        "pathing": "Full Clear",
+        "synergy": "Engage",
+        "vision_level1": "Defensive vision level 1 against strong jungler.\nWard enemy jungle level 1 against weak jungler.\nYou can ward botlane or sweeper for matchup.",
+        "gameplan": "Teemo wants to full clear.\nNo need to play around Teemo.\nGood objective setup with R.",
+        "important_info": "Try to play around other lanes with or\nwithout Teemo, involved is better.\nCC+DMG good enough to play invades",
+        "best_supports": [
+          "Rell",
+          "Alistar",
+          "Rakan",
+          "Maokai",
+          "Leona",
+          "Pyke",
+          "Pantheon",
+          "Nautilus",
+          "Thresh",
+          "Bard"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Trundle": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Strong",
+        "pathing": "Ganking",
+        "synergy": "Enchanter",
+        "vision_level1": "Sweeper start level 1. Cover my entrance\navoid enemy getting information.\nWarding trinket if you want info in enemy jungle.",
+        "gameplan": "If you play strong botlane, play around that\nIf your ADC is not the main carry (Ziggs)\nplay with Trundle towards the carry.",
+        "important_info": "Very good with Hypercarry + Enchanter.\nStrong early to transition weak botlanes.\nStrong around Dragons",
+        "best_supports": [
+          "Lulu",
+          "Milio",
+          "Nami",
+          "Karma",
+          "Soraka",
+          "Senna",
+          "Zilean",
+          "Sona",
+          "Rakan",
+          "Taric"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Udyr": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Strong",
+        "pathing": "Full Clear",
+        "synergy": "Enchanter",
+        "vision_level1": "Udyr CAN invade VS weak junglers.\n1- Ward enemy jungle for early information\n2- If Udyr invades, use wards to cover camps",
+        "gameplan": "Allow Udyr to play his full clear game, get\nvision on enemy jungle so he can also\npunish enemy camps (snowball)",
+        "important_info": "Udyr loves voidgrubs and dragons.\nAddicted to full clear careful to overforce.",
+        "best_supports": [
+          "Lulu",
+          "Milio",
+          "Nami",
+          "Karma",
+          "Soraka",
+          "Senna",
+          "Zilean",
+          "Sona",
+          "Rakan",
+          "Seraphine"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Vi": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Weak",
+        "pathing": "Hybrid",
+        "synergy": "Both",
+        "vision_level1": "Need to secure her clear, if against strong\njungler, drop a ward to defend a possible invade.\nSweeper start if not to secure ganks.",
+        "gameplan": "Vi has to full clear.\nLevel 6 big Power Spike.\nAvoid Vi getting punished before this.",
+        "important_info": "Play sidelane attack with Vi (R)\nDon't overforce plays til level 6.\nPlay neutral objectives with Vi",
+        "best_supports": [
+          "Alistar",
+          "Leona",
+          "Pantheon",
+          "Nautilus",
+          "Lulu",
+          "Neeko",
+          "Rell",
+          "Karma",
+          "Rakan",
+          "Bard"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Viego": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Strong",
+        "pathing": "Hybrid",
+        "synergy": "Engage",
+        "vision_level1": "Start sweeper 95% of the times.\nAvoid enemy getting information where\nViego is starting. Good for gank setup",
+        "gameplan": "Good champion to play around if your \nADC can 1v2 botlane, CC will help secure\na lot of kills and snowball with him.",
+        "important_info": "Viego is very flexible champion, he can\nplay for him, for objectives, for laners...\nPlay for Viego resets (bloodsong)",
+        "best_supports": [
+          "Rell",
+          "Alistar",
+          "Rakan",
+          "Elise",
+          "Leona",
+          "Maokai",
+          "Pantheon",
+          "Nautilus",
+          "Thresh",
+          "Blitzcrank"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Volibear": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Strong",
+        "pathing": "Ganking",
+        "synergy": "Both",
+        "vision_level1": "Start sweeper 95% of the times.\nAvoid enemy getting information where\nVolibear is starting. Good for gank setup",
+        "gameplan": "Good champion to play around if your \nADC can 1v2 botlane, after level 6 its\nvery easy to look to dive a lane.",
+        "important_info": "Volibear is very flexible champion, he can\nplay for him, for objectives, for laners...\nLook for invades/ganks/dives sync",
+        "best_supports": [
+          "Rell",
+          "Nautilus",
+          "Leona",
+          "Alistar",
+          "Neeko",
+          "Lulu",
+          "Janna",
+          "Nami",
+          "Seraphine",
+          "Karma"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Warwick": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Strong",
+        "pathing": "Hybrid",
+        "synergy": "Enchanter",
+        "vision_level1": "Warwick CAN invade VS weak junglers.\n1- Ward enemy jungle for early information\n2- If WW invades, use wards to cover camps",
+        "gameplan": "Good champion to play around if your \nADC can 1v2 botlane, WW has to\nsnowball early to have good game.",
+        "important_info": "Warwick loves voidgrubs and dragons.\nAddicted to full clear careful to overforce.",
+        "best_supports": [
+          "Lulu",
+          "Milio",
+          "Nami",
+          "Karma",
+          "Soraka",
+          "Senna",
+          "Zilean",
+          "Sona",
+          "Rakan",
+          "Seraphine"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Wukong": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Average",
+        "pathing": "Full Clear",
+        "synergy": "Enchanter",
+        "vision_level1": "Start warding trinket 100%.\nDefensive vision level 1 against strong jungler.\nWard enemy jungle level 1 against weak jungler.",
+        "gameplan": "Wukong has to full clear.\nLevel 6 big Power Spike.\nAvoid Wukong getting punished before this.",
+        "important_info": "Very good with Hypercarry + Enchanter.\nHe has engage + creates space with R.\nWukong 1 item strong, 2 items full spike.",
+        "best_supports": [
+          "Lulu",
+          "Milio",
+          "Nami",
+          "Karma",
+          "Soraka",
+          "Senna",
+          "Zilean",
+          "Sona",
+          "Rakan",
+          "Seraphine"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Xin Zhao": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Average",
+        "pathing": "Hybrid",
+        "synergy": "Enchanter",
+        "vision_level1": "Start warding trinket 100%.\nDefensive vision level 1 against strong jungler.\nWard enemy jungle level 1 against weak jungler.",
+        "gameplan": "If you have enchanter great to play \ntogether (sync up) => very strong\nAvoid Xin Zhao getting invade early game",
+        "important_info": "Very good with Hypercarry + Enchanter.\nHe creates a lot of space with R.\nStrong in skirmishes if even or ahead.",
+        "best_supports": [
+          "Lulu",
+          "Milio",
+          "Nami",
+          "Karma",
+          "Soraka",
+          "Senna",
+          "Zilean",
+          "Sona",
+          "Rakan",
+          "Seraphine"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Zac": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Weak",
+        "pathing": "Full Clear",
+        "synergy": "Enchanter",
+        "vision_level1": "Need to secure his clear, if against strong\njungler, drop a ward to defend a possible invade.\nSweeper start if not to secure ganks.",
+        "gameplan": "Zac has to full clear.\nIf Zac doesn't get punished early\ngame you are HARD winning.",
+        "important_info": "Zac loves voidgrubs. Wair for his engage.\nPlay after level 6. Play around objectives.\nMake sure you deny enemy vision for R.",
+        "best_supports": [
+          "Lulu",
+          "Milio",
+          "Nami",
+          "Karma",
+          "Soraka",
+          "Senna",
+          "Zilean",
+          "Sona",
+          "Rakan",
+          "Seraphine"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Zed": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Weak",
+        "pathing": "Full Clear",
+        "synergy": "Engage",
+        "vision_level1": "Start warding trinket 100%.\nDefensive vision level 1 against strong jungler.\nWard enemy jungle level 1 against weak jungler.",
+        "gameplan": "Zed has to full clear.\nIf Zed doesn't get punished early game\nyou are winning. Wait for items to play.",
+        "important_info": "Strong at 1 item spike, play after that.\nDon't overforce plays before level 6.\nSync up to look for invades/sidelane play",
+        "best_supports": [
+          "Alistar",
+          "Leona",
+          "Pantheon",
+          "Nautilus",
+          "Elise",
+          "Neeko",
+          "Rell",
+          "Karma",
+          "Rakan",
+          "Bard"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Fizz": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Strong",
+        "pathing": "Hybrid",
+        "synergy": "Engage",
+        "best_supports": [
+          "Rell",
+          "Alistar",
+          "Rakan",
+          "Maokai",
+          "Leona",
+          "Camille",
+          "Pantheon",
+          "Nautilus",
+          "Thresh",
+          "Neeko"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Zaahen": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Weak",
+        "pathing": "Full Clear",
+        "synergy": "Enchanter",
+        "best_supports": [
+          "Lulu",
+          "Taric",
+          "Senna",
+          "Karma",
+          "Renata",
+          "Swain",
+          "Zilean",
+          "Sona",
+          "Rakan",
+          "Seraphine"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Camille": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Average",
+        "pathing": "Hybrid",
+        "synergy": "Both",
+        "best_supports": [
+          "Taric",
+          "Rakan",
+          "Rell",
+          "Alistar",
+          "Leona",
+          "Seraphine",
+          "Lulu",
+          "Braum",
+          "Janna",
+          "Nautilus"
+        ]
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Aatrox": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Weak",
+        "pathing": "Full Clear",
+        "synergy": "Enchanter"
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Jayce": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Average",
+        "pathing": "Full Clear",
+        "synergy": "Engage"
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Malphite": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Weak",
+        "pathing": "Full Clear",
+        "synergy": "Enchanter"
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Riven": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Strong",
+        "pathing": "Hybrid",
+        "synergy": "Both"
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Shen": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Average",
+        "pathing": "Hybrid",
+        "synergy": "Enchanter"
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Yorick": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Weak",
+        "pathing": "Full Clear",
+        "synergy": "Enchanter"
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Tryndamere": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Weak",
+        "pathing": "Full Clear",
+        "synergy": "Enchanter"
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Quinn": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Strong",
+        "pathing": "Ganking",
+        "synergy": "Engage"
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Sion": {
+      "vs_support": {},
+      "with_jungler": {
+        "early": "Weak",
+        "pathing": "Full Clear",
+        "synergy": "Enchanter"
+      },
+      "with_adc": {},
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Aphelios": {
+      "vs_support": {},
+      "with_jungler": {},
+      "with_adc": {
+        "strength": "Weak",
+        "synergy": "Both",
+        "gameplan": "Avoid big level 1 fights (weak)\nMake sure Aphelios can farm, play for CS\nFight with blue gun or red/white. Purple = gank",
+        "how_to_trade": "Utilize green gun range (vs weak botlane)\nWait til blue gun to play aggro and purple\nto set up ganks.",
+        "when_to_roam": "(HARD) With blue gun = waveclear\nNext 2 waves non-cannon and enemy\nbotlane is an enchanter/mage",
+        "best_supports": [
+          "Lulu",
+          "Milio",
+          "Nautilus",
+          "Thresh",
+          "Braum",
+          "Tahm Kench",
+          "Alistar",
+          "Renata",
+          "Blitzcrank"
+        ]
+      },
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Ashe": {
+      "vs_support": {},
+      "with_jungler": {},
+      "with_adc": {
+        "strength": "Strong",
+        "synergy": "Both",
+        "gameplan": "You can fight early for prio and control.\nRange supp: stack and punish enemy under\ntower (build waves)\nMelee supp: crash into bounceback = freeze or\ngank setup / roam with crashing waves",
+        "how_to_trade": "Make sure you gain bush control.\nPing to fight your Ashe, make sure \nonce you have control you don't\novercommit. Play with control / waves.",
+        "when_to_roam": "(HARD) If Ashe builds statik its very\neasy to roam.\nNext 2 waves non-cannon and enemy\nbotlane is an enchater/mage",
+        "best_supports": [
+          "Milio",
+          "Karma",
+          "Seraphine",
+          "Soraka",
+          "Thresh",
+          "Braum",
+          "Tahm Kench",
+          "Nami",
+          "Neeko",
+          "Zyra",
+          "Pyke",
+          "Rumble",
+          "Janna",
+          "Leona",
+          "Lux"
+        ]
+      },
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Caitlyn": {
+      "vs_support": {},
+      "with_jungler": {},
+      "with_adc": {
+        "strength": "Strong",
+        "synergy": "Range CC",
+        "gameplan": "VERY SIMPLE: you play for towers / plates\nLane dominant champion\nOnce bot tower is gone, you rotate to the next",
+        "how_to_trade": "Use range advantage to control early lvl\nWave control and zone enemies / poke\nPunish enemy trying to farm minions",
+        "when_to_roam": "(DON'T) Not recommended to roam\nRoam if Caitlyn is behind / useless\nTIP: get demolish if possible",
+        "best_supports": [
+          "Lux",
+          "Neeko",
+          "Karma",
+          "Morgana",
+          "Thresh",
+          "Braum",
+          "Milio",
+          "Bard",
+          "Zyra",
+          "Nami"
+        ]
+      },
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Cassiopeia": {
+      "vs_support": {},
+      "with_jungler": {},
+      "with_adc": {
+        "strength": "Weak",
+        "synergy": "Engage",
+        "gameplan": "AVOID EARLY FIGHTS TIL LEVEL 2/3\nCassio needs mana wait after first base\n(survive)",
+        "how_to_trade": "You can all in level 2 with CC Support\nPay attention to Cassio mana before\nengage",
+        "when_to_roam": "(MEDIUM) Once she has 1 item you\nfree roam whenever especially when\nenemy botlane is enchanter/mage",
+        "best_supports": [
+          "Rell",
+          "Nautilus",
+          "Pyke",
+          "Leona",
+          "Maokai",
+          "Alistar",
+          "Thresh",
+          "Pantheon",
+          "Nami",
+          "Amumu"
+        ]
+      },
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Corki": {
+      "vs_support": {},
+      "with_jungler": {},
+      "with_adc": {
+        "strength": "Strong",
+        "synergy": "Engage",
+        "gameplan": "You can fight early for prio and control\nCrash into bounceback = freeze or gank\nsetup / roam with crashing waves",
+        "how_to_trade": "Make sure you gain bush control.\nPay attention to Corki Q and W CD",
+        "when_to_roam": "(EASY) Once Corki is level 6 you can\nroam any time, before make sure\nthat you roam after cannon wave",
+        "best_supports": [
+          "Nami",
+          "Nautilus",
+          "Rell",
+          "Leona",
+          "Alistar",
+          "Pyke",
+          "Blitzcrank",
+          "Pantheon",
+          "Elise",
+          "Rakan"
+        ]
+      },
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Draven": {
+      "vs_support": {},
+      "with_jungler": {},
+      "with_adc": {
+        "strength": "Strong",
+        "synergy": "Engage",
+        "gameplan": "Fight early waves = you win\nCrash => bounce back => freeze enemy botlane\nNEVER PERMA PUSH WAVES WITH DRAVEN",
+        "how_to_trade": "Make sure 100% you gain bush control.\nZone the enemy with FOG pressure\nin lane or in the river (enemy tribush)",
+        "when_to_roam": "(HARD) When wave crashes or\nthe next 2 waves are non-cannon\nBetter if enemy botlane has no CC",
+        "best_supports": [
+          "Pyke",
+          "Nautilus",
+          "Rell",
+          "Thresh",
+          "Pantheon",
+          "Blitzcrank",
+          "Renata",
+          "Neeko",
+          "Taric",
+          "Leona"
+        ]
+      },
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Ezreal": {
+      "vs_support": {},
+      "with_jungler": {},
+      "with_adc": {
+        "strength": "Strong",
+        "synergy": "Both",
+        "gameplan": "Left click and see if he is stacking passive level 1 (early)\nQ the wave for prio and level 2 control.\nRange = poke / Melee = look to roam",
+        "how_to_trade": "You can look for early fights once\nyou get level 2 control. All in are good\nif Ezreal can follow.",
+        "when_to_roam": "(EASY) Good waveclear, can farm\nsafe from far away and has escape",
+        "best_supports": [
+          "Karma",
+          "Braum",
+          "Pyke",
+          "Rakan",
+          "Nami",
+          "Bard",
+          "Leona",
+          "Elise",
+          "Pantheon",
+          "Neeko"
+        ]
+      },
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Hwei": {
+      "vs_support": {},
+      "with_jungler": {},
+      "with_adc": {
+        "strength": "Weak",
+        "synergy": "Engage",
+        "gameplan": "Mage = weak til level 3\nRoam whenever you can or look to all in.\nConcede prio early most likely",
+        "how_to_trade": "Once Hwei is level 3 you can look to all in\nCAN'T DO LONG TRADES\nWait for Hwei CD to be back",
+        "when_to_roam": "(EASY) Once Hwei has \"Lost Chapter\"\nhe doesn't exist, feel free to roam\nIf you have kill potential look for it",
+        "best_supports": [
+          "Nautilus",
+          "Leona",
+          "Rell",
+          "Alistar",
+          "Maokai",
+          "Thresh",
+          "Nami",
+          "Pantheon",
+          "Amumu"
+        ]
+      },
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Jhin": {
+      "vs_support": {},
+      "with_jungler": {},
+      "with_adc": {
+        "strength": "Strong",
+        "synergy": "Both",
+        "gameplan": "Get prio. Jhin is very bad at hitting towers,\ndon't play for platings as main goal.\nJhin can spam Q on the wave for early prio.\nRange supp = poke / deny CS\nMelee supp = crash and freeze on bounce\nor use it to impact the map",
+        "how_to_trade": "Pay attention to when he needs to reload.\nLast bullet = more damage to low HP (!)\nW roots on your damage (!)\nWhen Jhin has 1 bullet, short trade\nWhen Jhin has finish reload, long trade",
+        "when_to_roam": "(EASY) Once Jhin has some AD\n(first base) you can roam any time.\nDanger if the enemy is playing CC\nsupport and there is a cannon wave\ncrashing. Jhin can waveclear with Q\nand set traps to clear as well.",
+        "best_supports": [
+          "Karma",
+          "Soraka",
+          "Nautilus",
+          "Rell",
+          "Pantheon",
+          "Thresh",
+          "Morgana",
+          "Leona",
+          "Blitzcrank",
+          "Neeko",
+          "Pyke",
+          "Rumble",
+          "Janna",
+          "Bard",
+          "Lux",
+          "Zyra",
+          "Trundle",
+          "Vel'koz",
+          "Elise",
+          "Mel"
+        ]
+      },
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Jinx": {
+      "vs_support": {},
+      "with_jungler": {},
+      "with_adc": {
+        "strength": "Weak",
+        "synergy": "Enchanter",
+        "gameplan": "Prio with Jinx Q, if weak lane, just farm.\nIf no jungle attention try to base on crash,\nits ok to lose 1 normal wave for a good base.",
+        "how_to_trade": "If I have lane control, play around waves.\nIf enemy is winning just look when they\nmissposition to get trades.",
+        "when_to_roam": "(HARD) Next 2 waves non-cannon and\nenemy botlane is an enchanter/mage.\nIf Jinx is not win condition and behind",
+        "best_supports": [
+          "Lulu",
+          "Milio",
+          "Thresh",
+          "Karma",
+          "Tahm Kench",
+          "Braum",
+          "Alistar",
+          "Nautilus",
+          "Rakan",
+          "Janna"
+        ]
+      },
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Kai'Sa": {
+      "vs_support": {},
+      "with_jungler": {},
+      "with_adc": {
+        "strength": "Depends",
+        "synergy": "Engage",
+        "gameplan": "Careful with early trades in lane.\nYou can look to all in if Kai'Sa can hit, punish\nenemy missposition.",
+        "how_to_trade": "Kai'Sa Q is very weak when there is a\nwave and OP in isolation.\nCC => Kai'Sa W + Q iso = GG",
+        "when_to_roam": "(MEDIUM) Once she has 1 item you\nfree roam and enemy bot can't dive.\n(EASY) If she build \"Statik\"",
+        "best_supports": [
+          "Rell",
+          "Leona",
+          "Nautilus",
+          "Alistar",
+          "Maokai",
+          "Pantheon",
+          "Rakan",
+          "Pyke",
+          "Shen",
+          "Camille"
+        ]
+      },
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Kalista": {
+      "vs_support": {},
+      "with_jungler": {},
+      "with_adc": {
+        "strength": "Strong",
+        "synergy": "Engage",
+        "gameplan": "Fight early waves = you win (not vs Draven)\nCrash => bounce back => freeze enemy botlane\nNEVER PERMA PUSH WAVES WITH KALISTA",
+        "how_to_trade": "Make sure 100% you gain bush control.\nZone the enemy with FOG pressure\nin lane or in the river (enemy tribush)",
+        "when_to_roam": "(HARD) When wave crashes or\nthe next 2 waves are non-cannon\nEasy if enemy botlane has no CC",
+        "best_supports": [
+          "Taric",
+          "Nautilus",
+          "Thresh",
+          "Blitzcrank",
+          "Renata",
+          "Neeko",
+          "Leona",
+          "Rell",
+          "Pantheon",
+          "Braum"
+        ]
+      },
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Kog'Maw": {
+      "vs_support": {},
+      "with_jungler": {},
+      "with_adc": {
+        "strength": "Weak",
+        "synergy": "Enchanter",
+        "gameplan": "Avoid early fights in general play for CS.\nIf enemy botlane is weaker you can look to get\nlane control. Paired with enchanter play with W.",
+        "how_to_trade": "You HAVE TO play around W of Kog'Maw.\nW up = trade\nW down = don't trade",
+        "when_to_roam": "(HARD) Next 2 waves non-cannon and\nenemy botlane is an enchanter/mage.\nIf Kog is not win condition and behind",
+        "best_supports": [
+          "Lulu",
+          "Milio",
+          "Thresh",
+          "Alistar",
+          "Taric",
+          "Braum",
+          "Zilean",
+          "Nami",
+          "Soraka",
+          "Janna"
+        ]
+      },
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Lucian": {
+      "vs_support": {},
+      "with_jungler": {},
+      "with_adc": {
+        "strength": "Depends",
+        "synergy": "Both",
+        "gameplan": "Weak level 1 in general. Have to wait for level 3.\nStrong when wave is bounce or building wave.\nRotate with prio, pointless to play for tower.",
+        "how_to_trade": "Playing Nami or Milio, buff and he plays.\nCC supports wait for enemy missposition\nand then you can punish.",
+        "when_to_roam": "(HARD) When wave crashes or\nthe next 2 waves are non-cannon\nEasy if enemy botlane has no CC",
+        "best_supports": [
+          "Milio",
+          "Nami",
+          "Braum",
+          "Nautilus",
+          "Taric",
+          "Yuumi",
+          "Sona",
+          "Rakan",
+          "Leona"
+        ]
+      },
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Mel": {
+      "vs_support": {},
+      "with_jungler": {},
+      "with_adc": {
+        "strength": "Weak",
+        "synergy": "Engage",
+        "gameplan": "Mage = weak til level 3\nRoam whenever you can or look to all in.\nConcede prio early most likely",
+        "how_to_trade": "Once Mel is level 3 you can look to all in\nCAN'T DO LONG TRADES\nWait for Mel CD to be back",
+        "when_to_roam": "(EASY) Once Mel has \"Lost Chapter\"\nshe doesn't exist, feel free to roam\nIf you have kill potential look for it",
+        "best_supports": [
+          "Nautilus",
+          "Leona",
+          "Rell",
+          "Alistar",
+          "Pyke",
+          "Thresh",
+          "Nami",
+          "Pantheon",
+          "Amumu"
+        ]
+      },
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Miss Fortune": {
+      "vs_support": {},
+      "with_jungler": {},
+      "with_adc": {
+        "strength": "Strong",
+        "synergy": "Engage",
+        "gameplan": "MF is bad at hitting towers.\nYou can fight early prio, MF is strong.\nCrash and freeze on bounce or roam",
+        "how_to_trade": "Use E from MF to secure skillshots.\nLook to punish missposition in lane and\nall in, dont make fights too long.",
+        "when_to_roam": "(EASY) Once MF is level 6 you can\nroam any time, before make sure\nthat you roam after cannon wave",
+        "best_supports": [
+          "Rell",
+          "Leona",
+          "Alistar",
+          "Nautilus",
+          "Maokai",
+          "Bard",
+          "Amumu",
+          "Seraphine",
+          "Neeko",
+          "Skarner"
+        ]
+      },
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Nilah": {
+      "vs_support": {},
+      "with_jungler": {},
+      "with_adc": {
+        "strength": "Depends",
+        "synergy": "Enchanter",
+        "gameplan": "Weak level 1 in general. Have to wait for level 3.\nStrong when wave is bounce or building wave.\nRotate with prio, pointless to play for tower.",
+        "how_to_trade": "Look for all in when wave is coming\ntowards you, avoid early trade.\nYou play for long trades if Nilah can hit.",
+        "when_to_roam": "(HARD) When wave crashes or\nthe next 2 waves are non-cannon\nEasy if enemy botlane has no CC",
+        "best_supports": [
+          "Taric",
+          "Lulu",
+          "Senna",
+          "Soraka",
+          "Zilean",
+          "Yuumi",
+          "Rakan",
+          "Sona"
+        ]
+      },
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Samira": {
+      "vs_support": {},
+      "with_jungler": {},
+      "with_adc": {
+        "strength": "Depends",
+        "synergy": "Engage",
+        "gameplan": "Weak level 1 in general. Have to wait for level 3.\nStrong when wave is bounce or building wave.\nRotate with prio, pointless to play for tower.",
+        "how_to_trade": "Look for all in when wave is coming\ntowards you, avoid early trade.\nYou play for long trades if Samira can hit.",
+        "when_to_roam": "(HARD) When wave crashes or\nthe next 2 waves are non-cannon\nEASY if enemy botlane has no CC",
+        "best_supports": [
+          "Rell",
+          "Alistar",
+          "Nautilus",
+          "Maokai",
+          "Rakan",
+          "Pantheon",
+          "Leona",
+          "Pyke",
+          "Gragas",
+          "Sett"
+        ]
+      },
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Sivir": {
+      "vs_support": {},
+      "with_jungler": {},
+      "with_adc": {
+        "strength": "Weak",
+        "synergy": "Enchanter",
+        "gameplan": "Weak early, avoid long fights, probably concede\nprio if playing against a stronger botlane.\nPlay for farm, once Sivir has BF/AD item then\nshe can play alone in botlane = roam",
+        "how_to_trade": "Play around wave control. Crash and\nmove. Don't hit tower (low range).\nCC into Q from Sivir, and back off,\nshort trades.",
+        "when_to_roam": "(EASY) Good waveclear, once she has\nBF or any type AD item she one shots\nwaves. Maybe be careful on crashing\ncannon waves.",
+        "best_supports": [
+          "Janna",
+          "Karma",
+          "Lulu",
+          "Yuumi",
+          "Braum",
+          "Sona",
+          "Soraka",
+          "Nautilus",
+          "Alistar",
+          "Rakan",
+          "Pyke",
+          "Thresh",
+          "Poppy",
+          "Zilean",
+          "Milio"
+        ]
+      },
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Smolder": {
+      "vs_support": {},
+      "with_jungler": {},
+      "with_adc": {
+        "strength": "Weak",
+        "synergy": "Engage",
+        "gameplan": "Weak early, avoid long fights, probably concede\nprio if playing against a stronger botlane.\nPlay for farm, you can roam later (level 6)",
+        "how_to_trade": "Short trades so Smolder can get stacks.\nAvoid getting poked a lot, try to use your\nHP so Smolder can farm and not get low.",
+        "when_to_roam": "(EASY) Good waveclear once he has \nsome stacks (25) and AD, also his ult\nis up he can clear a cannon wave.",
+        "best_supports": [
+          "Alistar",
+          "Braum",
+          "Rakan",
+          "Rell",
+          "Nautilus",
+          "Leona",
+          "Maokai",
+          "Nami",
+          "Milio",
+          "Thresh"
+        ]
+      },
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Swain": {
+      "vs_support": {},
+      "with_jungler": {},
+      "with_adc": {
+        "strength": "Weak",
+        "synergy": "Engage",
+        "gameplan": "Mage = weak til level 3\nYou can play for all in if Swain connects E.\nConcede prio early most likely",
+        "how_to_trade": "Look to punish if you can land good CC\nand Swain has CDs up (!)\nIf Swain hits E you can follow up. Short.",
+        "when_to_roam": "(MEDIUM) If Swain is 6 he can play the\ndive and also he will have decent\nwaveclear. Roam if there is better play.",
+        "best_supports": [
+          "Taric",
+          "Nautilus",
+          "Pyke",
+          "Leona",
+          "Rell",
+          "Senna",
+          "Pantheon",
+          "Alistar"
+        ]
+      },
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Syndra": {
+      "vs_support": {},
+      "with_jungler": {},
+      "with_adc": {
+        "strength": "Weak",
+        "synergy": "Engage",
+        "gameplan": "Mage = weak til level 3\nRoam whenever you can or look to all in.\nConcede prio early most likely",
+        "how_to_trade": "Once Syndra is lvl 3 you can look to all in\nCAN'T DO LONG TRADES\nWait for Syndra CD to be back (E, stun)",
+        "when_to_roam": "(EASY) Once Syndra has \"Lost Chapter\"\nshe doesn't exist, feel free to roam\nIf you have kill potential look for it",
+        "best_supports": [
+          "Nautilus",
+          "Leona",
+          "Rell",
+          "Alistar",
+          "Pyke",
+          "Thresh",
+          "Nami",
+          "Pantheon",
+          "Amumu"
+        ]
+      },
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Tristana": {
+      "vs_support": {},
+      "with_jungler": {},
+      "with_adc": {
+        "strength": "Depends",
+        "synergy": "Both",
+        "gameplan": "Strong level 2. Look to all in when is good.\nPlay for tower platings.\nDon't jump/all in when wave is bad.",
+        "how_to_trade": "Play around Tristana E (Bomb)\nIf Tristana con get full bomb explosion\nyou will most likely hard win the fight.",
+        "when_to_roam": "(MEDIUM) Good waveclear has good\nescape tool but needs some AD before\nleaving her alone.",
+        "best_supports": [
+          "Taric",
+          "Leona",
+          "Rell",
+          "Pantheon",
+          "Alistar",
+          "Rakan",
+          "Lulu",
+          "Braum",
+          "Poppy",
+          "Sylas"
+        ]
+      },
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Twitch": {
+      "vs_support": {},
+      "with_jungler": {},
+      "with_adc": {
+        "strength": "Weak",
+        "synergy": "Enchanter",
+        "gameplan": "Weak, try to scale. Don't force many fights.\nIf winning long trades are good. \nWait for ganks or open mid with Twitch Q.",
+        "how_to_trade": "Twitch engage with Q you can follow up,\nlong trade is fine against weake lanes\nand you can bully for control.",
+        "when_to_roam": "(HARD) When wave crashes or\nthe next 2 waves are non-cannon\nBUT lvl 6 Twitch can clear cannon wave",
+        "best_supports": [
+          "Lulu",
+          "Yuumi",
+          "Nami",
+          "Taric",
+          "Braum",
+          "Alistar",
+          "Janna",
+          "Zilean",
+          "Shen",
+          "Annie"
+        ]
+      },
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Varus": {
+      "vs_support": {},
+      "with_jungler": {},
+      "with_adc": {
+        "strength": "Strong",
+        "synergy": "Both",
+        "gameplan": "You can fight early with Varus.\nRange supp: stack and punish enemy under\ntower (build waves)\nMelee supp: crash into bounceback = freeze or\ngank setup / roam with crashing waves\nLevel 6 high kill potential with ULT.\nYou can hit and play for tower platings.",
+        "how_to_trade": "Use E from Varus  to secure skillshots.\nRange supp: poke together the enemy\nunder tower. Q Karma into Q Varus.\nMelee supp: make sure you have wave\ncontrol and punish if enemy missposition",
+        "when_to_roam": "(MEDIUM) Good waveclear but no \nescape tool, difficult to dive if he has \nULT up. Also enemy botlane is an \nenchanter or mage you can roam when\nthe waves are not cannon.\nIf you have kill potential look for it",
+        "best_supports": [
+          "Karma",
+          "Nami",
+          "Milio",
+          "Lulu",
+          "Janna",
+          "Braum",
+          "Nautilus",
+          "Leona",
+          "Zyra",
+          "Thresh",
+          "Pyke",
+          "Rumble",
+          "Rell",
+          "Bard",
+          "Lux",
+          "Tahm Kench",
+          "Renata",
+          "Morgana",
+          "Zoe",
+          "Ashe"
+        ]
+      },
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Vayne": {
+      "vs_support": {},
+      "with_jungler": {},
+      "with_adc": {
+        "strength": "Weak",
+        "synergy": "Enchanter",
+        "gameplan": "Avoid big level 1 fights (weak)\nMake sure Vayne can farm, play for CS\nFight when level 6 or getting jungle gank.",
+        "how_to_trade": "Vayne has a really good trading tool, \nwhich is AA + Q + AA with PTA proc,\ndownside, range is really low.",
+        "when_to_roam": "(HARD) When the next 2 waves are\nnon-cannon.\n(MEDIUM) If she build \"Statik\"",
+        "best_supports": [
+          "Lulu",
+          "Yuumi",
+          "Nami",
+          "Taric",
+          "Braum",
+          "Alistar",
+          "Janna",
+          "Zilean",
+          "Shen",
+          "Annie"
+        ]
+      },
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Veigar": {
+      "vs_support": {},
+      "with_jungler": {},
+      "with_adc": {
+        "strength": "Weak",
+        "synergy": "Engage",
+        "gameplan": "Mage = weak til level 3\nRoam whenever you can or look to all in.\nConcede prio early most likely",
+        "how_to_trade": "Wait for Veigar cage to look for a trade.\nCAN'T DO LONG TRADES\nWait for Veigar CD to be back",
+        "when_to_roam": "(EASY) Once Veigar has some AP\nhe can't really get dove.\nIf you have kill potential look for it",
+        "best_supports": [
+          "Nautilus",
+          "Leona",
+          "Rell",
+          "Alistar",
+          "Pyke",
+          "Thresh",
+          "Nami",
+          "Poppy",
+          "Amumu",
+          "Gragas"
+        ]
+      },
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Vel'koz": {
+      "vs_support": {},
+      "with_jungler": {},
+      "with_adc": {
+        "strength": "Weak",
+        "synergy": "Engage",
+        "gameplan": "Mage = weak til level 3\nRoam whenever you can or look to all in.\nConcede prio early most likely",
+        "how_to_trade": "Let Vel'koz poke and play for wave control\nCAN'T DO LONG TRADES\nWait for Vel'koz CD to be back",
+        "when_to_roam": "(EASY) Once Vel'koz has some AP\nhe has great waveclear.\nIf you have kill potential look for it",
+        "best_supports": [
+          "Nautilus",
+          "Leona",
+          "Rell",
+          "Amumu",
+          "Pyke",
+          "Thresh",
+          "Maokai",
+          "Nami",
+          "Karma",
+          "Lux"
+        ]
+      },
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Viktor": {
+      "vs_support": {},
+      "with_jungler": {},
+      "with_adc": {
+        "strength": "Weak",
+        "synergy": "Engage",
+        "gameplan": "Mage = weak til level 3\nRoam whenever you can or look to all in.\nConcede prio early most likely",
+        "how_to_trade": "Once Viktor is level 3 you can look to all in\nCAN'T DO LONG TRADES\nWait for Viktor CD to be back",
+        "when_to_roam": "(EASY) Once Viktor has \"Lost Chapter\"\nhe doesn't exist, feel free to roam\nIf you have kill potential look for it",
+        "best_supports": [
+          "Nautilus",
+          "Leona",
+          "Rell",
+          "Alistar",
+          "Pyke",
+          "Thresh",
+          "Nami",
+          "Poppy",
+          "Amumu"
+        ]
+      },
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Xayah": {
+      "vs_support": {},
+      "with_jungler": {},
+      "with_adc": {
+        "strength": "Depends",
+        "synergy": "Engage",
+        "gameplan": "Weak level 1 in general. Have to wait for level 3.\nStrong if you can CC and play around feathers.\nRotate with prio, with Rakan take demolish.",
+        "how_to_trade": "All in and if Xayah can root you hard win\nthe trade, look for enemy botlane to \nmissposition and punish.",
+        "when_to_roam": "(EASY) Good waveclear, once she has\nBF or any type AD item she one shots\nwaves. Super safe with R up.",
+        "best_supports": [
+          "Rakan",
+          "Nautilus",
+          "Leona",
+          "Rell",
+          "Alistar",
+          "Thresh",
+          "Blitzcrank",
+          "Maokai",
+          "Poppy",
+          "Pantheon"
+        ]
+      },
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Yasuo": {
+      "vs_support": {},
+      "with_jungler": {},
+      "with_adc": {
+        "strength": "Depends",
+        "synergy": "Engage",
+        "gameplan": "Weak level 1 in general. Have to wait for level 3.\nStrong when wave is bounce or building wave.\nRotate with prio, pointless to play for tower.",
+        "how_to_trade": "Look for all in when wave is coming\ntowards you, avoid early trade.\nYou play for long trades if Yasuo can hit.",
+        "when_to_roam": "(HARD) When wave crashes or\nthe next 2 waves are non-cannon\nEasy if enemy botlane has no CC",
+        "best_supports": [
+          "Rell",
+          "Nautilus",
+          "Alistar",
+          "Maokai",
+          "Gragas",
+          "Thresh",
+          "Janna",
+          "Senna",
+          "Sett",
+          "Rakan"
+        ]
+      },
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Yunara": {
+      "vs_support": {},
+      "with_jungler": {},
+      "with_adc": {
+        "strength": "Depends",
+        "synergy": "Enchanter",
+        "gameplan": "You can get prio for level 2 with her Q into weak\nlanes and play control from there. If not make\nsure she can CS and scale, look for good roams.",
+        "how_to_trade": "Trade when Yunara has Q up, similar\nto Kog'Maw W, when down just be patient\nbefore trading. Level6 all in looks good.",
+        "when_to_roam": "(EASY) Good waveclear, once she has\nBF or any type AD item she one shots\nwaves. Care on cannon waves.",
+        "best_supports": [
+          "Lulu",
+          "Braum",
+          "Yuumi",
+          "Milio",
+          "Rakan",
+          "Janna",
+          "Nami",
+          "Zilean",
+          "Karma",
+          "Thresh"
+        ]
+      },
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Zeri": {
+      "vs_support": {},
+      "with_jungler": {},
+      "with_adc": {
+        "strength": "Weak",
+        "synergy": "Enchanter",
+        "gameplan": "Weak, try to scale. Don't force many fights.\nIf winning long trades are good. \nWait for ganks or level 6 all in.",
+        "how_to_trade": "Punish if enemy missposition.\nPay attention to Zeri E CD (dash).\nLevel 6 you are strong to fight.",
+        "when_to_roam": "(MEDIUM) Good waveclear has good\nescape tool but needs some AD before\nleaving her alone. (EASY) \"Statik\"",
+        "best_supports": [
+          "Lulu",
+          "Yuumi",
+          "Alistar",
+          "Taric",
+          "Nautilus",
+          "Karma",
+          "Janna",
+          "Rell",
+          "Rakan",
+          "Annie"
+        ]
+      },
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    },
+    "Ziggs": {
+      "vs_support": {},
+      "with_jungler": {},
+      "with_adc": {
+        "strength": "Weak",
+        "synergy": "Engage",
+        "gameplan": "Take demolish with Ziggs if possible.\nMage = weak til level 3\nRoam whenever you can or look to all in.",
+        "how_to_trade": "Let Ziggs poke. You can all in.\nCAN'T DO LONG TRADES",
+        "when_to_roam": "(EASY) Once Ziggs has \"Lost Chapter\"\nhe doesn't exist, feel free to roam.",
+        "best_supports": [
+          "Nautilus",
+          "Leona",
+          "Rell",
+          "Alistar",
+          "Pyke",
+          "Thresh",
+          "Nami",
+          "Pantheon",
+          "Amumu",
+          "Blitzcrank"
+        ]
+      },
+      "personal_notes": "",
+      "overlay_priority": "normal"
+    }
+  },
+  "global_preferences": {
+    "overlay_auto_show_loading_screen": true,
+    "overlay_show_duration_seconds": 15,
+    "overlay_opacity": 0.85,
+    "overlay_font_size": 14,
+    "overlay_font_family": "Segoe UI",
+    "overlay_width": 500,
+    "overlay_x": 20,
+    "overlay_y": 60
+  }
+}

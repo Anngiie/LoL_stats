@@ -1,0 +1,47 @@
+# Riot API key — NEVER commit this
+backend/data/config.json
+
+# Authentication backup codes
+andjela.casic@gmail.com Backup authentication codes.txt
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+dist/
+build/
+*.egg
+.eggs/
+
+# SQLite database (local match data)
+backend/data/matches.db
+backend/data/matches.db-shm
+backend/data/matches.db-wal
+backend/data/*.db-journal
+
+# Virtual environment
+venv/
+.venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+.env.local
+
+# Logs
+*.log
+
+# PyInstaller
+*.spec

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LoL Stats</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <!-- Left Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <span class="logo">🏆</span>
+            <span class="name">LoL Stats</span>
+        </div>
+
+        <nav class="sidebar-nav" id="sidebar-nav">
+            <a href="#/home" class="nav-item active" data-page="home">
+                <span class="nav-icon">🏠</span> <span>Home</span>
+            </a>
+            <a href="#/strategy" class="nav-item" data-page="strategy">
+                <span class="nav-icon">📝</span> <span>Strategy</span>
+            </a>
+            <a href="#/settings" class="nav-item" data-page="settings">
+                <span class="nav-icon">⚙️</span> <span>Settings</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <span class="status-dot" id="status-dot" title="Backend status"></span>
+            <span class="status-label" id="status-label">Checking...</span>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content" id="main-content">
+        <div class="loading-block" id="loading-block">
+            <div class="spinner"></div>
+            <span>Loading...</span>
+        </div>
+    </main>
+
+    <!-- Toasts -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="/js/api.js"></script>
+    <script src="/js/pages/home.js"></script>
+    <script src="/js/pages/strategy.js"></script>
+    <script src="/js/pages/settings.js"></script>
+    <script src="/js/app.js"></script>
+</body>
+</html>
