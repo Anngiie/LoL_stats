@@ -48,6 +48,7 @@ class LiveClientPoller(QObject):
         self._interval = interval
         self._thread: Optional[threading.Thread] = None
         self._running = False
+        self._poll_count = 0
         self._session = requests.Session()
         self._session.verify = False  # Self-signed cert on localhost
 
@@ -82,14 +83,20 @@ class LiveClientPoller(QObject):
         while self._running:
             try:
                 data = self._fetch_all_game_data()
+                self._poll_count += 1
+
                 if data is not None:
+                    if not was_connected:
+                        logger.info("Connected to Live Client API (game detected)")
                     was_connected = True
                     self.game_data_updated.emit(data)
                 else:
                     if was_connected:
-                        # Lost connection — game probably ended
+                        logger.info("Live Client API disconnected — game likely ended")
                         self.game_data_updated.emit({"disconnected": True})
                         was_connected = False
+                    elif self._poll_count <= 3:
+                        logger.debug("Live Client API not reachable (poll #%d) — no game running", self._poll_count)
             except Exception as e:
                 logger.debug("Poll error: %s", e)
                 if was_connected:
@@ -98,18 +105,12 @@ class LiveClientPoller(QObject):
 
             time.sleep(self._interval)
 
+    _data_logged: bool = False  # Only log raw API structure once
+
     def _fetch_all_game_data(self) -> Optional[dict]:
         """
         Fetch the full game data from the Live Client API.
         Returns None if the API is unreachable (not in a game).
-
-        The endpoint returns:
-        {
-            "activePlayer": { "championName": "Thresh", "summonerSpells": [...], "runes": {...} },
-            "allPlayers": [ { "championName": "...", "team": "ORDER"/"CHAOS", "summonerName": "..." } ],
-            "events": { "Events": [...] },
-            "gameData": { "gameTime": 123.45, "gameMode": "CLASSIC", "mapName": "Summoner's Rift" }
-        }
         """
         try:
             resp = self._session.get(
@@ -117,14 +118,37 @@ class LiveClientPoller(QObject):
                 timeout=3,
             )
             if resp.status_code == 200:
-                return resp.json()
+                data = resp.json()
+                # Log the actual API response structure once for debugging
+                if not self._data_logged:
+                    gd = data.get("gameData", {})
+                    ap = data.get("activePlayer", {})
+                    pl = data.get("allPlayers", [])
+                    logger.info(
+                        "Live Client API response structure:\n"
+                        "  gameData keys: %s\n"
+                        "  gameTime: %s\n"
+                        "  activePlayer keys: %s\n"
+                        "  activePlayer.championName: %r\n"
+                        "  allPlayers count: %d\n"
+                        "  allPlayers[0] keys: %s\n"
+                        "  allPlayers positions: %s",
+                        list(gd.keys()) if gd else [],
+                        gd.get("gameTime", "MISSING"),
+                        list(ap.keys())[:8] if ap else [],
+                        ap.get("championName", "MISSING") if ap else "MISSING",
+                        len(pl),
+                        list(pl[0].keys())[:10] if pl else [],
+                        [(p.get("championName", "?"), p.get("position", "?"), p.get("team", "?")) for p in pl],
+                    )
+                    self._data_logged = True
+                return data
             elif resp.status_code == 404:
-                return None  # Not in a game
+                return None
             else:
                 logger.debug("Live Client API returned status %d", resp.status_code)
                 return None
         except requests.exceptions.ConnectionError:
-            # LCU is not running — not in a game
             return None
         except requests.exceptions.Timeout:
             logger.debug("Live Client API timed out.")
@@ -147,21 +171,25 @@ class LiveClientPoller(QObject):
         if not active_player or not all_players:
             return []
 
-        # Find the active player's team
-        active_name = active_player.get("summonerName", "")
+        # Find the active player's team using riotId (summonerName is no longer
+        # available on activePlayer in recent LoL patches)
+        active_riot_id = active_player.get("riotIdGameName", "") or active_player.get("summonerName", "")
         active_team = None
+        active_champ_name = ""
+
         for p in all_players:
-            if p.get("summonerName") == active_name:
+            p_name = p.get("riotIdGameName", "") or p.get("summonerName", "")
+            if p_name == active_riot_id and active_riot_id:
                 active_team = p.get("team")
+                active_champ_name = p.get("championName", "")
                 break
 
+        # Fallback: match by champion name if riotId doesn't work
         if active_team is None:
-            # Fallback: if active player name doesn't match (API quirk),
-            # just use the active champion name for team lookup
-            active_champ = active_player.get("championName", "")
             for p in all_players:
-                if p.get("championName") == active_champ:
+                if p.get("championName") == active_player.get("championName", ""):
                     active_team = p.get("team")
+                    active_champ_name = p.get("championName", "")
                     break
 
         if active_team is None:
@@ -178,6 +206,108 @@ class LiveClientPoller(QObject):
         return enemies
 
     def get_active_champion(self, all_game_data: dict) -> str:
-        """Get the active player's champion name."""
+        """Get the active player's champion name by matching riotId against allPlayers."""
         active = all_game_data.get("activePlayer", {})
+        all_players = all_game_data.get("allPlayers", [])
+
+        # Try riotId matching first
+        riot_name = active.get("riotIdGameName", "") or active.get("summonerName", "")
+        if riot_name:
+            for p in all_players:
+                p_name = p.get("riotIdGameName", "") or p.get("summonerName", "")
+                if p_name == riot_name:
+                    return p.get("championName", "")
+
+        # Fallback: direct championName on activePlayer (older API versions)
         return active.get("championName", "")
+
+    def get_team_composition(self, all_game_data: dict) -> dict:
+        """
+        Extract team roles from the Live Client API.
+
+        Uses the 'role' field when available (TOP/JUNGLE/MIDDLE/BOTTOM/UTILITY),
+        with Smite-detection fallback for the jungler.
+
+        Returns:
+            {
+                "enemy_support": str,   # enemy UTILITY champion
+                "allied_adc": str,      # your team's BOTTOM champion
+                "allied_jungler": str,  # your team's JUNGLE champion
+                "all_enemies": list[str],
+            }
+        """
+        empty = {"enemy_support": "", "allied_adc": "", "allied_jungler": "", "all_enemies": []}
+        active_player = all_game_data.get("activePlayer", {})
+        all_players = all_game_data.get("allPlayers", [])
+        if not active_player or not all_players:
+            return empty
+
+        # Determine active player's team
+        active_riot_id = active_player.get("riotIdGameName", "") or active_player.get("summonerName", "")
+        active_team = None
+        active_champ = ""
+        for p in all_players:
+            p_name = p.get("riotIdGameName", "") or p.get("summonerName", "")
+            if p_name == active_riot_id and active_riot_id:
+                active_team = p.get("team")
+                active_champ = p.get("championName", "")
+                break
+        # Fallback: match by champion name
+        if active_team is None:
+            for p in all_players:
+                if p.get("championName") == active_player.get("championName", ""):
+                    active_team = p.get("team")
+                    active_champ = p.get("championName", "")
+                    break
+        if active_team is None:
+            return empty
+
+        enemy_support = ""
+        allied_adc = ""
+        allied_jungler = ""
+        all_enemies = []
+
+        for p in all_players:
+            team = p.get("team")
+            champ = p.get("championName", "")
+            # Live Client API uses 'position', older docs say 'role'
+            pos = p.get("position", "") or p.get("role", "")
+            if not champ:
+                continue
+
+            if team == active_team:
+                if pos == "JUNGLE":
+                    allied_jungler = champ
+                elif pos == "BOTTOM" and champ != active_champ:
+                    allied_adc = champ
+            else:
+                if not p.get("isBot", False):
+                    all_enemies.append(champ)
+                if pos == "UTILITY":
+                    enemy_support = champ
+
+        # Fallback: Smite detection for jungler if role wasn't available
+        if not allied_jungler:
+            for p in all_players:
+                if p.get("team") != active_team:
+                    continue
+                spells = p.get("summonerSpells", {})
+                if not isinstance(spells, dict):
+                    continue
+                for spell_key in ("summonerSpellOne", "summonerSpellTwo"):
+                    spell = spells.get(spell_key, {})
+                    spell_name = spell.get("displayName", "") or spell.get("spellKey", "")
+                    if "Smite" in spell_name:
+                        allied_jungler = p.get("championName", "")
+                        break
+                if allied_jungler:
+                    break
+
+        # Fallback: if no enemy support identified via role, keep all_enemies
+        # so the overlay can still show tips for the full enemy team.
+        return {
+            "enemy_support": enemy_support,
+            "allied_adc": allied_adc,
+            "allied_jungler": allied_jungler,
+            "all_enemies": all_enemies,
+        }

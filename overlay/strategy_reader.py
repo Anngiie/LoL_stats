@@ -63,6 +63,30 @@ class StrategyReader:
         self.reload()
         return self._data.get("champions", {}).get(champion_name)
 
+    def get_champion_context(self, champion_name: str, context: str) -> dict | None:
+        """
+        Get a specific context block for a champion.
+
+        Args:
+            champion_name: Champion to look up (case-insensitive).
+            context: One of 'vs_support', 'with_adc', 'with_jungler'.
+
+        Returns:
+            {champion, context_block, personal_notes, priority} or None.
+        """
+        self.reload()
+        champions = self._data.get("champions", {})
+        for champ_name, champ_data in champions.items():
+            if champ_name.lower() == champion_name.lower():
+                block = champ_data.get(context, {}) or {}
+                return {
+                    "champion": champ_name,
+                    "block": block,
+                    "personal_notes": champ_data.get("personal_notes", ""),
+                    "priority": champ_data.get("overlay_priority", "normal"),
+                }
+        return None
+
     def get_enemy_team_tips(self, enemy_champions: list[str]) -> list[dict]:
         """
         Get strategy notes for a full enemy team.
@@ -114,12 +138,13 @@ class StrategyReader:
         """Get overlay settings from the strategy file."""
         self.reload()
         defaults = {
+            "overlay_always_visible": True,
             "overlay_auto_show_loading_screen": True,
             "overlay_show_duration_seconds": 15,
             "overlay_opacity": 0.85,
             "overlay_font_size": 14,
             "overlay_font_family": "Segoe UI",
-            "overlay_width": 500,
+            "overlay_width": 420,
             "overlay_x": 20,
             "overlay_y": 60,
         }

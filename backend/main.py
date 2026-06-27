@@ -150,6 +150,12 @@ def create_app() -> FastAPI:
     except (ImportError, AttributeError):
         logger.debug("Champions router not yet available.")
 
+    try:
+        from backend.routers import analytics
+        app.include_router(analytics.router)
+    except (ImportError, AttributeError):
+        logger.debug("Analytics router not yet available.")
+
     # ── Health check endpoint ──
 
     @app.get("/api/v1/health")

@@ -42,6 +42,13 @@ Thumbs.db
 
 # Logs
 *.log
+logs/
 
 # PyInstaller
 *.spec
+
+# Claude
+.claude/
+
+# Work-in-progress routers
+backend/routers/analytics.py

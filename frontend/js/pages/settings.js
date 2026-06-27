@@ -8,6 +8,7 @@ async function renderSettingsPage(container) {
 
     // Load current strategy to get global prefs
     let prefs = {
+        overlay_always_visible: true,
         overlay_auto_show_loading_screen: true,
         overlay_show_duration_seconds: 15,
         overlay_opacity: 0.85,
@@ -71,6 +72,13 @@ async function renderSettingsPage(container) {
         <div class="card">
             <div class="card-header">🎮 Overlay Settings</div>
             <form id="settings-form">
+                <div class="form-group">
+                    <label class="form-label">
+                        <input type="checkbox" id="always-visible" ${prefs.overlay_always_visible !== false ? 'checked' : ''}>
+                        Always visible during game (don't fade out)
+                    </label>
+                </div>
+
                 <div class="form-group">
                     <label class="form-label">
                         <input type="checkbox" id="auto-show" ${prefs.overlay_auto_show_loading_screen ? 'checked' : ''}>
@@ -155,28 +163,33 @@ async function renderSettingsPage(container) {
     } catch (_) { /* ignore */ }
 
     // Identity form submit
-    document.getElementById('identity-form').addEventListener('submit', (e) => {
-        e.preventDefault();
-        const next = {
-            region: document.getElementById('id-region').value,
-            game_name: document.getElementById('id-name').value.trim(),
-            tag_line: document.getElementById('id-tag').value.trim().replace(/^#/, ''),
-        };
-        if (!next.game_name || !next.tag_line) {
-            App.toast('Game name and tag line are required.', 'error');
-            return;
-        }
-        App.identity.set(next);
-        // Clear cached summoner so pages reload with the new identity
-        App.state.currentSummoner = null;
-        App.toast('Identity saved. Reloading...', 'success');
-        setTimeout(() => App.navigate('home'), 600);
-    });
+    const identityForm = document.getElementById('identity-form');
+    if (identityForm) {
+        identityForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const next = {
+                region: document.getElementById('id-region').value,
+                game_name: document.getElementById('id-name').value.trim(),
+                tag_line: document.getElementById('id-tag').value.trim().replace(/^#/, ''),
+            };
+            if (!next.game_name || !next.tag_line) {
+                App.toast('Game name and tag line are required.', 'error');
+                return;
+            }
+            App.identity.set(next);
+            App.state.currentSummoner = null;
+            App.toast('Identity saved. Reloading...', 'success');
+            setTimeout(() => App.navigate('home'), 600);
+        });
+    }
 
-    // Form submit
-    document.getElementById('settings-form').addEventListener('submit', async (e) => {
+    // Overlay settings form submit
+    const settingsForm = document.getElementById('settings-form');
+    if (settingsForm) {
+        settingsForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const global_preferences = {
+            overlay_always_visible: document.getElementById('always-visible').checked,
             overlay_auto_show_loading_screen: document.getElementById('auto-show').checked,
             overlay_show_duration_seconds: parseInt(document.getElementById('show-duration').value) || 15,
             overlay_opacity: parseFloat(document.getElementById('overlay-opacity').value) || 0.85,
@@ -206,4 +219,5 @@ async function renderSettingsPage(container) {
             App.toast('Failed to save settings: ' + err.message, 'error');
         }
     });
+    }
 }

@@ -67,6 +67,8 @@ async function loadProfile() {
 
             <div id="home-stats" class="detail-grid" style="margin-bottom:24px;grid-template-columns:repeat(3,1fr);"></div>
 
+            <div id="home-analytics"></div>
+
             <div id="recent-skirmishes"></div>
         `;
 
@@ -74,6 +76,7 @@ async function loadProfile() {
             refreshHomeMatches(summoner.puuid)
         );
 
+        await renderAnalytics(summoner.puuid);
         await renderRecentSkirmishes();
     } catch (err) {
         body.innerHTML = `
@@ -227,6 +230,285 @@ async function refreshHomeMatches(puuid) {
         const restored = document.getElementById('home-refresh');
         if (restored) { restored.disabled = false; restored.textContent = '🔄 Refresh'; }
     }
+}
+
+// ── Analytics Section ─────────────────────────────────────────
+let analyticsChart = null;
+const analyticsState = { metric: 'kda', rankBenchmarks: {}, selectedRank: 'GOLD' };
+
+const METRIC_LABELS = {
+    kda: 'KDA Ratio',
+    vision_per_min: 'Vision / min',
+    cs_per_min: 'CS / min',
+    gold_per_min: 'Gold / min',
+    dmg_per_min: 'Damage / min',
+};
+
+async function renderAnalytics(puuid) {
+    const host = document.getElementById('home-analytics');
+    if (!host) return;
+
+    let data;
+    try {
+        data = await api.getAnalytics(puuid, 20);
+    } catch (_) {
+        host.innerHTML = '';
+        return;
+    }
+
+    const s = data.summary;
+    analyticsState.rankBenchmarks = data.rank_benchmarks || {};
+
+    // ── Coaching items ──
+    const coachingHtml = data.coaching.map(c => {
+        const sev = c.severity === 'poor' ? 'poor' : c.severity === 'warning' ? 'warn' : 'ok';
+        const icon = sev === 'poor' ? '🔴' : sev === 'warn' ? '⚠' : '✅';
+        return `<div class="coaching-item ${sev}">
+            <div class="coaching-item-head">
+                <span class="coaching-item-icon">${icon}</span>
+                <span class="coaching-item-area">${escapeHtml(c.area)}</span>
+                <span class="coaching-item-metric mono">${escapeHtml(c.metric)}${c.target ? ' → ' + escapeHtml(c.target) : ''}</span>
+            </div>
+            <p class="coaching-item-msg">${escapeHtml(c.message)}</p>
+        </div>`;
+    }).join('');
+
+    // ── Recent form blocks ──
+    const formHtml = data.recent_form.map(r =>
+        `<span class="form-block ${r === 'W' ? 'win' : 'loss'}" title="${r === 'W' ? 'Win' : 'Loss'}">${r}</span>`
+    ).join('');
+
+    // ── Champion pool ──
+    const champHtml = data.champion_stats.slice(0, 5).map(c => `
+        <div class="champ-pool-row">
+            <span class="champ-pool-name">${escapeHtml(c.champion)}</span>
+            <div class="champ-pool-bar">
+                <div class="champ-pool-fill" style="width:${c.win_rate}%;"></div>
+            </div>
+            <span class="champ-pool-record mono">${c.wins}W ${c.losses}L</span>
+            <span class="champ-pool-wr mono ${c.win_rate >= 50 ? 'positive' : 'negative'}">${c.win_rate}%</span>
+        </div>
+    `).join('');
+
+    // ── Summary mini-stats for chart card header ──
+    const trendIcon = s.trend_direction === 'improving' ? '📈' : s.trend_direction === 'declining' ? '📉' : '➡️';
+
+    host.innerHTML = `
+        <div class="analytics-section">
+            <div class="analytics-grid">
+                <div class="analytics-chart-card">
+                    <div class="analytics-card-head">
+                        <div>
+                            <span class="analytics-card-title">📊 Performance Trends</span>
+                            <span class="analytics-card-sub mono">
+                                ${s.win_rate}% WR (${s.wins}W ${s.losses}L)
+                                • ${s.avg_kda} avg KDA
+                                • ${trendIcon} ${s.trend_direction}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="metric-toggles" id="metric-toggles">
+                        <button class="metric-btn active" data-metric="kda">KDA</button>
+                        <button class="metric-btn" data-metric="vision_per_min">Vision</button>
+                        <button class="metric-btn" data-metric="cs_per_min">CS</button>
+                        <button class="metric-btn" data-metric="gold_per_min">Gold</button>
+                        <button class="metric-btn" data-metric="dmg_per_min">Damage</button>
+                    </div>
+                    <div class="chart-wrap"><canvas id="trend-chart"></canvas></div>
+                </div>
+
+                <div class="coaching-card">
+                    <div class="analytics-card-head">
+                        <span class="analytics-card-title">🎯 Coaching Focus</span>
+                    </div>
+                    <div class="coaching-list">${coachingHtml}</div>
+                </div>
+            </div>
+
+            <div id="rank-comparison-host"></div>
+
+            <div class="analytics-bottom">
+                <div class="analytics-mini-card">
+                    <div class="card-header" style="margin-bottom:10px;">Recent Form (last ${data.recent_form.length})</div>
+                    <div class="form-bar">${formHtml}</div>
+                </div>
+                <div class="analytics-mini-card">
+                    <div class="card-header" style="margin-bottom:10px;">Champion Pool</div>
+                    <div class="champ-pool-list">${champHtml}</div>
+                </div>
+            </div>
+        </div>
+    `;
+
+    initTrendChart(data.time_series, analyticsState.metric);
+
+    document.getElementById('metric-toggles').addEventListener('click', (e) => {
+        const btn = e.target.closest('.metric-btn');
+        if (!btn) return;
+        host.querySelectorAll('.metric-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        analyticsState.metric = btn.dataset.metric;
+        updateTrendChart(data.time_series, analyticsState.metric);
+    });
+
+    // Rank comparison dropdown
+    renderRankComparison(s);
+}
+
+function _extractMetric(timeSeries, metric) {
+    return {
+        label: METRIC_LABELS[metric] || metric,
+        labels: timeSeries.map((_, i) => i + 1),
+        values: timeSeries.map(g => g[metric]),
+        colors: timeSeries.map(g => g.win ? '#4A9E7C' : '#D44B5A'),
+    };
+}
+
+function buildChartConfig(timeSeries, metric) {
+    const m = _extractMetric(timeSeries, metric);
+    return {
+        type: 'line',
+        data: {
+            labels: m.labels,
+            datasets: [{
+                label: m.label,
+                data: m.values,
+                borderColor: '#C8A75A',
+                backgroundColor: 'rgba(200, 167, 90, 0.08)',
+                borderWidth: 2,
+                pointBackgroundColor: m.colors,
+                pointBorderColor: m.colors,
+                pointRadius: 4,
+                pointHoverRadius: 7,
+                tension: 0.3,
+                fill: true,
+            }],
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: { intersect: false, mode: 'index' },
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    backgroundColor: '#1A1D28',
+                    borderColor: '#2E3240',
+                    borderWidth: 1,
+                    titleColor: '#C8A75A',
+                    bodyColor: '#E4E6ED',
+                    padding: 10,
+                    cornerRadius: 2,
+                    titleFont: { family: 'Inter', size: 12 },
+                    bodyFont: { family: 'JetBrains Mono', size: 11 },
+                    callbacks: {
+                        title: (ctx) => {
+                            const g = timeSeries[ctx[0].dataIndex];
+                            return g.champion + ' — ' + (g.win ? 'Win' : 'Loss');
+                        },
+                        label: (ctx) => m.label + ': ' + ctx.parsed.y,
+                    },
+                },
+            },
+            scales: {
+                x: {
+                    grid: { color: 'rgba(46, 50, 64, 0.3)', drawBorder: false },
+                    ticks: { color: '#5B6170', font: { size: 10 } },
+                },
+                y: {
+                    grid: { color: 'rgba(46, 50, 64, 0.3)', drawBorder: false },
+                    ticks: { color: '#5B6170', font: { size: 10 } },
+                    beginAtZero: true,
+                },
+            },
+        },
+    };
+}
+
+function initTrendChart(timeSeries, metric) {
+    if (analyticsChart) { analyticsChart.destroy(); analyticsChart = null; }
+    const canvas = document.getElementById('trend-chart');
+    if (!canvas || typeof Chart === 'undefined') return;
+    analyticsChart = new Chart(canvas, buildChartConfig(timeSeries, metric));
+}
+
+function updateTrendChart(timeSeries, metric) {
+    if (!analyticsChart) { initTrendChart(timeSeries, metric); return; }
+    const m = _extractMetric(timeSeries, metric);
+    analyticsChart.data.datasets[0].label = m.label;
+    analyticsChart.data.datasets[0].data = m.values;
+    analyticsChart.data.datasets[0].pointBackgroundColor = m.colors;
+    analyticsChart.data.datasets[0].pointBorderColor = m.colors;
+    analyticsChart.update();
+}
+
+// ── Rank Comparison ───────────────────────────────────────────
+const RANK_ORDER = ['IRON', 'BRONZE', 'SILVER', 'GOLD', 'PLATINUM', 'EMERALD', 'DIAMOND', 'MASTER'];
+const COMPARE_METRICS = [
+    { key: 'kda',            label: 'KDA',           summary_key: 'avg_kda' },
+    { key: 'vision_per_min', label: 'Vision / min',  summary_key: 'avg_vision_per_min' },
+    { key: 'gold_per_min',   label: 'Gold / min',    summary_key: 'avg_gold_per_min' },
+    { key: 'dmg_per_min',    label: 'Damage / min',  summary_key: 'avg_dmg_per_min' },
+];
+
+function renderRankComparison(summary) {
+    const host = document.getElementById('rank-comparison-host');
+    if (!host) return;
+    const benches = analyticsState.rankBenchmarks;
+    const rank = analyticsState.selectedRank;
+    const rankData = benches[rank] || {};
+
+    const options = RANK_ORDER.map(r =>
+        '<option value="' + r + '"' + (r === rank ? ' selected' : '') + '>' +
+        r.charAt(0) + r.slice(1).toLowerCase() + '</option>'
+    ).join('');
+
+    const rows = COMPARE_METRICS.map(m => {
+        const myVal = summary[m.summary_key] || 0;
+        const rankVal = rankData[m.key];
+        if (rankVal == null) return '';
+        const diff = myVal - rankVal;
+        const pct = rankVal > 0 ? Math.round((diff / rankVal) * 100) : 0;
+        const positive = diff >= 0;
+        const arrow = positive ? '▲' : '▼';
+        const diffStr = (diff >= 0 ? '+' : '') + (Number.isInteger(diff) ? diff : diff.toFixed(2));
+
+        return '<div class="rank-comp-row">' +
+            '<span class="rank-comp-metric">' + m.label + '</span>' +
+            '<span class="rank-comp-you mono">' + myVal + '</span>' +
+            '<span class="rank-comp-sep">vs</span>' +
+            '<span class="rank-comp-them mono">' + rankVal + '</span>' +
+            '<span class="rank-comp-diff ' + (positive ? 'positive' : 'negative') + '">' +
+                diffStr + ' ' + arrow + ' (' + (positive ? '+' : '') + pct + '%)' +
+            '</span>' +
+        '</div>';
+    }).join('');
+
+    host.innerHTML = `
+        <div class="rank-comparison-card">
+            <div class="rank-comp-head">
+                <span class="analytics-card-title">📊 Rank Comparison</span>
+                <div class="rank-comp-select">
+                    <span class="rank-comp-select-label">Compare with</span>
+                    <select class="form-select" id="rank-select">${options}</select>
+                </div>
+            </div>
+            <div class="rank-comp-table">
+                <div class="rank-comp-header-row">
+                    <span>Metric</span>
+                    <span>Your Avg</span>
+                    <span></span>
+                    <span>${rank.charAt(0) + rank.slice(1).toLowerCase()} Avg</span>
+                    <span>Difference</span>
+                </div>
+                ${rows}
+            </div>
+        </div>
+    `;
+
+    document.getElementById('rank-select')?.addEventListener('change', (e) => {
+        analyticsState.selectedRank = e.target.value;
+        renderRankComparison(summary);
+    });
 }
 
 function renderMatchCard(m) {

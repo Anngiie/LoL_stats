@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "last_updated": "2026-06-26T04:01:37.325223+00:00",
+  "last_updated": "2026-06-26T23:36:35.047730+00:00",
   "champions": {
     "Alistar": {
       "vs_support": {
@@ -31,7 +31,9 @@
         ]
       },
       "with_jungler": {},
-      "with_adc": {},
+      "with_adc": {
+        "adc_solo": "2. Needs item or lvl"
+      },
       "personal_notes": "",
       "overlay_priority": "normal"
     },
@@ -3099,7 +3101,7 @@
         "synergy": "Both",
         "gameplan": "Left click and see if he is stacking passive level 1 (early)\nQ the wave for prio and level 2 control.\nRange = poke / Melee = look to roam",
         "how_to_trade": "You can look for early fights once\nyou get level 2 control. All in are good\nif Ezreal can follow.",
-        "when_to_roam": "(EASY) Good waveclear, can farm\nsafe from far away and has escape",
+        "when_to_roam": "(EASY) Good waveclear, can farm safe from far away and has escape",
         "best_supports": [
           "Karma",
           "Braum",
@@ -3809,12 +3811,13 @@
     }
   },
   "global_preferences": {
+    "overlay_always_visible": true,
     "overlay_auto_show_loading_screen": true,
     "overlay_show_duration_seconds": 15,
     "overlay_opacity": 0.85,
     "overlay_font_size": 14,
     "overlay_font_family": "Segoe UI",
-    "overlay_width": 500,
+    "overlay_width": 420,
     "overlay_x": 20,
     "overlay_y": 60
   }

@@ -73,6 +73,11 @@ const api = {
         return this._fetch(`/analysis/${puuid}/trends`);
     },
 
+    // ── Analytics ─────────────────────────────────────────
+    async getAnalytics(puuid, limit = 20) {
+        return this._fetch(`/analytics/${puuid}/overview?limit=${limit}`);
+    },
+
     // ── Strategy ──────────────────────────────────────────
     async getStrategy() {
         return this._fetch(`/strategy`);

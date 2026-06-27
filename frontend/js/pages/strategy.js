@@ -35,10 +35,11 @@ const CONTEXTS = {
         icon: '🏹',
         fields: [
             { key: 'strength',       type: 'select', options: ['', 'Weak', 'Strong', 'Depends'], label: 'Strength' },
-            { key: 'synergy',        type: 'text', label: 'Synergy' },
+            { key: 'synergy',        type: 'select', options: ['', 'Engage', 'Both', 'Enchanter'], label: 'Synergy' },
             { key: 'best_supports',  type: 'list', label: 'Best Supports' },
             { key: 'gameplan',       type: 'text', label: 'Gameplan' },
             { key: 'how_to_trade',   type: 'text', label: 'How to Trade' },
+            { key: 'adc_solo',       type: 'select', options: ['', '1. Needs help', '2. Needs item or lvl', '3. Leave alone', '4. Roam or ff'], label: 'Can ADC be left alone?' },
             { key: 'when_to_roam',   type: 'text', label: 'When to Roam' },
         ],
     },
@@ -136,6 +137,37 @@ function hasContextData(champ, ctx) {
     return Object.keys(block).length > 0;
 }
 
+function renderChampionList() {
+    // Lightweight: only updates the list, leaves the search input intact
+    const list = document.getElementById('champ-list');
+    if (!list) return;
+
+    const ctx = strategyState.activeContext;
+    const champs = strategyState.data?.champions || {};
+    const search = (strategyState.search || '').toLowerCase();
+
+    let names = Object.keys(champs).filter(name => {
+        return hasContextData(champs[name], ctx) || name === strategyState.selectedChampion;
+    });
+    if (search) names = names.filter(n => n.toLowerCase().includes(search));
+    names.sort((a, b) => a.localeCompare(b));
+
+    list.innerHTML = names.length ? names.map(name => {
+        const active = name === strategyState.selectedChampion ? 'active' : '';
+        return `<div class="champ-item ${active}" data-champion="${escapeHtml(name)}">
+            <span>${escapeHtml(name)}</span>
+        </div>`;
+    }).join('') : '<div style="padding:12px 16px;color:var(--faint);font-size:0.82rem;">No champions yet.</div>';
+
+    list.querySelectorAll('.champ-item').forEach(el => {
+        el.addEventListener('click', () => {
+            strategyState.selectedChampion = el.dataset.champion;
+            renderChampionSidebar();
+            renderChampionEditor();
+        });
+    });
+}
+
 function renderChampionSidebar() {
     const sidebar = document.getElementById('champion-sidebar');
     if (!sidebar) return;
@@ -156,27 +188,37 @@ function renderChampionSidebar() {
         strategyState.selectedChampion = names[0];
     }
 
+    const inputExisted = document.getElementById('champ-search');
+    const cursorPos = inputExisted ? inputExisted.selectionStart : 0;
+
     sidebar.innerHTML = `
         <div class="champion-sidebar-header">${CONTEXTS[ctx].label}</div>
         <input class="champion-search-input" id="champ-search"
                placeholder="Search..." value="${escapeHtml(strategyState.search)}">
         <div id="champ-list">
             ${names.length ? names.map(name => {
-                const isHigh = champs[name]?.overlay_priority === 'high';
                 const active = name === strategyState.selectedChampion ? 'active' : '';
                 return `<div class="champ-item ${active}" data-champion="${escapeHtml(name)}">
                     <span>${escapeHtml(name)}</span>
-                    ${isHigh ? '<span class="priority-star">⭐</span>' : ''}
                 </div>`;
             }).join('') : '<div style="padding:12px 16px;color:var(--faint);font-size:0.82rem;">No champions yet.</div>'}
         </div>
     `;
 
-    document.getElementById('champ-search').addEventListener('input', (e) => {
+    const champSearch = document.getElementById('champ-search');
+    champSearch.addEventListener('input', (e) => {
         strategyState.search = e.target.value;
-        renderChampionSidebar();
-        document.getElementById('champ-search').focus();
+        // Only re-render the champion list, not the input itself
+        renderChampionList();
     });
+    // Prevent re-render when just focusing the search (Tab, click)
+    champSearch.addEventListener('focus', () => {});
+
+    // Restore cursor position after re-render
+    if (document.activeElement === champSearch || inputExisted) {
+        champSearch.focus();
+        champSearch.setSelectionRange(cursorPos, cursorPos);
+    }
 
     sidebar.querySelectorAll('.champ-item').forEach(el => {
         el.addEventListener('click', () => {
@@ -209,17 +251,6 @@ function renderChampionEditor() {
             <button class="btn btn-sm btn-danger" id="delete-champ-btn" style="margin-left:auto;">🗑 Delete</button>
         </div>
 
-        <div class="form-row" style="margin-bottom:16px;">
-            <div class="form-group" style="margin-bottom:0;">
-                <label class="form-label" for="priority-select">Overlay Priority</label>
-                <select class="form-select" id="priority-select" style="width:auto;">
-                    <option value="high"   ${champ.overlay_priority === 'high' ? 'selected' : ''}>⭐ High — always show</option>
-                    <option value="normal" ${champ.overlay_priority === 'normal' ? 'selected' : ''}>Normal</option>
-                    <option value="low"    ${champ.overlay_priority === 'low' ? 'selected' : ''}>Low — only if room</option>
-                </select>
-            </div>
-        </div>
-
         <div id="context-fields"></div>
 
         <div class="card" style="margin-top:16px;background:var(--bg-deep);">
@@ -234,16 +265,6 @@ function renderChampionEditor() {
     const fieldsHost = document.getElementById('context-fields');
     fieldsHost.innerHTML = ctxDef.fields.map(f => renderField(f, block[f.key])).join('');
     attachFieldHandlers(fieldsHost, name, ctx, ctxDef, block);
-
-    // Priority
-    document.getElementById('priority-select').addEventListener('change', async (e) => {
-        try {
-            await api.updateChampionStrategy(name, { overlay_priority: e.target.value });
-            champ.overlay_priority = e.target.value;
-            App.toast('Priority updated.', 'success');
-            renderChampionSidebar();
-        } catch (err) { App.toast('Save failed: ' + err.message, 'error'); }
-    });
 
     // Delete
     document.getElementById('delete-champ-btn').addEventListener('click', async () => {
