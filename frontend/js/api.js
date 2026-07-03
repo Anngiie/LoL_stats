@@ -3,7 +3,7 @@
  * Fetch wrapper for all backend REST endpoints.
  */
 
-const API_BASE = 'http://localhost:8000/api/v1';
+const API_BASE = window.location.origin + '/api/v1';
 
 const api = {
     /**

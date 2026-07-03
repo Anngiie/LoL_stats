@@ -11,7 +11,7 @@ async function renderHomePage(container) {
 
     container.innerHTML = `
         <div class="page-header">
-            <h1 class="page-title">🏠 Command Overview</h1>
+            <h1 class="page-title">Command Overview</h1>
             <p class="page-subtitle">
                 ${escapeHtml(identity.game_name)}#${escapeHtml(identity.tag_line)}
                 • ${identity.region.toUpperCase()}
@@ -60,7 +60,7 @@ async function loadProfile() {
                         </div>
                     </div>
                     <div style="display:flex;gap:8px;">
-                        <button class="btn btn-sm" id="home-refresh" title="Fetch new matches from Riot">🔄 Refresh</button>
+                        <button class="btn btn-sm" id="home-refresh" title="Fetch new matches from Riot">Refresh</button>
                     </div>
                 </div>
             </div>
@@ -101,7 +101,7 @@ async function renderRecentSkirmishes() {
 
     host.innerHTML = `
         <div class="flex-between mb-12">
-            <div class="card-header" style="margin-bottom:0;">⚔️ Recent Skirmishes</div>
+            <div class="card-header" style="margin-bottom:0;">Recent Skirmishes</div>
             <div class="form-group" style="margin:0;">
                 <select class="form-select" id="queue-filter" style="width:auto;min-width:150px;">
                     <option value="">All Queues</option>
@@ -228,7 +228,7 @@ async function refreshHomeMatches(puuid) {
         App.toast(err.message || 'Refresh failed.', 'error');
     } finally {
         const restored = document.getElementById('home-refresh');
-        if (restored) { restored.disabled = false; restored.textContent = '🔄 Refresh'; }
+        if (restored) { restored.disabled = false; restored.textContent = 'Refresh'; }
     }
 }
 
@@ -299,7 +299,7 @@ async function renderAnalytics(puuid) {
                 <div class="analytics-chart-card">
                     <div class="analytics-card-head">
                         <div>
-                            <span class="analytics-card-title">📊 Performance Trends</span>
+                            <span class="analytics-card-title">Performance Trends</span>
                             <span class="analytics-card-sub mono">
                                 ${s.win_rate}% WR (${s.wins}W ${s.losses}L)
                                 • ${s.avg_kda} avg KDA
@@ -319,7 +319,7 @@ async function renderAnalytics(puuid) {
 
                 <div class="coaching-card">
                     <div class="analytics-card-head">
-                        <span class="analytics-card-title">🎯 Coaching Focus</span>
+                        <span class="analytics-card-title">Coaching Focus</span>
                     </div>
                     <div class="coaching-list">${coachingHtml}</div>
                 </div>
@@ -486,7 +486,7 @@ function renderRankComparison(summary) {
     host.innerHTML = `
         <div class="rank-comparison-card">
             <div class="rank-comp-head">
-                <span class="analytics-card-title">📊 Rank Comparison</span>
+                <span class="analytics-card-title">Rank Comparison</span>
                 <div class="rank-comp-select">
                     <span class="rank-comp-select-label">Compare with</span>
                     <select class="form-select" id="rank-select">${options}</select>
@@ -534,7 +534,7 @@ function renderMatchCard(m) {
         <span class="match-meta">
             <span>${formatDuration(m.game_duration)}</span>
             <span> • ${timeAgo(m.game_creation)}</span>
-            ${m.has_analysis ? ' • 📊' : ''}
+            ${m.has_analysis ? ' •' : ''}
         </span>
     </div>`;
 }
@@ -640,7 +640,7 @@ function renderAnalysisBlock(analysis) {
     let html = `
     <div class="tactical-assessment">
         <div class="ta-header">
-            <span class="ta-title">⚔ Tactical Assessment</span>
+            <span class="ta-title">Tactical Assessment</span>
             <div class="${gradeClass}" title="Overall Grade">${grade}</div>
         </div>
         ${a.summary ? `<p class="ta-summary">${escapeHtml(a.summary)}</p>` : ''}

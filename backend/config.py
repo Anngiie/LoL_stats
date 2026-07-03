@@ -71,29 +71,60 @@ class BackendConfig:
         }
 
 
+def _find_config_files() -> list[Path]:
+    """Return all config files to check, in priority order."""
+    import os
+    import sys
+
+    paths = []
+
+    # 1. Environment variable
+    env_path = os.environ.get("LOL_STATS_CONFIG", "")
+    if env_path:
+        paths.append(Path(env_path))
+
+    # 2. Same folder as the EXE (for PyInstaller builds)
+    if getattr(sys, 'frozen', False):
+        exe_dir = Path(sys.executable).parent
+        paths.append(exe_dir / "config.json")
+
+    # 3. User's app data folder
+    appdata = os.environ.get("APPDATA", "")
+    if appdata:
+        paths.append(Path(appdata) / "LoLStats" / "config.json")
+
+    # 4. Default project location
+    paths.append(DATA_DIR / "config.json")
+
+    return paths
+
+
 def load_config() -> BackendConfig:
-    """Load config from disk, falling back to defaults for missing/invalid fields."""
+    """Load config from disk, checking multiple locations in priority order.
+    Falls back to defaults for missing/invalid fields."""
+    import os
+
     config = BackendConfig()
 
     # Check for API key in environment variable first (highest priority)
-    import os
-
     env_key = os.environ.get("RIOT_API_KEY", "")
     if env_key:
         config.riot_api_key = env_key
         logger.info("Loaded RIOT_API_KEY from environment variable.")
 
-    # Overlay with config file values
-    try:
-        if CONFIG_FILE.exists():
-            data = json.loads(CONFIG_FILE.read_text())
-            valid_keys = {f.name for f in fields(BackendConfig)}
-            for key, value in data.items():
-                if key in valid_keys and key != "database_path" and key != "strategy_file":
-                    setattr(config, key, value)
-            logger.info("Loaded config from %s", CONFIG_FILE)
-    except Exception:
-        logger.debug("Could not load config from disk, using defaults.", exc_info=True)
+    # Try each config file location
+    for config_path in _find_config_files():
+        try:
+            if config_path.exists():
+                data = json.loads(config_path.read_text())
+                valid_keys = {f.name for f in fields(BackendConfig)}
+                for key, value in data.items():
+                    if key in valid_keys and key != "database_path" and key != "strategy_file":
+                        setattr(config, key, value)
+                logger.info("Loaded config from %s", config_path)
+                break  # Use first found config
+        except Exception:
+            logger.debug("Could not load config from %s", config_path, exc_info=True)
 
     # __post_init__ runs after __init__, but since we constructed without
     # calling __post_init__ properly on the modified object, call it again
@@ -102,8 +133,7 @@ def load_config() -> BackendConfig:
     if not config.riot_api_key:
         logger.warning(
             "No Riot API key configured. Set it via RIOT_API_KEY env var "
-            "or in %s. The app will start but cannot fetch match data.",
-            CONFIG_FILE,
+            "or place a config.json next to lol_stats.exe with your key."
         )
 
     return config

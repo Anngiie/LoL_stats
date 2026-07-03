@@ -46,7 +46,27 @@ def run_overlay() -> subprocess.Popen:
     )
 
 
+def _free_port(port: int) -> None:
+    """Kill whatever is squatting on this port so we can bind."""
+    import subprocess as _sp
+    try:
+        result = _sp.run(["netstat", "-ano"], capture_output=True, text=True, timeout=5)
+        for line in result.stdout.splitlines():
+            if f":{port}" in line and "LISTENING" in line:
+                pid = int(line.split()[-1])
+                try:
+                    import os as _os
+                    _os.kill(pid, 9)
+                    logger.info("Killed PID %d on port %d.", pid, port)
+                except Exception:
+                    pass
+    except Exception:
+        pass
+
+
 def main() -> int:
+    _free_port(8000)
+
     parser = argparse.ArgumentParser(description="LoL Stats Launcher")
     parser.add_argument("--backend", action="store_true", help="Run backend only")
     parser.add_argument("--overlay", action="store_true", help="Run overlay only")

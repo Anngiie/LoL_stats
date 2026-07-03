@@ -28,13 +28,13 @@ async function renderSettingsPage(container) {
 
     container.innerHTML = `
         <div class="page-header">
-            <h1 class="page-title">⚙️ Settings</h1>
+            <h1 class="page-title">Settings</h1>
             <p class="page-subtitle">Configure your summoner identity, overlay, and backend.</p>
         </div>
 
         <div class="settings-grid">
             <div class="card">
-                <div class="card-header">🪪 Summoner Identity</div>
+                <div class="card-header">Summoner Identity</div>
                 <form id="identity-form">
                 <div class="form-row">
                     <div class="form-group">
@@ -70,7 +70,7 @@ async function renderSettingsPage(container) {
         </div>
 
         <div class="card">
-            <div class="card-header">🎮 Overlay Settings</div>
+            <div class="card-header">Overlay Settings</div>
             <form id="settings-form">
                 <div class="form-group">
                     <label class="form-label">
@@ -139,7 +139,7 @@ async function renderSettingsPage(container) {
         </div>
 
         <div class="card">
-            <div class="card-header">📡 Backend</div>
+            <div class="card-header">Backend</div>
             <div id="backend-info" style="color:var(--text-secondary);font-size:0.9rem;">
                 Checking backend...
             </div>
@@ -157,7 +157,7 @@ async function renderSettingsPage(container) {
                 <p>🔑 Riot API key: ${health.riot_api_key_configured ? '✅ Configured' : '⚠️ Not configured'}</p>
                 <p>🗄️ Database: ${health.database_ok ? '✅ OK' : '❌ Error'}</p>
                 <p>📄 Strategy file: ${health.strategy_file_ok ? '✅ Found' : '❌ Missing'}</p>
-                <p>🎮 Live client: ${health.live_client_reachable ? '✅ Connected' : '❌ Not reachable'}</p>
+                <p>Live client: ${health.live_client_reachable ? '✅ Connected' : '❌ Not reachable'}</p>
             `;
         }
     } catch (_) { /* ignore */ }

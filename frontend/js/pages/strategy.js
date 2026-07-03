@@ -7,7 +7,7 @@
 const CONTEXTS = {
     vs_support: {
         label: 'vs Enemy Support',
-        icon: '⚔️',
+        icon: '',
         fields: [
             { key: 'early_strength', type: 'select', options: ['', 'Weak', 'Average', 'Strong', 'Depends'], label: 'Early Strength' },
             { key: 'strengths',      type: 'list',   label: 'Strengths (be careful)' },
@@ -19,7 +19,7 @@ const CONTEXTS = {
     },
     with_jungler: {
         label: 'With Jungler',
-        icon: '🌲',
+        icon: '',
         fields: [
             { key: 'early',          type: 'select', options: ['', 'Weak', 'Average', 'Strong'], label: 'Early' },
             { key: 'pathing',        type: 'text', label: 'Pathing' },
@@ -32,7 +32,7 @@ const CONTEXTS = {
     },
     with_adc: {
         label: 'With ADC',
-        icon: '🏹',
+        icon: '',
         fields: [
             { key: 'strength',       type: 'select', options: ['', 'Weak', 'Strong', 'Depends'], label: 'Strength' },
             { key: 'synergy',        type: 'select', options: ['', 'Engage', 'Both', 'Enchanter'], label: 'Synergy' },
@@ -57,11 +57,11 @@ async function renderStrategyPage(container) {
     container.innerHTML = `
         <div class="page-header" style="display:flex;justify-content:space-between;align-items:center;">
             <div>
-                <h1 class="page-title">📝 Strategy Editor</h1>
+                <h1 class="page-title">Strategy Editor</h1>
                 <p class="page-subtitle">Champion notes per context — these feed your in-game overlay.</p>
             </div>
             <div style="display:flex;gap:8px;">
-                <button class="btn btn-sm" id="add-champion-btn">➕ Add Champion</button>
+                <button class="btn btn-sm" id="add-champion-btn">Add Champion</button>
             </div>
         </div>
 
@@ -248,13 +248,13 @@ function renderChampionEditor() {
         <div class="editor-title">
             <h2>${ctxDef.icon} ${escapeHtml(name)}</h2>
             <span class="faint" style="font-size:0.8rem;">${ctxDef.label}</span>
-            <button class="btn btn-sm btn-danger" id="delete-champ-btn" style="margin-left:auto;">🗑 Delete</button>
+            <button class="btn btn-sm btn-danger" id="delete-champ-btn" style="margin-left:auto;">Delete</button>
         </div>
 
         <div id="context-fields"></div>
 
         <div class="card" style="margin-top:16px;background:var(--bg-deep);">
-            <div class="card-header">🗒️ Personal Notes (shared across contexts)</div>
+            <div class="card-header">Personal Notes (shared across contexts)</div>
             <textarea class="form-textarea" id="personal-notes" placeholder="Your own notes for ${escapeHtml(name)}..."
                       style="min-height:90px;">${escapeHtml(champ.personal_notes || '')}</textarea>
             <p class="form-hint" id="notes-save">Auto-saved</p>
