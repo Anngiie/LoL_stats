@@ -14,29 +14,9 @@ import os
 import signal
 import sys
 import threading
+import webbrowser
 from pathlib import Path
 
-# ── Windowed mode fix ──────────────────────────────────────
-# In PyInstaller --windowed mode, sys.stdout/sys.stderr are None.
-# Redirect them to a null device so nothing crashes.
-if sys.stdout is None:
-    sys.stdout = open(os.devnull, "w")
-if sys.stderr is None:
-    sys.stderr = open(os.devnull, "w")
-
-# ── Logging ────────────────────────────────────────────────
-
-# Console logging is off by default; set LOGGER=1 to enable.
-_logger = logging.getLogger()
-_logger.setLevel(logging.DEBUG if os.environ.get("LOGGER") == "1" else logging.WARNING)
-if not _logger.handlers:
-    _h = logging.StreamHandler(sys.stdout)
-    _h.setLevel(logging.DEBUG if os.environ.get("LOGGER") == "1" else logging.WARNING)
-    _h.setFormatter(logging.Formatter(
-        "%(asctime)s [%(name)s] %(levelname)s: %(message)s",
-        datefmt="%H:%M:%S",
-    ))
-    _logger.addHandler(_h)
 logger = logging.getLogger("lol_stats")
 
 # Ensure we can find our modules regardless of how we're launched
@@ -60,7 +40,7 @@ def run_backend():
                     host=config.host,
                     port=config.port,
                     factory=True,
-                    log_level="info" if os.environ.get("LOGGER") == "1" else "warning",
+                    log_level="warning",
                 )
             )
 
@@ -75,7 +55,6 @@ def run_backend():
     logger.info("Backend started on http://%s:%d", config.host, config.port)
 
     # Auto-open browser after a short delay
-    import webbrowser
     import time as _time
     def _open_browser():
         _time.sleep(1.5)
@@ -100,6 +79,7 @@ def _free_port(port: int):
         result = _sp.run(
             ["netstat", "-ano"],
             capture_output=True, text=True, timeout=5,
+            creationflags=0x08000000,
         )
         for line in result.stdout.splitlines():
             if f":{port}" in line and "LISTENING" in line:
