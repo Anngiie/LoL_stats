@@ -94,7 +94,7 @@ def build():
     cmd = [
         sys.executable, "-m", "PyInstaller",
         "--onefile",
-        "--console",
+        "--windowed",
         "--name", "lol_stats",
         "--icon", str(PROJECT_ROOT / "LoL_stats icon (2).ico"),
         "--clean",
