@@ -408,7 +408,8 @@ function buildChartConfig(timeSeries, metric) {
                         },
                         label: (ctx) => {
                             const g = timeSeries[ctx.dataIndex];
-                            return 'KDA: ' + g.kda + '  •  ' + m.label + ': ' + ctx.parsed.y;
+                            const metricLabel = METRIC_LABELS[analyticsState.metric] || analyticsState.metric;
+                            return metricLabel + ': ' + g[analyticsState.metric];
                         },
                     },
                 },
