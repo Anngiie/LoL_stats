@@ -431,6 +431,27 @@ body::after {
 }
 .match-stats-row span { white-space: nowrap; }
 
+.match-queue-tag {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 3px 8px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    white-space: nowrap;
+}
+.match-queue-tag.ranked-solo,
+.match-queue-tag.ranked-flex {
+    color: var(--gold);
+    border-color: rgba(204, 167, 79, 0.4);
+}
+.match-queue-tag.aram {
+    color: var(--warn);
+    border-color: rgba(230, 185, 78, 0.3);
+}
+
 .match-meta {
     margin-left: auto;
     text-align: right;

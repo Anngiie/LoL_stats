@@ -536,6 +536,7 @@ function renderMatchCard(m) {
             <span>VS ${m.vision_score}</span>
             <span>${gold}k</span>
         </span>
+        <span class="match-queue-tag ${queueName(m.queue_id).toLowerCase().replace(/\s+/g, '-')}">${queueName(m.queue_id)}</span>
         <span class="match-meta">
             <span>${formatDuration(m.game_duration)}</span>
             <span> • ${timeAgo(m.game_creation)}</span>
