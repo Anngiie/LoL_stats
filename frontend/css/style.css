@@ -428,6 +428,7 @@ body::after {
     font-size: 0.85rem;
     color: var(--muted);
     font-family: var(--font-mono);
+    min-width: 185px;
 }
 .match-stats-row span { white-space: nowrap; }
 
