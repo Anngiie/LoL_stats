@@ -141,7 +141,7 @@ async function loadMatchList() {
     const queueNum = queue ? parseInt(queue) : null;
 
     try {
-        const result = await api.getMatches(summoner.puuid, App.state.matchPage, HOME_PAGE_SIZE);
+        const result = await api.getMatches(summoner.puuid, App.state.matchPage, HOME_PAGE_SIZE, queueNum);
         App.state.matchList = result.matches;
         App.state.hasMoreMatches = result.has_more;
 

@@ -181,6 +181,7 @@ async def list_matches(
     request: Request,
     page: int = Query(1, ge=1),
     per_page: int = Query(20, ge=1, le=100),
+    queue: int | None = Query(None, description="Queue filter: 420=ranked solo, 440=flex, 450=ARAM"),
 ):
     """Get paginated match history for a summoner from the database."""
     state = _get_services(request)
@@ -190,13 +191,24 @@ async def list_matches(
         raise HTTPException(status_code=404, detail="Summoner not found. Look them up first.")
 
     offset = (page - 1) * per_page
-    total = db.get_match_count(puuid)
 
-    rows = db.fetch_all(
-        """SELECT * FROM matches WHERE puuid = ?
-           ORDER BY game_creation DESC LIMIT ? OFFSET ?""",
-        (puuid, per_page, offset),
-    )
+    if queue is not None:
+        total = db.fetch_one(
+            "SELECT COUNT(*) AS cnt FROM matches WHERE puuid = ? AND queue_id = ?",
+            (puuid, queue),
+        )["cnt"]
+        rows = db.fetch_all(
+            """SELECT * FROM matches WHERE puuid = ? AND queue_id = ?
+               ORDER BY game_creation DESC LIMIT ? OFFSET ?""",
+            (puuid, queue, per_page, offset),
+        )
+    else:
+        total = db.get_match_count(puuid)
+        rows = db.fetch_all(
+            """SELECT * FROM matches WHERE puuid = ?
+               ORDER BY game_creation DESC LIMIT ? OFFSET ?""",
+            (puuid, per_page, offset),
+        )
 
     matches = [_row_to_summary(r) for r in rows]
     has_more = offset + per_page < total

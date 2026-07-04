@@ -50,8 +50,10 @@ const api = {
     },
 
     // ── Matches ───────────────────────────────────────────
-    async getMatches(puuid, page = 1, perPage = 20) {
-        return this._fetch(`/matches/${puuid}?page=${page}&per_page=${perPage}`);
+    async getMatches(puuid, page = 1, perPage = 20, queue = null) {
+        let url = `/matches/${puuid}?page=${page}&per_page=${perPage}`;
+        if (queue) url += `&queue=${queue}`;
+        return this._fetch(url);
     },
 
     async refreshMatches(puuid, count = 20, queue = null) {
