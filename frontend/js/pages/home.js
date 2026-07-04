@@ -218,7 +218,7 @@ async function refreshHomeMatches(puuid) {
     const btn = document.getElementById('home-refresh');
     if (!btn) return;
     btn.disabled = true;
-    btn.textContent = '⏳ Fetching...';
+    btn.textContent = 'Fetching...';
     try {
         const result = await api.refreshMatches(puuid, 20, null);
         App.toast(result.message || 'Matches refreshed.', 'success');
