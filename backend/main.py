@@ -21,11 +21,7 @@ from backend.services.riot_client import RiotClient
 
 # Configure logging — console output only when LOGGER=1 env var is set
 _log_level = logging.DEBUG if os.environ.get("LOGGER") == "1" else logging.WARNING
-logging.basicConfig(
-    level=_log_level,
-    format="%(asctime)s [%(name)s] %(levelname)s: %(message)s",
-    datefmt="%H:%M:%S",
-)
+logging.getLogger().setLevel(_log_level)
 logger = logging.getLogger("lol_stats")
 
 

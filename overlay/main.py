@@ -37,11 +37,11 @@ file_handler.setFormatter(logging.Formatter(
 ))
 
 root_logger = logging.getLogger()
-root_logger.setLevel(logging.DEBUG)
 root_logger.addHandler(file_handler)
 
 # Console output only when LOGGER=1 env var is set
 if os.environ.get("LOGGER") == "1":
+    root_logger.setLevel(logging.DEBUG)
     console_handler = logging.StreamHandler(sys.stdout)
     console_handler.setLevel(logging.INFO)
     console_handler.setFormatter(logging.Formatter(

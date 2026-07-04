@@ -19,12 +19,16 @@ from pathlib import Path
 # ── Logging ────────────────────────────────────────────────
 
 # Console logging is off by default; set LOGGER=1 to enable.
-_log_level = logging.DEBUG if os.environ.get("LOGGER") == "1" else logging.WARNING
-logging.basicConfig(
-    level=_log_level,
-    format="%(asctime)s [%(name)s] %(levelname)s: %(message)s",
-    datefmt="%H:%M:%S",
-)
+_logger = logging.getLogger()
+_logger.setLevel(logging.DEBUG if os.environ.get("LOGGER") == "1" else logging.WARNING)
+if not _logger.handlers:
+    _h = logging.StreamHandler(sys.stdout)
+    _h.setLevel(logging.DEBUG if os.environ.get("LOGGER") == "1" else logging.WARNING)
+    _h.setFormatter(logging.Formatter(
+        "%(asctime)s [%(name)s] %(levelname)s: %(message)s",
+        datefmt="%H:%M:%S",
+    ))
+    _logger.addHandler(_h)
 logger = logging.getLogger("lol_stats")
 
 # Ensure we can find our modules regardless of how we're launched
@@ -48,7 +52,7 @@ def run_backend():
                     host=config.host,
                     port=config.port,
                     factory=True,
-                    log_level="info",
+                    log_level="info" if os.environ.get("LOGGER") == "1" else "warning",
                 )
             )
 
