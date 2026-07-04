@@ -1,6 +1,3 @@
-# Riot API key — NEVER commit this
-backend/data/config.json
-
 # Config with API keys (never commit)
 backend/data/config.json
 dist/config.json
