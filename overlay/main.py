@@ -15,7 +15,8 @@ from datetime import datetime
 from pathlib import Path
 
 from PySide6.QtCore import QTimer
-from PySide6.QtWidgets import QApplication
+from PySide6.QtWidgets import QApplication, QSystemTrayIcon
+from PySide6.QtGui import QIcon, QAction
 
 from overlay.league_overlay import LeagueOverlay
 from overlay.live_client import LiveClientPoller
@@ -105,6 +106,36 @@ class LeagueOverlayApp:
                 logger.warning("Failed to load font: %s", ttf.name)
         logger.info("Loaded %d font file(s)", loaded)
 
+    def _get_icon_path(self) -> str:
+        """Find the app icon file (works in source and frozen EXE)."""
+        icon_name = "LoL_stats icon (2).ico"
+        if getattr(sys, 'frozen', False):
+            return str(Path(sys._MEIPASS) / icon_name)
+        return str(Path(__file__).parent.parent / icon_name)
+
+    def _setup_tray(self) -> None:
+        """Create a system tray icon with a Quit menu."""
+        icon_path = self._get_icon_path()
+        icon = QIcon(icon_path)
+
+        if icon.isNull():
+            logger.warning("Tray icon not found at %s", icon_path)
+            return
+
+        self._tray = QSystemTrayIcon(icon)
+        self._tray.setToolTip("LoL Stats Overlay — right-click to quit")
+
+        # Context menu
+        menu = QApplication.instance().style()  # dummy to ensure style exists
+        from PySide6.QtWidgets import QMenu
+        tray_menu = QMenu()
+        quit_action = tray_menu.addAction("Quit")
+        quit_action.triggered.connect(self._qt_app.quit)
+        self._tray.setContextMenu(tray_menu)
+
+        self._tray.show()
+        logger.info("System tray icon created")
+
     def run(self) -> int:
         """Start everything and enter the Qt event loop."""
         logger.info("=" * 50)
@@ -117,6 +148,9 @@ class LeagueOverlayApp:
             ov.setWindowOpacity(0.8)
             ov.show()
         logger.info("3 overlay panels shown (initial opacity: 0.8)")
+
+        # Set up system tray icon
+        self._setup_tray()
 
         # Start polling the Live Client API
         self._poller.start()

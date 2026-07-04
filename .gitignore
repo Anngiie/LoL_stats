@@ -4,6 +4,9 @@ backend/data/config.json
 # Authentication backup codes
 andjela.casic@gmail.com Backup authentication codes.txt
 
+# Coach K Excel guide (sensitive — not for public distribution)
+Support champ guide.xlsx
+
 # Python
 __pycache__/
 *.py[cod]

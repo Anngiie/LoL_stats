@@ -96,6 +96,7 @@ def build():
         "--onefile",
         "--console",
         "--name", "lol_stats",
+        "--icon", str(PROJECT_ROOT / "LoL_stats icon (2).ico"),
         "--clean",
         "--noconfirm",
     ]
@@ -116,6 +117,11 @@ def build():
 
     # Exclude the Coach K Excel from the bundle (it's 11 MB)
     cmd.extend(["--add-data", f"{str(PROJECT_ROOT / 'shared' / 'strategy.json')}{os.pathsep}shared"])
+
+    # Bundle the app icon (used for system tray)
+    icon_file = PROJECT_ROOT / "LoL_stats icon (2).ico"
+    if icon_file.exists():
+        cmd.extend(["--add-data", f"{str(icon_file)}{os.pathsep}."])
 
     # Entry point
     cmd.append(str(PROJECT_ROOT / "lol_stats_launcher.py"))
