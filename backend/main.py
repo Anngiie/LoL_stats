@@ -6,6 +6,7 @@ Serves the REST API and the static frontend files.
 """
 
 import logging
+import os
 import sys
 from contextlib import asynccontextmanager
 from pathlib import Path
@@ -18,9 +19,10 @@ from backend.config import load_config, BackendConfig
 from backend.database import Database
 from backend.services.riot_client import RiotClient
 
-# Configure logging
+# Configure logging — console output only when LOGGER=1 env var is set
+_log_level = logging.DEBUG if os.environ.get("LOGGER") == "1" else logging.WARNING
 logging.basicConfig(
-    level=logging.INFO,
+    level=_log_level,
     format="%(asctime)s [%(name)s] %(levelname)s: %(message)s",
     datefmt="%H:%M:%S",
 )

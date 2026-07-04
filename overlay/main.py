@@ -9,6 +9,7 @@ Usage:
 """
 
 import logging
+import os
 import signal
 import sys
 from datetime import datetime
@@ -35,17 +36,19 @@ file_handler.setFormatter(logging.Formatter(
     datefmt="%H:%M:%S",
 ))
 
-console_handler = logging.StreamHandler(sys.stdout)
-console_handler.setLevel(logging.INFO)
-console_handler.setFormatter(logging.Formatter(
-    "%(asctime)s [%(name)s] %(levelname)s: %(message)s",
-    datefmt="%H:%M:%S",
-))
-
 root_logger = logging.getLogger()
 root_logger.setLevel(logging.DEBUG)
 root_logger.addHandler(file_handler)
-root_logger.addHandler(console_handler)
+
+# Console output only when LOGGER=1 env var is set
+if os.environ.get("LOGGER") == "1":
+    console_handler = logging.StreamHandler(sys.stdout)
+    console_handler.setLevel(logging.INFO)
+    console_handler.setFormatter(logging.Formatter(
+        "%(asctime)s [%(name)s] %(levelname)s: %(message)s",
+        datefmt="%H:%M:%S",
+    ))
+    root_logger.addHandler(console_handler)
 
 logger = logging.getLogger("lol_overlay")
 

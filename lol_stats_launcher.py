@@ -10,6 +10,7 @@ Used by PyInstaller to create a single EXE.
 
 import asyncio
 import logging
+import os
 import signal
 import sys
 import threading
@@ -17,8 +18,10 @@ from pathlib import Path
 
 # ── Logging ────────────────────────────────────────────────
 
+# Console logging is off by default; set LOGGER=1 to enable.
+_log_level = logging.DEBUG if os.environ.get("LOGGER") == "1" else logging.WARNING
 logging.basicConfig(
-    level=logging.INFO,
+    level=_log_level,
     format="%(asctime)s [%(name)s] %(levelname)s: %(message)s",
     datefmt="%H:%M:%S",
 )

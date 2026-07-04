@@ -12,6 +12,7 @@ Usage:
 
 import argparse
 import logging
+import os
 import subprocess
 import sys
 import time
@@ -19,8 +20,9 @@ from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).parent.parent
 
+_log_level = logging.DEBUG if os.environ.get("LOGGER") == "1" else logging.WARNING
 logging.basicConfig(
-    level=logging.INFO,
+    level=_log_level,
     format="%(asctime)s [%(name)s] %(levelname)s: %(message)s",
     datefmt="%H:%M:%S",
 )
