@@ -109,19 +109,6 @@ CREATE TABLE IF NOT EXISTS matches (
 
 CREATE INDEX IF NOT EXISTS idx_matches_puuid ON matches(puuid);
 CREATE INDEX IF NOT EXISTS idx_matches_game_creation ON matches(game_creation DESC);
-
-CREATE TABLE IF NOT EXISTS timeline_events (
-    id              INTEGER PRIMARY KEY AUTOINCREMENT,
-    match_id        TEXT NOT NULL,
-    timestamp_ms    INTEGER NOT NULL,
-    type            TEXT NOT NULL,
-    event_data      TEXT NOT NULL,
-    created_at      TEXT NOT NULL DEFAULT (datetime('now')),
-    FOREIGN KEY (match_id) REFERENCES matches(match_id)
-);
-
-CREATE INDEX IF NOT EXISTS idx_timeline_match ON timeline_events(match_id);
-CREATE INDEX IF NOT EXISTS idx_timeline_type ON timeline_events(type);
 """
 
 
@@ -235,16 +222,6 @@ class Database:
         self.execute(
             f"INSERT OR REPLACE INTO matches ({', '.join(cols)}) VALUES ({placeholders})",
             values,
-        )
-
-    def insert_timeline_events(self, match_id: str, events: list[dict]) -> None:
-        """Batch-insert timeline events for a match."""
-        if not events:
-            return
-        self.execute_many(
-            "INSERT OR IGNORE INTO timeline_events (match_id, timestamp_ms, type, event_data) "
-            "VALUES (?, ?, ?, ?)",
-            [(match_id, e["timestamp_ms"], e["type"], e["event_data"]) for e in events],
         )
 
     def update_match_analysis(self, match_id: str, analysis_json: str) -> None:

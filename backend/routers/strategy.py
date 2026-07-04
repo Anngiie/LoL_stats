@@ -65,9 +65,7 @@ async def update_champion_strategy(champion_name: str, updates: StrategyUpdateRe
     if updates.overlay_priority is not None:
         update_dict["overlay_priority"] = updates.overlay_priority
 
-    if not update_dict:
-        raise HTTPException(status_code=400, detail="No fields to update.")
-
+    # An empty body is a valid "create with defaults" (the Add Champion flow).
     entry = mgr.update_champion(champion_name, update_dict)
     return {"champion": champion_name, **entry}
 
