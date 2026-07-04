@@ -1,6 +1,10 @@
 # Riot API key — NEVER commit this
 backend/data/config.json
 
+# Config with API keys (never commit)
+backend/data/config.json
+dist/config.json
+
 # Authentication backup codes
 andjela.casic@gmail.com Backup authentication codes.txt
 
