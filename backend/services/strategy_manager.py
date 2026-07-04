@@ -90,8 +90,11 @@ class StrategyManager:
             entry.setdefault("personal_notes", entry.get("personal_notes", ""))
             entry.setdefault("overlay_priority", entry.get("overlay_priority", "normal"))
 
-            # Prune if entirely empty.
-            if (not entry["vs_support"] and not entry["with_jungler"]
+            # Prune only legacy entries that migrated to nothing. Freshly
+            # created 3-context entries (the Add Champion flow) start empty and
+            # must survive until the user fills them in.
+            if (not already_migrated
+                    and not entry["vs_support"] and not entry["with_jungler"]
                     and not entry["with_adc"]
                     and not entry.get("personal_notes")):
                 empty_names.append(name)
