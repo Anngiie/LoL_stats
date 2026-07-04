@@ -224,6 +224,20 @@ python build_exe.py
 
 ---
 
+## Roadmap / Future Features
+
+- **Item Recommendations in Overlay** — Show recommended build paths directly in the overlay based on the champion you're playing and the enemy team composition
+- **Expanded Champion Database** — Add more champions to the strategy database with matchup-specific notes, power spikes, and laning tips
+- **Summoner Spell Tracker** — Track enemy summoner spell cooldowns (Flash, Ignite, Heal, etc.) with visual countdown timers on the overlay
+- **Item Build Import** — Import recommended item builds from popular sources and display them contextually during champion select or loading screen
+- **Win Condition Detection** — Automatically identify your team's win conditions (scaling, early game, skirmish, split-push) based on team compositions
+- **Overlay Customization** — More control over panel positioning, sizing, and which panels to show/hide
+- **Match Timeline** — Visual timeline of key events (kills, objectives, gold leads) per match
+- **Multi-Role Support** — Currently tuned for support mains; expand strategy data and benchmarks for all roles
+- **Live Stats Overlay** — Real-time CS, gold, and KDA comparison between you and your lane opponent during the game
+
+---
+
 ## License
 
 MIT License — free for personal use.
