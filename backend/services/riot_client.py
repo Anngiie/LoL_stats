@@ -265,12 +265,6 @@ class RiotClient:
         url = f"{base}/lol/match/v5/matches/{match_id}"
         return self._request(url)
 
-    def get_match_timeline(self, match_id: str, region: str = "euw1") -> Optional[dict]:
-        """Get match timeline (per-minute granular events)."""
-        base = self._regional_base(region)
-        url = f"{base}/lol/match/v5/matches/{match_id}/timeline"
-        return self._request(url)
-
     # ─── League-V4 ───────────────────────────────────────────
 
     def get_ranked_entries(self, summoner_id: str, region: str) -> Optional[list[dict]]:

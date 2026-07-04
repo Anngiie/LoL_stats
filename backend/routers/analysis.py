@@ -38,15 +38,8 @@ async def get_match_analysis(match_id: str, request: Request):
     # Convert sqlite3.Row to dict
     match_dict = dict(row)
 
-    # Get timeline events for richer analysis
-    timeline_rows = db.fetch_all(
-        "SELECT * FROM timeline_events WHERE match_id = ? ORDER BY timestamp_ms",
-        (match_id,),
-    )
-    timeline = [dict(r) for r in timeline_rows] if timeline_rows else None
-
     # Run analysis
-    analysis = analyze_match(match_dict, timeline)
+    analysis = analyze_match(match_dict)
     analysis_json = json.dumps(analysis)
 
     # Cache in DB

@@ -106,7 +106,6 @@ async def delete_summoner(puuid: str, request: Request):
     if not db.summoner_exists(puuid):
         raise HTTPException(status_code=404, detail="Summoner not found.")
 
-    db.execute("DELETE FROM timeline_events WHERE match_id IN (SELECT match_id FROM matches WHERE puuid = ?)", (puuid,))
     db.execute("DELETE FROM matches WHERE puuid = ?", (puuid,))
     db.execute("DELETE FROM summoners WHERE puuid = ?", (puuid,))
 
