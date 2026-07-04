@@ -1,8 +1,8 @@
 /* ═══════════════════════════════════════════════════════════════
-   LoL Stats — Karakal-Inspired Tactical Design
+   LoL Stats - Tactical Design System
    Dark terminal aesthetic with HUD grid, corner brackets,
    monospace typography, and dramatic visual hierarchy.
-   ═══════════════════════════════════════════════════════════════ */
+   ════════════════════════════════════════════════════════════════ */
 
 /* ── Design Tokens ─────────────────────────────────────────── */
 :root {
@@ -123,14 +123,14 @@ body::after {
     display: flex;
     flex-direction: column;
     gap: 4px;
-    padding: 0 16px;
+    padding: 0 12px;
 }
 
 .nav-item {
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 14px 16px;
+    padding: 14px 12px;
     border-radius: var(--radius);
     color: var(--muted);
     font-size: 0.85rem;
@@ -232,7 +232,7 @@ body::after {
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* ── Cards (Karakal-style with corner brackets) ─────────── */
+/* ── Cards (tactical style with corner brackets) ─────────── */
 .card {
     position: relative;
     background: var(--surface);

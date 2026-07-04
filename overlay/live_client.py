@@ -141,6 +141,19 @@ class LiveClientPoller(QObject):
                         list(pl[0].keys())[:10] if pl else [],
                         [(p.get("championName", "?"), p.get("position", "?"), p.get("team", "?")) for p in pl],
                     )
+                    # Log full summonerSpells structure for each player
+                    logger.info("=== SUMMONER SPELLS DEBUG ===")
+                    for player in pl:
+                        champ = player.get("championName", "?")
+                        spells = player.get("summonerSpells", {})
+                        logger.info("Player: %s", champ)
+                        logger.info("  summonerSpells keys: %s", list(spells.keys()) if spells else "NONE")
+                        if spells:
+                            for spell_key, spell_data in spells.items():
+                                logger.info("  %s:", spell_key)
+                                logger.info("    keys: %s", list(spell_data.keys()) if isinstance(spell_data, dict) else "NOT A DICT")
+                                logger.info("    full data: %s", spell_data)
+                    logger.info("=== END SUMMONER SPELLS DEBUG ===")
                     self._data_logged = True
                 return data
             elif resp.status_code == 404:

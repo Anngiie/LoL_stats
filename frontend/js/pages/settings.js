@@ -13,7 +13,7 @@ async function renderSettingsPage(container) {
         overlay_show_duration_seconds: 15,
         overlay_opacity: 0.85,
         overlay_font_size: 14,
-        overlay_font_family: 'Segoe UI',
+        overlay_font_family: 'JetBrains Mono',
         overlay_width: 500,
         overlay_x: 20,
         overlay_y: 60,
@@ -64,7 +64,7 @@ async function renderSettingsPage(container) {
                         <input class="form-input" id="id-tag" value="${escapeHtml(identity.tag_line)}" autocomplete="off">
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">💾 Save Identity</button>
+                <button type="submit" class="btn btn-primary">Save Identity</button>
                 <span class="form-hint">This is the summoner the dashboard loads automatically on Home.</span>
             </form>
         </div>
@@ -108,6 +108,8 @@ async function renderSettingsPage(container) {
                     <div class="form-group">
                         <label class="form-label" for="font-family">Font family</label>
                         <select class="form-select" id="font-family">
+                            <option ${prefs.overlay_font_family === 'JetBrains Mono' ? 'selected' : ''}>JetBrains Mono</option>
+                            <option ${prefs.overlay_font_family === 'Martian Mono' ? 'selected' : ''}>Martian Mono</option>
                             <option ${prefs.overlay_font_family === 'Segoe UI' ? 'selected' : ''}>Segoe UI</option>
                             <option ${prefs.overlay_font_family === 'Consolas' ? 'selected' : ''}>Consolas</option>
                             <option ${prefs.overlay_font_family === 'Arial' ? 'selected' : ''}>Arial</option>
@@ -134,7 +136,7 @@ async function renderSettingsPage(container) {
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary">💾 Save Settings</button>
+                <button type="submit" class="btn btn-primary">Save Settings</button>
             </form>
         </div>
 
@@ -153,11 +155,11 @@ async function renderSettingsPage(container) {
         const info = document.getElementById('backend-info');
         if (health && health.status === 'ok') {
             info.innerHTML = `
-                <p>✅ Backend online <span style="color:var(--text-muted);">(v${health.version || '0.1.0'})</span></p>
-                <p>🔑 Riot API key: ${health.riot_api_key_configured ? '✅ Configured' : '⚠️ Not configured'}</p>
-                <p>🗄️ Database: ${health.database_ok ? '✅ OK' : '❌ Error'}</p>
-                <p>📄 Strategy file: ${health.strategy_file_ok ? '✅ Found' : '❌ Missing'}</p>
-                <p>Live client: ${health.live_client_reachable ? '✅ Connected' : '❌ Not reachable'}</p>
+                <p>Backend online <span style="color:var(--text-muted);">(v${health.version || '0.1.0'})</span></p>
+                <p>Riot API key: <span style="color:${health.riot_api_key_configured ? 'var(--win)' : 'var(--loss)'};font-weight:700;">${health.riot_api_key_configured ? 'Configured' : 'Not configured'}</span></p>
+                <p>Database: <span style="color:${health.database_ok ? 'var(--win)' : 'var(--loss)'};font-weight:700;">${health.database_ok ? 'OK' : 'Error'}</span></p>
+                <p>Strategy file: <span style="color:${health.strategy_file_ok ? 'var(--win)' : 'var(--loss)'};font-weight:700;">${health.strategy_file_ok ? 'Found' : 'Missing'}</span></p>
+                <p>Live client: <span style="color:${health.live_client_reachable ? 'var(--win)' : 'var(--loss)'};font-weight:700;">${health.live_client_reachable ? 'Connected' : 'Not reachable'}</span></p>
             `;
         }
     } catch (_) { /* ignore */ }
@@ -201,18 +203,10 @@ async function renderSettingsPage(container) {
         };
 
         try {
-            // Save via strategy endpoint
-            const current = await api.getStrategy();
-            await api.updateChampionStrategy('__global__', {
-                ...current.global_preferences,
-                ...global_preferences,
-            });
-            // Actually, we need a dedicated endpoint. For now, just save to localStorage
-            // as a fallback — the overlay will read the JSON file directly
-            await fetch('/api/v1/strategy', {
-                method: 'PUT',
+            await fetch('/api/v1/strategy/global-preferences', {
+                method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ global_preferences }),
+                body: JSON.stringify(global_preferences),
             });
             App.toast('Settings saved! Restart the overlay to apply changes.', 'success');
         } catch (err) {

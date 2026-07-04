@@ -1,18 +1,11 @@
 """
-LoL Stats - League Overlay Widget (Single-Panel)
-==================================================
-A transparent, always-on-top, frameless PySide6 window that displays
-strategy notes for ONE context (vs enemy support / with ADC / with jungler).
+LoL Stats - League Overlay Widget (Single-Panel, Karakal Design)
+==================================================================
+Dark panel with corner brackets, HUD grid, and JetBrains Mono text.
+Matches the web dashboard's Karakal-inspired tactical aesthetic.
 
 Three instances are created by main.py — each positioned at a different
 screen corner and rendering a different strategy context.
-
-Techniques:
-  - FramelessWindowHint | WindowStaysOnTopHint | Tool
-  - WA_TranslucentBackground — fully transparent background
-  - WS_EX_LAYERED | WS_EX_NOACTIVATE | WS_EX_TRANSPARENT via win32gui
-  - QPainterPath outlined text for readability on any background
-  - QTimer for smooth opacity fade
 """
 
 import logging
@@ -20,60 +13,79 @@ import sys
 import time
 
 from PySide6.QtCore import Qt, QTimer, QRect, Signal, Slot
-from PySide6.QtGui import QFont, QColor, QPainter, QPen, QBrush, QPainterPath, QFontMetrics
+from PySide6.QtGui import QFont, QColor, QPainter, QPen, QBrush, QFontMetrics
 from PySide6.QtWidgets import QApplication, QWidget
 
 logger = logging.getLogger(__name__)
 
-# ─── Constants ───────────────────────────────────────────
+# ─── Karakal Design Tokens ──────────────────────────────────
 
-TEXT_COLOR = QColor(255, 255, 255)
-OUTLINE_COLOR = QColor(0, 0, 0)
+BG_DEEP    = QColor(8, 9, 11, 200)       # #08090b ~78% opacity
+SURFACE    = QColor(13, 15, 18)          # #0d0f12
+ELEVATED   = QColor(18, 21, 25)          # #121519
+BORDER     = QColor(35, 40, 48)          # #232830
+BORDER_LIGHT = QColor(53, 60, 71)        # #353c47
+
+GOLD       = QColor(204, 167, 79)        # #cca74f
+GOLD_DIM   = QColor(124, 103, 49)        # #7c6731
+GOLD_BRIGHT = QColor(242, 217, 143)      # #f2d98f
+
+TEXT       = QColor(232, 234, 237)       # #e8eaed
+TEXT_DIM   = QColor(197, 200, 204)       # #c5c8cc
+MUTED      = QColor(139, 147, 160)       # #8b93a0
+FAINT      = QColor(90, 97, 109)         # #5a616d
+
+WIN_COLOR  = QColor(79, 209, 138)        # #4fd18a
+LOSS_COLOR = QColor(236, 106, 94)        # #ec6a5e
+
 GRAB_FILL_COLOR = QColor(0, 0, 0, 1)
 
 AUTO_HIDE_FADE_STEP = 0.05
 TICK_INTERVAL_MS = 100
 
-SIDE_PADDING = 14
-LINE_SPACING_PX = 3
-HEADER_GAP = 8
-HEADER_FONT_SIZE = 12
-CHAMP_FONT_SIZE = 12
-TIP_FONT_SIZE = 11
+SIDE_PADDING = 16
+LINE_SPACING_PX = 4
+HEADER_GAP = 10
+HEADER_FONT_SIZE = 9
+CHAMP_FONT_SIZE = 14
+TIP_FONT_SIZE = 10
 MAX_TIP_LEN = 120
 MAX_TIPS = 3
 MAX_WRAP_PER_TIP = 4
-PANEL_WIDTH = 440
+PANEL_WIDTH = 420
+CORNER_SIZE = 12
+CORNER_THICKNESS = 2
+GRID_SIZE = 40
+GRID_COLOR = QColor(140, 150, 165, 10)
+PANEL_MARGIN = 2
 
-DEFAULT_OPACITY = 0.85
+DEFAULT_OPACITY = 0.88
+FONT_FAMILY = "JetBrains Mono"
+FONT_DISPLAY = "Martian Mono"
 
 NO_GAME_MSG = "Waiting for game..."
 NO_DATA_MSG = "No notes — add in web dashboard"
 NOT_DETECTED_MSG = "Not detected yet"
 
-# Per-panel configuration: title, icon, accent color, screen position
+# Per-panel configuration: title, accent color, screen position
 PANEL_CONFIGS = {
     "vs_support": {
         "title": "VS ENEMY SUPPORT",
-        "icon": "⚔",
-        "color": QColor(212, 75, 90),
+        "color": QColor(236, 106, 94),    # red
         "position": "top_left",
     },
     "with_adc": {
         "title": "WITH YOUR ADC",
-        "icon": "🏹",
-        "color": QColor(74, 158, 124),
+        "color": QColor(79, 209, 138),    # green
         "position": "bottom_left",
     },
     "with_jungler": {
         "title": "WITH YOUR JUNGLER",
-        "icon": "🌲",
-        "color": QColor(200, 167, 90),
+        "color": QColor(204, 167, 79),    # gold
         "position": "top_right",
     },
 }
 
-# Maps panel key → team_comp key for champion lookup
 COMP_KEY = {
     "vs_support": "enemy_support",
     "with_adc": "allied_adc",
@@ -83,11 +95,8 @@ COMP_KEY = {
 
 class LeagueOverlay(QWidget):
     """
-    Single-panel transparent overlay for one strategy context.
-
-    Instantiate with panel_key = 'vs_support' | 'with_adc' | 'with_jungler'.
-    The overlay auto-positions at its designated screen corner and renders
-    outlined text (no opaque background).
+    Single-panel dark overlay for one strategy context.
+    Renders a Karakal-style dark panel with corner brackets and HUD grid.
     """
 
     update_requested = Signal()
@@ -102,7 +111,6 @@ class LeagueOverlay(QWidget):
         self._panel_key = panel_key
         self._config = PANEL_CONFIGS[panel_key]
 
-        # ── State ──
         self._champion: str = ""
         self._lines: list[str] = []
         self._phase: str = "NO_GAME"
@@ -117,7 +125,6 @@ class LeagueOverlay(QWidget):
     # ─── Public API ──────────────────────────────────────────
 
     def on_game_data(self, phase: str, team_comp: dict) -> None:
-        """Update this panel's data from team composition."""
         prev = self._phase
         self._phase = phase
 
@@ -125,7 +132,6 @@ class LeagueOverlay(QWidget):
         champ = team_comp.get(comp_key, "")
         self._champion = champ
 
-        # Look up strategy for this champion in this context
         self._lines = []
         if champ:
             ctx = self._strategy.get_champion_context(champ, self._panel_key)
@@ -133,11 +139,8 @@ class LeagueOverlay(QWidget):
                 self._lines = self._extract_lines(ctx.get("block", {}))
 
         self._prefs = self._strategy.get_global_preferences()
-
-        # Pre-wrap lines and resize window to fit content
         self._resize_for_content()
 
-        # ── Visibility ──
         phase_changed = prev != phase
         always_visible = self._prefs.get("overlay_always_visible", True)
         opacity = self._prefs.get("overlay_opacity", DEFAULT_OPACITY)
@@ -167,9 +170,7 @@ class LeagueOverlay(QWidget):
     # ─── Strategy extraction ────────────────────────────────
 
     def _extract_lines(self, block: dict) -> list[str]:
-        """Pull the most relevant tips from a context block."""
         lines: list[str] = []
-
         if self._panel_key == "vs_support":
             for tip in block.get("how_to_play", [])[:MAX_TIPS]:
                 lines.append(tip)
@@ -178,17 +179,13 @@ class LeagueOverlay(QWidget):
                 lines.append("Counters: " + ", ".join(counters[:3]))
             if not lines and block.get("more_info"):
                 lines.append(block["more_info"])
-
         elif self._panel_key == "with_adc":
             if block.get("gameplan"):
                 lines.append(block["gameplan"])
-            if block.get("adc_solo") and len(lines) < MAX_TIPS:
-                lines.append("ADC solo: " + block["adc_solo"])
             if block.get("how_to_trade") and len(lines) < MAX_TIPS:
                 lines.append("Trade: " + block["how_to_trade"])
             if block.get("when_to_roam") and len(lines) < MAX_TIPS:
                 lines.append("Roam: " + block["when_to_roam"])
-
         elif self._panel_key == "with_jungler":
             if block.get("gameplan"):
                 lines.append(block["gameplan"])
@@ -196,7 +193,6 @@ class LeagueOverlay(QWidget):
                 lines.append("Synergy: " + block["synergy"])
             if block.get("vision_level1") and len(lines) < MAX_TIPS:
                 lines.append("Vision: " + block["vision_level1"])
-
         return lines
 
     # ─── Window setup ────────────────────────────────────────
@@ -213,11 +209,9 @@ class LeagueOverlay(QWidget):
         self._position_window()
 
     def _position_window(self) -> None:
-        """Initial position — actual sizing happens in _resize_for_content."""
         self._apply_geometry(self._estimate_height())
 
     def _get_position(self, width: int, height: int) -> tuple[int, int]:
-        """Return (x, y) for this panel's screen corner."""
         screen = QApplication.primaryScreen()
         if screen:
             geo = screen.geometry()
@@ -235,18 +229,15 @@ class LeagueOverlay(QWidget):
         return margin, 60
 
     def _apply_geometry(self, height: int) -> None:
-        """Set window geometry for the current panel width/height."""
         x, y = self._get_position(PANEL_WIDTH, height)
         self.setGeometry(x, y, PANEL_WIDTH, height)
 
     def _estimate_height(self) -> int:
-        """Rough height estimate for initial sizing."""
         line_h = TIP_FONT_SIZE + LINE_SPACING_PX + 2
         return (HEADER_FONT_SIZE + HEADER_GAP) + (CHAMP_FONT_SIZE + 6) + \
-               (MAX_TIPS * MAX_WRAP_PER_TIP * line_h) + SIDE_PADDING * 2
+               (MAX_TIPS * MAX_WRAP_PER_TIP * line_h) + SIDE_PADDING * 2 + 20
 
     def _wrap_text(self, text: str, fm, max_width: int) -> list[str]:
-        """Word-wrap text to fit within max_width pixels."""
         words = text.split()
         if not words:
             return [text]
@@ -264,17 +255,14 @@ class LeagueOverlay(QWidget):
         return lines
 
     def _resize_for_content(self) -> None:
-        """Pre-wrap tip lines and resize the window to fit all content."""
-        font_family = self._prefs.get("overlay_font_family", "Segoe UI")
+        font_family = self._prefs.get("overlay_font_family", "JetBrains Mono")
         tip_font = QFont(font_family, TIP_FONT_SIZE)
         fm_tip = QFontMetrics(tip_font)
-        header_font = QFont(font_family, HEADER_FONT_SIZE, QFont.Weight.Bold)
-        champ_font = QFont(font_family, CHAMP_FONT_SIZE, QFont.Weight.Bold)
+        header_font = QFont(FONT_DISPLAY, HEADER_FONT_SIZE, QFont.Weight.Bold)
+        champ_font = QFont(FONT_DISPLAY, CHAMP_FONT_SIZE, QFont.Weight.Bold)
 
-        # Text area: from x=14+10=24 to right edge minus 14px margin
-        text_width = PANEL_WIDTH - SIDE_PADDING * 2 - 16
+        text_width = PANEL_WIDTH - SIDE_PADDING * 2 - 20
 
-        # Wrap each tip into visual lines
         self._wrapped_tips: list[list[str]] = []
         total_wrapped = 0
         for line in self._lines[:MAX_TIPS]:
@@ -282,16 +270,14 @@ class LeagueOverlay(QWidget):
             self._wrapped_tips.append(wrapped)
             total_wrapped += len(wrapped)
 
-        # Calculate needed height with generous bottom padding
         line_h = fm_tip.height() + LINE_SPACING_PX
         fm_header = QFontMetrics(header_font)
         fm_champ = QFontMetrics(champ_font)
 
         tip_lines = max(total_wrapped, 1)
-        content_h = fm_header.height() + HEADER_GAP + fm_champ.height() + 4
+        content_h = fm_header.height() + HEADER_GAP + fm_champ.height() + 6
         content_h += tip_lines * line_h
-        # Generous bottom padding — 40px ensures no descender clipping
-        height = content_h + SIDE_PADDING * 2 + 40
+        height = content_h + SIDE_PADDING * 2 + 16
 
         self._apply_geometry(height)
 
@@ -314,7 +300,6 @@ class LeagueOverlay(QWidget):
         try:
             import win32gui
             import win32con
-
             hwnd = int(self.winId())
             ex = win32gui.GetWindowLong(hwnd, win32con.GWL_EXSTYLE)
             ex |= win32con.WS_EX_LAYERED
@@ -331,128 +316,137 @@ class LeagueOverlay(QWidget):
         except Exception:
             logger.exception("Failed to apply window styles.")
 
-    # ─── Paint ───────────────────────────────────────────────
+    # ─── Paint (Karakal Design) ─────────────────────────────
 
     def paintEvent(self, event) -> None:
         p = QPainter(self)
         p.setRenderHint(QPainter.RenderHint.Antialiasing, True)
-
-        # Explicit clip to prevent text from bleeding past window edges
         p.setClipRect(self.rect())
 
         # Hit-testing fill
         p.fillRect(self.rect(), GRAB_FILL_COLOR)
 
-        font_family = self._prefs.get("overlay_font_family", "Segoe UI")
-        header_font = QFont(font_family, HEADER_FONT_SIZE, QFont.Weight.Bold)
-        champ_font = QFont(font_family, CHAMP_FONT_SIZE, QFont.Weight.Bold)
+        # ── Dark panel background ──
+        m = PANEL_MARGIN
+        panel_rect = QRect(m, m, self.width() - m * 2, self.height() - m * 2)
+        p.setBrush(QBrush(BG_DEEP))
+        p.setPen(QPen(BORDER, 1))
+        p.drawRoundedRect(panel_rect, 4, 4)
+
+        # ── HUD grid pattern ──
+        p.setPen(QPen(GRID_COLOR, 1))
+        inner_left = m + 1
+        inner_top = m + 1
+        inner_right = self.width() - m - 1
+        inner_bottom = self.height() - m - 1
+        gx = inner_left + GRID_SIZE
+        while gx < inner_right:
+            p.drawLine(gx, inner_top, gx, inner_bottom)
+            gx += GRID_SIZE
+        gy = inner_top + GRID_SIZE
+        while gy < inner_bottom:
+            p.drawLine(inner_left, gy, inner_right, gy)
+            gy += GRID_SIZE
+
+        # ── Corner brackets (panel accent color) ──
+        accent = self._config["color"]
+        bracket_pen = QPen(accent, CORNER_THICKNESS)
+        bracket_pen.setJoinStyle(Qt.PenJoinStyle.MiterJoin)
+        p.setPen(bracket_pen)
+        cs = CORNER_SIZE
+
+        # Top-left
+        p.drawLine(m, m, m + cs, m)
+        p.drawLine(m, m, m, m + cs)
+        # Top-right
+        p.drawLine(self.width() - m - cs, m, self.width() - m, m)
+        p.drawLine(self.width() - m, m, self.width() - m, m + cs)
+        # Bottom-left
+        p.drawLine(m, self.height() - m, m + cs, self.height() - m)
+        p.drawLine(m, self.height() - m - cs, m, self.height() - m)
+        # Bottom-right
+        p.drawLine(self.width() - m - cs, self.height() - m, self.width() - m, self.height() - m)
+        p.drawLine(self.width() - m, self.height() - m - cs, self.width() - m, self.height() - m)
+
+        # ── Text content ──
+        font_family = self._prefs.get("overlay_font_family", "JetBrains Mono")
+        header_font = QFont(FONT_DISPLAY, HEADER_FONT_SIZE, QFont.Weight.Bold)
+        champ_font = QFont(FONT_DISPLAY, CHAMP_FONT_SIZE, QFont.Weight.Bold)
         tip_font = QFont(font_family, TIP_FONT_SIZE)
 
         fm_header = QFontMetrics(header_font)
         fm_champ = QFontMetrics(champ_font)
         fm_tip = QFontMetrics(tip_font)
 
-        # Use full window width for text area — no extra right margin needed
         usable_width = self.width() - SIDE_PADDING * 2
         x = SIDE_PADDING
-        y = SIDE_PADDING
+        y = SIDE_PADDING + 2
 
-        # ── No game ──
+        # ── No game state ──
         if self._phase in ("NO_GAME", "GAME_ENDED"):
-            self._draw_text(p, x, y + fm_tip.ascent(), NO_GAME_MSG, 120, tip_font)
+            p.setFont(tip_font)
+            p.setPen(QPen(MUTED))
+            p.drawText(QRect(x, y, usable_width, fm_tip.height()),
+                       Qt.AlignmentFlag.AlignLeft, NO_GAME_MSG)
             p.end()
             return
 
-        # ── Section header ──
-        header = self._config["icon"] + " " + self._config["title"]
-        # Truncate if header is wider than window
-        header_elided = fm_header.elidedText(header, Qt.TextElideMode.ElideRight, usable_width)
-        self._draw_text_colored(p, x, y + fm_header.ascent(), header_elided,
-                                self._config["color"], header_font)
+        # ── Section header (accent colored, uppercase) ──
+        p.setFont(header_font)
+        p.setPen(QPen(accent))
+        header_text = fm_header.elidedText(
+            self._config["title"], Qt.TextElideMode.ElideRight, usable_width)
+        p.drawText(QRect(x, y, usable_width, fm_header.height()),
+                   Qt.AlignmentFlag.AlignLeft, header_text)
         y += fm_header.height() + HEADER_GAP
 
         # ── Champion name ──
         if self._champion:
-            champ_text = "▸ " + self._champion
-            champ_text = fm_champ.elidedText(champ_text, Qt.TextElideMode.ElideRight, usable_width - 8)
-            self._draw_text(p, x + 4, y + fm_champ.ascent(),
-                            champ_text, 220, champ_font)
-            y += fm_champ.height() + 4
+            p.setFont(champ_font)
+            p.setPen(QPen(TEXT))
+            champ_text = fm_champ.elidedText(
+                self._champion, Qt.TextElideMode.ElideRight, usable_width)
+            p.drawText(QRect(x, y, usable_width, fm_champ.height()),
+                       Qt.AlignmentFlag.AlignLeft, champ_text)
+            y += fm_champ.height() + 6
         else:
-            self._draw_text(p, x + 4, y + fm_tip.ascent(), NOT_DETECTED_MSG, 140, tip_font)
+            p.setFont(tip_font)
+            p.setPen(QPen(MUTED))
+            p.drawText(QRect(x, y, usable_width, fm_tip.height()),
+                       Qt.AlignmentFlag.AlignLeft, NOT_DETECTED_MSG)
             p.end()
             return
 
         # ── Tips ──
+        p.setFont(tip_font)
         wrapped_tips = getattr(self, '_wrapped_tips', None)
         if wrapped_tips:
             for tip_lines in wrapped_tips:
                 for li, wl in enumerate(tip_lines):
-                    prefix = "• " if li == 0 else "  "
+                    prefix = "> " if li == 0 else "  "
                     text = prefix + wl
-                    # Elide if still too wide for the window
-                    text = fm_tip.elidedText(text, Qt.TextElideMode.ElideRight, usable_width - 16)
-                    self._draw_text(p, x + 10, y + fm_tip.ascent(),
-                                    text, 190, tip_font)
+                    text = fm_tip.elidedText(
+                        text, Qt.TextElideMode.ElideRight, usable_width - 4)
+                    p.setPen(QPen(TEXT_DIM))
+                    p.drawText(QRect(x, y, usable_width, fm_tip.height()),
+                               Qt.AlignmentFlag.AlignLeft, text)
                     y += fm_tip.height() + LINE_SPACING_PX
         elif self._lines:
             for line in self._lines[:MAX_TIPS]:
                 display = line[:MAX_TIP_LEN] + "..." if len(line) > MAX_TIP_LEN else line
-                text = "• " + display
-                text = fm_tip.elidedText(text, Qt.TextElideMode.ElideRight, usable_width - 16)
-                self._draw_text(p, x + 10, y + fm_tip.ascent(),
-                                text, 190, tip_font)
+                text = "> " + display
+                text = fm_tip.elidedText(
+                    text, Qt.TextElideMode.ElideRight, usable_width - 4)
+                p.setPen(QPen(TEXT_DIM))
+                p.drawText(QRect(x, y, usable_width, fm_tip.height()),
+                           Qt.AlignmentFlag.AlignLeft, text)
                 y += fm_tip.height() + LINE_SPACING_PX
         else:
-            self._draw_text(p, x + 10, y + fm_tip.ascent(),
-                            "• " + NO_DATA_MSG, 140, tip_font)
+            p.setPen(QPen(FAINT))
+            p.drawText(QRect(x, y, usable_width, fm_tip.height()),
+                       Qt.AlignmentFlag.AlignLeft, "> " + NO_DATA_MSG)
 
         p.end()
-
-    def _draw_text(self, painter, x: int, baseline: int, text: str,
-                   alpha: int, font: QFont) -> None:
-        """Outlined text — white fill with black stroke."""
-        if not text:
-            return
-        path = QPainterPath()
-        path.addText(x, baseline, font, text)
-
-        outline = QColor(OUTLINE_COLOR)
-        outline.setAlpha(min(alpha + 20, 255))
-        pen = QPen(outline)
-        pen.setWidthF(2.5)
-        pen.setJoinStyle(Qt.PenJoinStyle.RoundJoin)
-        painter.setPen(pen)
-        painter.setBrush(Qt.BrushStyle.NoBrush)
-        painter.drawPath(path)
-
-        fill = QColor(TEXT_COLOR)
-        fill.setAlpha(alpha)
-        painter.setPen(QPen(fill))
-        painter.setBrush(QBrush(fill))
-        painter.drawPath(path)
-
-    def _draw_text_colored(self, painter, x: int, baseline: int, text: str,
-                           color: QColor, font: QFont) -> None:
-        """Outlined text with a colored fill instead of white."""
-        if not text:
-            return
-        path = QPainterPath()
-        path.addText(x, baseline, font, text)
-
-        outline = QColor(OUTLINE_COLOR)
-        outline.setAlpha(230)
-        pen = QPen(outline)
-        pen.setWidthF(2.5)
-        pen.setJoinStyle(Qt.PenJoinStyle.RoundJoin)
-        painter.setPen(pen)
-        painter.setBrush(Qt.BrushStyle.NoBrush)
-        painter.drawPath(path)
-
-        fill = QColor(color)
-        painter.setPen(QPen(fill))
-        painter.setBrush(QBrush(fill))
-        painter.drawPath(path)
 
     # ─── Tick / fade ─────────────────────────────────────────
 

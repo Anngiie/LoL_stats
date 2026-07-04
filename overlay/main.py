@@ -57,6 +57,9 @@ class LeagueOverlayApp:
         self._qt_app.setApplicationName("LoL Stats Overlay")
         self._qt_app.setQuitOnLastWindowClosed(False)
 
+        # Load bundled fonts so the overlay uses JetBrains Mono / Martian Mono
+        self._load_fonts()
+
         # Strategy file path (shared with backend)
         strategy_file = Path(__file__).parent.parent / "shared" / "strategy.json"
 
@@ -77,6 +80,30 @@ class LeagueOverlayApp:
         # Track previous state for change detection
         self._last_team_comp: dict | None = None
         self._poll_count: int = 0
+
+    def _load_fonts(self) -> None:
+        """Load bundled TTF fonts so Qt can use JetBrains Mono and Martian Mono."""
+        from PySide6.QtGui import QFontDatabase
+
+        if getattr(sys, 'frozen', False):
+            fonts_dir = Path(sys._MEIPASS) / "frontend" / "fonts"
+        else:
+            fonts_dir = Path(__file__).parent.parent / "frontend" / "fonts"
+
+        if not fonts_dir.exists():
+            logger.warning("Fonts directory not found: %s", fonts_dir)
+            return
+
+        loaded = 0
+        for ttf in sorted(fonts_dir.glob("*.ttf")):
+            font_id = QFontDatabase.addApplicationFont(str(ttf))
+            if font_id >= 0:
+                families = QFontDatabase.applicationFontFamilies(font_id)
+                logger.info("Loaded font: %s (%s)", ttf.name, families)
+                loaded += 1
+            else:
+                logger.warning("Failed to load font: %s", ttf.name)
+        logger.info("Loaded %d font file(s)", loaded)
 
     def run(self) -> int:
         """Start everything and enter the Qt event loop."""

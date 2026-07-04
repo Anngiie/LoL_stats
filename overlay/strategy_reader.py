@@ -143,7 +143,7 @@ class StrategyReader:
             "overlay_show_duration_seconds": 15,
             "overlay_opacity": 0.85,
             "overlay_font_size": 14,
-            "overlay_font_family": "Segoe UI",
+            "overlay_font_family": "JetBrains Mono",
             "overlay_width": 420,
             "overlay_x": 20,
             "overlay_y": 60,

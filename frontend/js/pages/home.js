@@ -291,7 +291,7 @@ async function renderAnalytics(puuid) {
     `).join('');
 
     // ── Summary mini-stats for chart card header ──
-    const trendIcon = s.trend_direction === 'improving' ? '📈' : s.trend_direction === 'declining' ? '📉' : '➡️';
+    const trendColor = s.trend_direction === 'improving' ? 'var(--win)' : s.trend_direction === 'declining' ? 'var(--loss)' : 'var(--muted)';
 
     host.innerHTML = `
         <div class="analytics-section">
@@ -303,7 +303,7 @@ async function renderAnalytics(puuid) {
                             <span class="analytics-card-sub mono">
                                 ${s.win_rate}% WR (${s.wins}W ${s.losses}L)
                                 • ${s.avg_kda} avg KDA
-                                • ${trendIcon} ${s.trend_direction}
+                                • <span style="color:${trendColor};font-weight:700;">${s.trend_direction.charAt(0).toUpperCase() + s.trend_direction.slice(1)}</span>
                             </span>
                         </div>
                     </div>
@@ -391,14 +391,15 @@ function buildChartConfig(timeSeries, metric) {
             plugins: {
                 legend: { display: false },
                 tooltip: {
-                    backgroundColor: '#1A1D28',
-                    borderColor: '#2E3240',
+                    backgroundColor: '#0d0f12',
+                    borderColor: '#232830',
                     borderWidth: 1,
-                    titleColor: '#C8A75A',
-                    bodyColor: '#E4E6ED',
+                    titleColor: '#cca74f',
+                    bodyColor: '#e8eaed',
                     padding: 10,
-                    cornerRadius: 2,
-                    titleFont: { family: 'Inter', size: 12 },
+                    cornerRadius: 0,
+                    displayColors: false,
+                    titleFont: { family: 'JetBrains Mono', size: 12, weight: '700' },
                     bodyFont: { family: 'JetBrains Mono', size: 11 },
                     callbacks: {
                         title: (ctx) => {
