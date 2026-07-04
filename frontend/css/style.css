@@ -130,6 +130,7 @@ body::after {
     display: flex;
     align-items: center;
     gap: 12px;
+    width: 100%;
     padding: 14px 12px;
     border-radius: var(--radius);
     color: var(--muted);
