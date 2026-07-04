@@ -16,6 +16,14 @@ import sys
 import threading
 from pathlib import Path
 
+# ── Windowed mode fix ──────────────────────────────────────
+# In PyInstaller --windowed mode, sys.stdout/sys.stderr are None.
+# Redirect them to a null device so nothing crashes.
+if sys.stdout is None:
+    sys.stdout = open(os.devnull, "w")
+if sys.stderr is None:
+    sys.stderr = open(os.devnull, "w")
+
 # ── Logging ────────────────────────────────────────────────
 
 # Console logging is off by default; set LOGGER=1 to enable.
