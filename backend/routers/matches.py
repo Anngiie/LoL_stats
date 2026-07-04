@@ -87,21 +87,6 @@ def _parse_participant(match_data: dict, puuid: str) -> dict | None:
     return None
 
 
-def _parse_timeline_events(timeline_data: dict) -> list[dict]:
-    """Extract relevant timeline events into a flat list."""
-    events = []
-    info = timeline_data.get("info", {})
-    for frame in info.get("frames", []):
-        timestamp_ms = frame.get("timestamp", 0)
-        for event in frame.get("events", []):
-            events.append({
-                "timestamp_ms": timestamp_ms,
-                "type": event.get("type", "UNKNOWN"),
-                "event_data": json.dumps(event),
-            })
-    return events
-
-
 def _row_to_summary(row: sqlite3.Row) -> MatchSummary:
     return MatchSummary(
         match_id=row["match_id"],
@@ -265,12 +250,6 @@ async def refresh_matches(
         db.insert_match(participant)
         new_count += 1
         logger.debug("Stored match %s (%s)", match_id, participant.get("champion_name", "?"))
-
-        # Fetch timeline (optional, don't fail if unavailable)
-        timeline = riot_client.get_match_timeline(match_id, region)
-        if timeline:
-            events = _parse_timeline_events(timeline)
-            db.insert_timeline_events(match_id, events)
 
     total = db.get_match_count(puuid)
     logger.info("Refresh complete for %s: %d new matches, %d total", puuid[:8], new_count, total)
