@@ -404,9 +404,12 @@ function buildChartConfig(timeSeries, metric) {
                     callbacks: {
                         title: (ctx) => {
                             const g = timeSeries[ctx[0].dataIndex];
-                            return g.champion + ' — ' + (g.win ? 'Win' : 'Loss');
+                            return g.champion_name + ' — ' + (g.win ? 'Win' : 'Loss');
                         },
-                        label: (ctx) => m.label + ': ' + ctx.parsed.y,
+                        label: (ctx) => {
+                            const g = timeSeries[ctx.dataIndex];
+                            return 'KDA: ' + g.kda + '  •  ' + m.label + ': ' + ctx.parsed.y;
+                        },
                     },
                 },
             },
