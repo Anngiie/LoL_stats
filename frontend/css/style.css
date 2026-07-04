@@ -441,6 +441,8 @@ body::after {
     border: 1px solid var(--border);
     color: var(--muted);
     white-space: nowrap;
+    min-width: 110px;
+    text-align: center;
 }
 .match-queue-tag.ranked-solo,
 .match-queue-tag.ranked-flex {
