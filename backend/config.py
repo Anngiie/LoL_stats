@@ -119,8 +119,12 @@ def load_config() -> BackendConfig:
                 data = json.loads(config_path.read_text())
                 valid_keys = {f.name for f in fields(BackendConfig)}
                 for key, value in data.items():
-                    if key in valid_keys and key != "database_path" and key != "strategy_file":
-                        setattr(config, key, value)
+                    if key not in valid_keys or key in ("database_path", "strategy_file"):
+                        continue
+                    # Env var wins over config.json for the API key.
+                    if key == "riot_api_key" and env_key:
+                        continue
+                    setattr(config, key, value)
                 logger.info("Loaded config from %s", config_path)
                 break  # Use first found config
         except Exception:
