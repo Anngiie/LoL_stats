@@ -17,6 +17,12 @@ import threading
 import webbrowser
 from pathlib import Path
 
+# In PyInstaller --windowed mode, sys.stdout/sys.stderr are None.
+if sys.stdout is None:
+    sys.stdout = open(os.devnull, "w")
+if sys.stderr is None:
+    sys.stderr = open(os.devnull, "w")
+
 logger = logging.getLogger("lol_stats")
 
 # Ensure we can find our modules regardless of how we're launched
