@@ -2,6 +2,20 @@
 
 A League of Legends personal statistics dashboard with a live in-game overlay. Built for players who want deep match analysis and real-time tactical insights without leaving the game.
 
+## Screenshots
+
+### Web Dashboard
+
+![Web Dashboard](web_lol.gif)
+
+The web dashboard shows your full match history, analytics with performance trends, champion pool win rates, coaching advice, rank comparison, and a strategy editor with per-champion notes across three contexts (vs enemy support, with your ADC, with your jungler). Settings page lets you configure your summoner identity, overlay preferences, and view backend status.
+
+### Live In-Game Overlay
+
+![Live Overlay](overlay.gif)
+
+The overlay appears automatically during games as three transparent dark panels positioned at screen corners. Each panel shows champion-specific tactical notes relevant to the detected team composition — how to play vs the enemy support, your lane gameplan with your ADC, and jungle synergy with your jungler. Panels stay visible throughout the game and auto-hide when no game is running.
+
 ---
 
 ## Features
