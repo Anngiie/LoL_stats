@@ -141,19 +141,6 @@ class LiveClientPoller(QObject):
                         list(pl[0].keys())[:10] if pl else [],
                         [(p.get("championName", "?"), p.get("position", "?"), p.get("team", "?")) for p in pl],
                     )
-                    # Log full summonerSpells structure for each player
-                    logger.info("=== SUMMONER SPELLS DEBUG ===")
-                    for player in pl:
-                        champ = player.get("championName", "?")
-                        spells = player.get("summonerSpells", {})
-                        logger.info("Player: %s", champ)
-                        logger.info("  summonerSpells keys: %s", list(spells.keys()) if spells else "NONE")
-                        if spells:
-                            for spell_key, spell_data in spells.items():
-                                logger.info("  %s:", spell_key)
-                                logger.info("    keys: %s", list(spell_data.keys()) if isinstance(spell_data, dict) else "NOT A DICT")
-                                logger.info("    full data: %s", spell_data)
-                    logger.info("=== END SUMMONER SPELLS DEBUG ===")
                     self._data_logged = True
                 return data
             elif resp.status_code == 404:
@@ -169,54 +156,6 @@ class LiveClientPoller(QObject):
         except Exception as e:
             logger.debug("Live Client API error: %s", e)
             return None
-
-    def get_enemy_champions(self, all_game_data: dict) -> list[str]:
-        """
-        Extract enemy champion names from the allgamedata payload.
-
-        The active player's team is determined by their summoner name
-        matching one of the allPlayers entries. Enemies are all players
-        on the opposite team.
-        """
-        active_player = all_game_data.get("activePlayer", {})
-        all_players = all_game_data.get("allPlayers", [])
-
-        if not active_player or not all_players:
-            return []
-
-        # Find the active player's team using riotId (summonerName is no longer
-        # available on activePlayer in recent LoL patches)
-        active_riot_id = active_player.get("riotIdGameName", "") or active_player.get("summonerName", "")
-        active_team = None
-        active_champ_name = ""
-
-        for p in all_players:
-            p_name = p.get("riotIdGameName", "") or p.get("summonerName", "")
-            if p_name == active_riot_id and active_riot_id:
-                active_team = p.get("team")
-                active_champ_name = p.get("championName", "")
-                break
-
-        # Fallback: match by champion name if riotId doesn't work
-        if active_team is None:
-            for p in all_players:
-                if p.get("championName") == active_player.get("championName", ""):
-                    active_team = p.get("team")
-                    active_champ_name = p.get("championName", "")
-                    break
-
-        if active_team is None:
-            return []
-
-        # Collect enemy champions
-        enemies = []
-        for p in all_players:
-            if p.get("team") != active_team and not p.get("isBot", False):
-                champ = p.get("championName", "")
-                if champ:
-                    enemies.append(champ)
-
-        return enemies
 
     def get_active_champion(self, all_game_data: dict) -> str:
         """Get the active player's champion name by matching riotId against allPlayers."""

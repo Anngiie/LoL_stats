@@ -243,6 +243,7 @@ class StrategyManager:
     @staticmethod
     def _default_prefs() -> dict:
         return {
+            "overlay_always_visible": True,
             "overlay_auto_show_loading_screen": True,
             "overlay_show_duration_seconds": 15,
             "overlay_opacity": 0.85,

@@ -97,6 +97,7 @@ def _row_to_summary(row: sqlite3.Row) -> MatchSummary:
         deaths=row["deaths"],
         assists=row["assists"],
         total_minions_killed=row["total_minions_killed"],
+        neutral_minions_killed=row["neutral_minions_killed"],
         vision_score=row["vision_score"],
         gold_earned=row["gold_earned"],
         game_duration=row["game_duration"],

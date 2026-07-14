@@ -119,6 +119,7 @@ async function renderRecentSkirmishes() {
     document.getElementById('queue-filter').addEventListener('change', () => {
         App.state.matchPage = 1;
         loadMatchList();
+        renderAnalytics(summoner.puuid);
     });
 
     App.state.matchPage = 1;
@@ -248,9 +249,12 @@ async function renderAnalytics(puuid) {
     const host = document.getElementById('home-analytics');
     if (!host) return;
 
+    const queue = document.getElementById('queue-filter')?.value || null;
+    const queueNum = queue ? parseInt(queue) : null;
+
     let data;
     try {
-        data = await api.getAnalytics(puuid, 20);
+        data = await api.getAnalytics(puuid, 20, queueNum);
     } catch (_) {
         host.innerHTML = '';
         return;
@@ -519,6 +523,7 @@ function renderRankComparison(summary) {
 function renderMatchCard(m) {
     const ratio = kdaRatio(m.kills, m.deaths, m.assists);
     const gold = (m.gold_earned / 1000).toFixed(1);
+    const totalCs = (m.total_minions_killed || 0) + (m.neutral_minions_killed || 0);
     return `
     <div class="match-strip ${m.win ? 'win' : 'loss'}"
          onclick="App.navigate('match/${encodeURIComponent(m.match_id)}')"
@@ -532,7 +537,7 @@ function renderMatchCard(m) {
             <span class="ratio">${ratio}</span>
         </span>
         <span class="match-stats-row">
-            <span>${m.total_minions_killed} CS</span>
+            <span>${totalCs} CS</span>
             <span>VS ${m.vision_score}</span>
             <span>${gold}k</span>
         </span>
@@ -560,8 +565,9 @@ async function renderMatchDetail(container, args) {
     try {
         const match = await api.getMatchDetail(summoner.puuid, matchId);
         const ratio = kdaRatio(match.kills, match.deaths, match.assists);
+        const totalCs = (match.total_minions_killed || 0) + (match.neutral_minions_killed || 0);
         const csPerMin = match.game_duration > 0
-            ? (match.total_minions_killed / (match.game_duration / 60)).toFixed(1)
+            ? (totalCs / (match.game_duration / 60)).toFixed(1)
             : '0';
         const goldK = (match.gold_earned / 1000).toFixed(1);
 
@@ -614,7 +620,7 @@ async function renderMatchDetail(container, args) {
                     <div class="stat-label">KDA <span class="gold">${ratio}</span></div>
                 </div>
                 <div class="stat-box">
-                    <div class="stat-value">${match.total_minions_killed}</div>
+                    <div class="stat-value">${totalCs}</div>
                     <div class="stat-label">CS <span class="muted">${csPerMin}/min</span></div>
                 </div>
                 <div class="stat-box">

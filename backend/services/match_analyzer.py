@@ -344,11 +344,18 @@ def _analyze_items(items: list[int], position: str, match_row: dict) -> tuple[st
         score_penalty = 0
 
     # Check if trinket was upgraded (item6)
+    # 3340 = Stealth Ward (yellow trinket, un-upgraded)
+    # 3363 = Farsight Alteration
+    # 3364 = Oracle Lens
     trinket = items[6] if len(items) > 6 else 0
-    if trinket == 3340 and position == "UTILITY":  # Oracle Lens
+    if trinket == 3364 and position == "UTILITY":  # Oracle Lens
         details.append("✅ Oracle Lens — good for support vision denial.")
-    elif trinket == 3364:  # Farsight Alteration
+    elif trinket == 3363:  # Farsight Alteration
         details.append("✅ Farsight — safe warding option.")
+    elif trinket == 3340 and position == "UTILITY":
+        details.append("⚠️ Still using the basic Stealth Ward (yellow trinket). "
+                       "Consider upgrading to Oracle Lens (3364) for vision denial or "
+                       "Farsight (3363) for safe scouting once you hit level 9.")
 
     final_score = max(10, 85 - score_penalty)
 

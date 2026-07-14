@@ -5,6 +5,7 @@ Static champion data from DataDragon cache.
 """
 
 import logging
+import time
 from fastapi import APIRouter, HTTPException
 from backend.services.riot_client import get_champion_data
 
@@ -12,28 +13,33 @@ logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/api/v1/champions", tags=["champions"])
 
-# In-memory cache
+# In-memory cache with TTL so it refreshes after a game patch.
+_CACHE_TTL_SECONDS = 6 * 60 * 60  # 6 hours
 _champion_cache: dict | None = None
+_champion_cache_time: float = 0.0
 
 
 def _load_cache() -> dict:
-    """Load champion data from DataDragon, with in-memory cache."""
-    global _champion_cache
-    if _champion_cache is None:
+    """Load champion data from DataDragon, with an expiring in-memory cache."""
+    global _champion_cache, _champion_cache_time
+    now = time.monotonic()
+    if _champion_cache is None or (now - _champion_cache_time) > _CACHE_TTL_SECONDS:
         data = get_champion_data()
         if data:
             # Simplify: extract just the name → id mapping
-            _champion_cache = {}
+            cache = {}
             for name, info in data.get("data", {}).items():
                 # DataDragon: info["id"] is the string key (e.g. "Aatrox"),
                 # info["key"] is the numeric ID as a string (e.g. "266")
-                _champion_cache[name] = {
+                cache[name] = {
                     "id": int(info["key"]),
                     "name": info["name"],
                     "title": info.get("title", ""),
                     "key": info["id"],
                     "version": data.get("version", ""),
                 }
+            _champion_cache = cache
+            _champion_cache_time = now
     return _champion_cache or {}
 
 

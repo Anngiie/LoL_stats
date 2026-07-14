@@ -162,11 +162,6 @@ class LeagueOverlay(QWidget):
 
         self.update_requested.emit()
 
-    def refresh_preferences(self) -> None:
-        self._prefs = self._strategy.get_global_preferences()
-        self._position_window()
-        self.update()
-
     # ─── Strategy extraction ────────────────────────────────
 
     def _extract_lines(self, block: dict) -> list[str]:

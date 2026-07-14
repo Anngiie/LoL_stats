@@ -76,8 +76,10 @@ const api = {
     },
 
     // ── Analytics ─────────────────────────────────────────
-    async getAnalytics(puuid, limit = 20) {
-        return this._fetch(`/analytics/${puuid}/overview?limit=${limit}`);
+    async getAnalytics(puuid, limit = 20, queue = null) {
+        let url = `/analytics/${puuid}/overview?limit=${limit}`;
+        if (queue) url += `&queue=${queue}`;
+        return this._fetch(url);
     },
 
     // ── Strategy ──────────────────────────────────────────

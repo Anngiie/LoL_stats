@@ -69,6 +69,7 @@ async def lifespan(app: FastAPI):
             "last_updated": "",
             "champions": {},
             "global_preferences": {
+                "overlay_always_visible": True,
                 "overlay_auto_show_loading_screen": True,
                 "overlay_show_duration_seconds": 15,
                 "overlay_opacity": 0.85,
@@ -115,10 +116,11 @@ def create_app() -> FastAPI:
     )
 
     # CORS — allow local frontend dev on any port
+    # NOTE: allow_credentials=True is incompatible with allow_origins=["*"]
+    # (browsers reject that combo), so we use the bare wildcard.
     app.add_middleware(
         CORSMiddleware,
         allow_origins=["*"],
-        allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
     )

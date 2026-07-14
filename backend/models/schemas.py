@@ -36,6 +36,7 @@ class MatchSummary(BaseModel):
     deaths: int
     assists: int
     total_minions_killed: int
+    neutral_minions_killed: int = 0
     vision_score: int
     gold_earned: int
     game_duration: int  # seconds
@@ -153,6 +154,7 @@ class ChampionStrategy(BaseModel):
 
 
 class GlobalPreferences(BaseModel):
+    overlay_always_visible: bool = True
     overlay_auto_show_loading_screen: bool = True
     overlay_show_duration_seconds: int = 15
     overlay_opacity: float = 0.85
