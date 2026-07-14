@@ -113,7 +113,6 @@ class LeagueOverlay(QWidget):
 
         self._champion: str = ""
         self._lines: list[str] = []
-        self._spells: list[str] = []
         self._phase: str = "NO_GAME"
         self._show_until: float = 0.0
         self._target_opacity: float = 0.0
@@ -132,12 +131,6 @@ class LeagueOverlay(QWidget):
         comp_key = COMP_KEY[self._panel_key]
         champ = team_comp.get(comp_key, "")
         self._champion = champ
-
-        # Enemy summoner spells (only relevant for vs_support panel)
-        if self._panel_key == "vs_support":
-            self._spells = team_comp.get("enemy_support_spells", [])
-        else:
-            self._spells = []
 
         self._lines = []
         if champ:
@@ -421,20 +414,7 @@ class LeagueOverlay(QWidget):
                 self._champion, Qt.TextElideMode.ElideRight, usable_width)
             p.drawText(QRect(x, y, usable_width, fm_champ.height()),
                        Qt.AlignmentFlag.AlignLeft, champ_text)
-            y += fm_champ.height() + 2
-
-            # Summoner spells (vs_support panel only)
-            if self._spells:
-                p.setFont(tip_font)
-                p.setPen(QPen(GOLD_DIM))
-                spell_text = " / ".join(self._spells)
-                spell_text = fm_tip.elidedText(
-                    spell_text, Qt.TextElideMode.ElideRight, usable_width)
-                p.drawText(QRect(x, y, usable_width, fm_tip.height()),
-                           Qt.AlignmentFlag.AlignLeft, spell_text)
-                y += fm_tip.height() + 4
-            else:
-                y += 4
+            y += fm_champ.height() + 6
         else:
             p.setFont(tip_font)
             p.setPen(QPen(MUTED))

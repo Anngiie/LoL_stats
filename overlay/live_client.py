@@ -215,7 +215,6 @@ class LiveClientPoller(QObject):
             return empty
 
         enemy_support = ""
-        enemy_support_spells: list[str] = []
         allied_adc = ""
         allied_jungler = ""
         all_enemies = []
@@ -238,14 +237,6 @@ class LiveClientPoller(QObject):
                     all_enemies.append(champ)
                 if pos == "UTILITY":
                     enemy_support = champ
-                    # Extract summoner spell display names
-                    spells = p.get("summonerSpells", {})
-                    if isinstance(spells, dict):
-                        for sk in ("summonerSpellOne", "summonerSpellTwo"):
-                            sd = spells.get(sk, {})
-                            name = sd.get("displayName", "") or sd.get("spellKey", "")
-                            if name:
-                                enemy_support_spells.append(name)
 
         # Fallback: Smite detection for jungler if role wasn't available
         if not allied_jungler:
@@ -268,7 +259,6 @@ class LiveClientPoller(QObject):
         # so the overlay can still show tips for the full enemy team.
         return {
             "enemy_support": enemy_support,
-            "enemy_support_spells": enemy_support_spells,
             "allied_adc": allied_adc,
             "allied_jungler": allied_jungler,
             "all_enemies": all_enemies,

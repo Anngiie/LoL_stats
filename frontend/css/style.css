@@ -458,40 +458,6 @@ body::after {
     flex-shrink: 0;
 }
 
-.death-timeline {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.death-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 10px;
-    background: var(--bg-deep);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    font-size: 0.85rem;
-}
-
-.death-time {
-    color: var(--loss);
-    font-weight: 700;
-    min-width: 48px;
-}
-
-.death-killer-icon {
-    width: 22px;
-    height: 22px;
-    border-radius: 3px;
-}
-
-.death-killer {
-    font-weight: 600;
-    color: var(--text);
-}
-
 .match-kda {
     font-family: var(--font-mono);
     font-size: 0.9rem;
@@ -1237,7 +1203,7 @@ body::after {
 /* Bottom row: recent form + champion pool */
 .analytics-bottom {
     display: grid;
-    grid-template-columns: 1fr 1.4fr;
+    grid-template-columns: 1fr 1fr;
     gap: 20px;
 }
 .analytics-mini-card {
@@ -1246,6 +1212,12 @@ body::after {
     border-radius: var(--radius);
     padding: 20px 24px;
     position: relative;
+}
+.analytics-mini-card.full-width {
+    grid-column: 1 / -1;
+}
+.analytics-mini-card .champ-pool-list {
+    min-height: 200px;
 }
 .analytics-mini-card::before,
 .analytics-mini-card::after {

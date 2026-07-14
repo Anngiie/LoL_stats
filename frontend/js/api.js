@@ -71,10 +71,6 @@ const api = {
         return this._fetch(`/analysis/${matchId}`);
     },
 
-    async getMatchTimeline(matchId) {
-        return this._fetch(`/analysis/${matchId}/timeline`);
-    },
-
     async getTrends(puuid) {
         return this._fetch(`/analysis/${puuid}/trends`);
     },

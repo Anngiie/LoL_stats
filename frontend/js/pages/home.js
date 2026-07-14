@@ -360,10 +360,6 @@ async function renderAnalytics(puuid) {
 
             <div class="analytics-bottom">
                 <div class="analytics-mini-card">
-                    <div class="card-header" style="margin-bottom:10px;">Recent Form (last ${data.recent_form.length})</div>
-                    <div class="form-bar">${formHtml}</div>
-                </div>
-                <div class="analytics-mini-card">
                     <div class="card-header" style="margin-bottom:10px;">Champion Pool</div>
                     <div class="champ-pool-list">${champHtml}</div>
                 </div>
@@ -371,6 +367,10 @@ async function renderAnalytics(puuid) {
                     <div class="card-header" style="margin-bottom:10px;">Duo Synergy <span class="faint" style="font-size:0.8rem;">(win rate w/ each ADC)</span></div>
                     <div class="champ-pool-list">${duoHtml}</div>
                 </div>` : ''}
+                <div class="analytics-mini-card full-width">
+                    <div class="card-header" style="margin-bottom:10px;">Recent Form (last ${data.recent_form.length})</div>
+                    <div class="form-bar">${formHtml}</div>
+                </div>
             </div>
         </div>
     `;
@@ -623,15 +623,6 @@ async function renderMatchDetail(container, args) {
             }
         }
 
-        // Death timeline (optional — requires extra API call)
-        let deathTimelineHtml = '';
-        try {
-            const tl = await api.getMatchTimeline(matchId);
-            if (tl.deaths && tl.deaths.length) {
-                deathTimelineHtml = renderDeathTimeline(tl.deaths);
-            }
-        } catch (_) { /* timeline not available — skip silently */ }
-
         container.innerHTML = `
             <a href="#/home" class="back-btn">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
@@ -681,7 +672,6 @@ async function renderMatchDetail(container, args) {
             </div>
 
             ${analysisHtml}
-            ${deathTimelineHtml}
         `;
     } catch (err) {
         container.innerHTML = `<div class="empty-block">
@@ -750,27 +740,4 @@ function renderAnalysisBlock(analysis) {
     }
 
     return html;
-}
-
-function renderDeathTimeline(deaths) {
-    if (!deaths || !deaths.length) return '';
-
-    const rows = deaths.map(d => {
-        const killerIcon = championIconUrl(d.killer);
-        const assistText = d.assists && d.assists.length
-            ? ` <span class="faint">+ ${d.assists.map(escapeHtml).join(', ')}</span>`
-            : '';
-        return `<div class="death-row">
-            <span class="death-time mono">${d.time_str}</span>
-            ${killerIcon ? `<img class="death-killer-icon" src="${killerIcon}" alt="" loading="lazy">` : ''}
-            <span class="death-killer">${escapeHtml(d.killer)}</span>
-            ${assistText}
-        </div>`;
-    }).join('');
-
-    return `
-    <div class="card" style="margin-top:16px;">
-        <div class="card-header">Death Timeline <span class="faint" style="font-size:0.8rem;">(${deaths.length} deaths)</span></div>
-        <div class="death-timeline">${rows}</div>
-    </div>`;
 }
