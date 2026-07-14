@@ -12,6 +12,8 @@ const App = {
         hasMoreMatches: false,
         strategyData: null,     // Full strategy.json data
         champions: [],          // Champion name list for autocomplete
+        championKeys: {},       // display name → DataDragon key (e.g. "Kai'Sa" → "KaiSa")
+        ddragonVersion: '',     // DataDragon version for icon URLs
     },
 
     // ── Identity (the configured summoner — this is a personal dashboard) ──
@@ -141,6 +143,21 @@ const App = {
         }
     },
 
+    // ── Preload Champion Icons ────────────────────────────
+    async preloadChampions() {
+        try {
+            const [champs, ver] = await Promise.all([
+                api.getChampions(),
+                api.getChampionVersion(),
+            ]);
+            App.state.champions = champs.map(c => c.name);
+            const keyMap = {};
+            for (const c of champs) keyMap[c.name] = c.key;
+            App.state.championKeys = keyMap;
+            App.state.ddragonVersion = ver.version || '';
+        } catch (_) { /* icons will just not render */ }
+    },
+
     // ── Init ──────────────────────────────────────────────
     async init() {
         // Redirect legacy hashes → #/home
@@ -167,6 +184,9 @@ const App = {
 
         // Warm the summoner into state so other pages have it immediately
         this.preloadSummoner();
+
+        // Load champion icons mapping (version + display name → DataDragon key)
+        this.preloadChampions();
 
         // Initial route
         await this.route();
@@ -219,6 +239,18 @@ function formatDate(epochMs) {
 function kdaRatio(k, d, a) {
     if (d === 0) return (k + a).toFixed(1);
     return ((k + a) / d).toFixed(2);
+}
+
+/**
+ * Build a DataDragon champion icon URL from a display name.
+ * Returns empty string if version/key mapping isn't loaded yet.
+ */
+function championIconUrl(displayName) {
+    const ver = App.state.ddragonVersion;
+    if (!ver) return '';
+    const key = App.state.championKeys[displayName];
+    if (!key) return '';
+    return `https://ddragon.leagueoflegends.com/cdn/${ver}/img/champion/${key}.png`;
 }
 
 /**

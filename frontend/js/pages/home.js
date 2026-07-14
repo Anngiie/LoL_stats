@@ -54,6 +54,7 @@ async function loadProfile() {
                             </div>
                             <div style="color:var(--muted);font-size:0.88rem;">
                                 Level ${summoner.summoner_level ?? '—'}
+                                ${summoner.rank_tier ? ` • <span class="gold">${escapeHtml(summoner.rank_tier)}</span>` : ''}
                                 • ${summoner.region.toUpperCase()}
                                 • ${summoner.match_count ?? 0} matches on record
                             </div>
@@ -75,6 +76,14 @@ async function loadProfile() {
         document.getElementById('home-refresh').addEventListener('click', () =>
             refreshHomeMatches(summoner.puuid)
         );
+
+        // Pre-select Rank Comparison dropdown based on detected rank
+        if (summoner.rank_tier) {
+            const tier = summoner.rank_tier.split(' ')[0].toUpperCase();
+            if (RANK_ORDER.includes(tier)) {
+                analyticsState.selectedRank = tier;
+            }
+        }
 
         await renderAnalytics(summoner.puuid);
         await renderRecentSkirmishes();
@@ -283,16 +292,34 @@ async function renderAnalytics(puuid) {
     ).join('');
 
     // ── Champion pool ──
-    const champHtml = data.champion_stats.slice(0, 5).map(c => `
+    const champHtml = data.champion_stats.slice(0, 5).map(c => {
+        const icon = championIconUrl(c.champion);
+        return `
         <div class="champ-pool-row">
+            ${icon ? `<img class="champ-pool-icon" src="${icon}" alt="" loading="lazy">` : ''}
             <span class="champ-pool-name">${escapeHtml(c.champion)}</span>
             <div class="champ-pool-bar">
                 <div class="champ-pool-fill" style="width:${c.win_rate}%;"></div>
             </div>
             <span class="champ-pool-record mono">${c.wins}W ${c.losses}L</span>
             <span class="champ-pool-wr mono ${c.win_rate >= 50 ? 'positive' : 'negative'}">${c.win_rate}%</span>
-        </div>
-    `).join('');
+        </div>`;
+    }).join('');
+
+    // ── Duo synergy (win rate per lane partner) ──
+    const duoHtml = (data.duo_synergy || []).slice(0, 5).map(d => {
+        const icon = championIconUrl(d.champion);
+        return `
+        <div class="champ-pool-row">
+            ${icon ? `<img class="champ-pool-icon" src="${icon}" alt="" loading="lazy">` : ''}
+            <span class="champ-pool-name">${escapeHtml(d.champion)}</span>
+            <div class="champ-pool-bar">
+                <div class="champ-pool-fill" style="width:${d.win_rate}%;"></div>
+            </div>
+            <span class="champ-pool-record mono">${d.wins}W ${d.losses}L</span>
+            <span class="champ-pool-wr mono ${d.win_rate >= 50 ? 'positive' : 'negative'}">${d.win_rate}%</span>
+        </div>`;
+    }).join('');
 
     // ── Summary mini-stats for chart card header ──
     const trendColor = s.trend_direction === 'improving' ? 'var(--win)' : s.trend_direction === 'declining' ? 'var(--loss)' : 'var(--muted)';
@@ -340,6 +367,10 @@ async function renderAnalytics(puuid) {
                     <div class="card-header" style="margin-bottom:10px;">Champion Pool</div>
                     <div class="champ-pool-list">${champHtml}</div>
                 </div>
+                ${duoHtml ? `<div class="analytics-mini-card">
+                    <div class="card-header" style="margin-bottom:10px;">Duo Synergy <span class="faint" style="font-size:0.8rem;">(win rate w/ each ADC)</span></div>
+                    <div class="champ-pool-list">${duoHtml}</div>
+                </div>` : ''}
             </div>
         </div>
     `;
@@ -524,11 +555,13 @@ function renderMatchCard(m) {
     const ratio = kdaRatio(m.kills, m.deaths, m.assists);
     const gold = (m.gold_earned / 1000).toFixed(1);
     const totalCs = (m.total_minions_killed || 0) + (m.neutral_minions_killed || 0);
+    const icon = championIconUrl(m.champion_name);
     return `
     <div class="match-strip ${m.win ? 'win' : 'loss'}"
          onclick="App.navigate('match/${encodeURIComponent(m.match_id)}')"
-         tabindex="0" role="button" aria-label="${m.win ? 'Win' : 'Loss'} as ${m.champion_name}">
+         tabindex="0" role="button" aria-label="${m.win ? 'Win' : 'Loss'} as ${escapeHtml(m.champion_name)}">
         <span class="match-result-label ${m.win ? 'win' : 'loss'}">${m.win ? 'Win' : 'Loss'}</span>
+        ${icon ? `<img class="match-champ-icon" src="${icon}" alt="" loading="lazy">` : ''}
         <span class="match-champ">${escapeHtml(m.champion_name)}</span>
         <span class="match-kda">
             <span class="k">${m.kills}</span><span class="sep">/</span>
@@ -570,6 +603,10 @@ async function renderMatchDetail(container, args) {
             ? (totalCs / (match.game_duration / 60)).toFixed(1)
             : '0';
         const goldK = (match.gold_earned / 1000).toFixed(1);
+        const kpPct = match.team_kills > 0
+            ? Math.round(((match.kills + match.assists) / match.team_kills) * 100)
+            : null;
+        const heroIcon = championIconUrl(match.champion_name);
 
         let analysisHtml = '';
         if (match.analysis_data) {
@@ -586,6 +623,15 @@ async function renderMatchDetail(container, args) {
             }
         }
 
+        // Death timeline (optional — requires extra API call)
+        let deathTimelineHtml = '';
+        try {
+            const tl = await api.getMatchTimeline(matchId);
+            if (tl.deaths && tl.deaths.length) {
+                deathTimelineHtml = renderDeathTimeline(tl.deaths);
+            }
+        } catch (_) { /* timeline not available — skip silently */ }
+
         container.innerHTML = `
             <a href="#/home" class="back-btn">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
@@ -596,6 +642,7 @@ async function renderMatchDetail(container, args) {
                 <div class="match-hero-banner">${match.win ? 'VICTORY' : 'DEFEAT'}</div>
                 <div class="match-hero-body">
                     <div>
+                        ${heroIcon ? `<img class="match-hero-icon" src="${heroIcon}" alt="">` : ''}
                         <div class="match-hero-champ">${escapeHtml(match.champion_name)}</div>
                         ${match.individual_position ? `<div class="match-hero-pos">${escapeHtml(match.individual_position)}</div>` : ''}
                     </div>
@@ -617,7 +664,7 @@ async function renderMatchDetail(container, args) {
                         <span class="faint">/</span>
                         <span class="muted">${match.assists}</span>
                     </div>
-                    <div class="stat-label">KDA <span class="gold">${ratio}</span></div>
+                    <div class="stat-label">KDA <span class="gold">${ratio}</span>${kpPct !== null ? ` <span class="muted">• ${kpPct}% KP</span>` : ''}</div>
                 </div>
                 <div class="stat-box">
                     <div class="stat-value">${totalCs}</div>
@@ -634,6 +681,7 @@ async function renderMatchDetail(container, args) {
             </div>
 
             ${analysisHtml}
+            ${deathTimelineHtml}
         `;
     } catch (err) {
         container.innerHTML = `<div class="empty-block">
@@ -702,4 +750,27 @@ function renderAnalysisBlock(analysis) {
     }
 
     return html;
+}
+
+function renderDeathTimeline(deaths) {
+    if (!deaths || !deaths.length) return '';
+
+    const rows = deaths.map(d => {
+        const killerIcon = championIconUrl(d.killer);
+        const assistText = d.assists && d.assists.length
+            ? ` <span class="faint">+ ${d.assists.map(escapeHtml).join(', ')}</span>`
+            : '';
+        return `<div class="death-row">
+            <span class="death-time mono">${d.time_str}</span>
+            ${killerIcon ? `<img class="death-killer-icon" src="${killerIcon}" alt="" loading="lazy">` : ''}
+            <span class="death-killer">${escapeHtml(d.killer)}</span>
+            ${assistText}
+        </div>`;
+    }).join('');
+
+    return `
+    <div class="card" style="margin-top:16px;">
+        <div class="card-header">Death Timeline <span class="faint" style="font-size:0.8rem;">(${deaths.length} deaths)</span></div>
+        <div class="death-timeline">${rows}</div>
+    </div>`;
 }

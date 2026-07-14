@@ -110,9 +110,8 @@ def analyze_match(match_row: dict, timeline_events: list[dict] | None = None) ->
     cs_status, cs_score, cs_details = _analyze_cs(cs_per_min, position, benches)
 
     # ── Kill Participation ──
-    # We don't have team kills from a single participant row, so estimate
-    # or use benchmarks as baseline
-    kp_status, kp_score, kp_details = _analyze_kp(k, d, a, position, benches)
+    team_kills = match_row.get("team_kills", 0)
+    kp_status, kp_score, kp_details = _analyze_kp(k, d, a, position, benches, team_kills)
 
     # ── Vision Analysis ──
     control_wards = match_row.get("control_wards_placed", 0)
@@ -240,12 +239,33 @@ def _analyze_cs(cs_per_min: float, position: str, benches: dict) -> tuple[str, i
         ]
 
 
-def _analyze_kp(k: int, d: int, a: int, position: str, benches: dict) -> tuple[str, int, list[str]]:
+def _analyze_kp(k: int, d: int, a: int, position: str, benches: dict, team_kills: int = 0) -> tuple[str, int, list[str]]:
     details = [f"K/D/A: {k}/{d}/{a}"]
     kda = (k + a) / max(d, 1)
     target_kp = benches["kp_target"]
 
-    # Estimate KP — without team kills, we grade on KDA and deaths
+    # Real kill participation when team_kills is available
+    if team_kills and team_kills > 0:
+        real_kp = ((k + a) / team_kills) * 100
+        details.append(f"Kill participation: {real_kp:.0f}% ({k + a} of {team_kills} team kills)")
+
+        if real_kp >= target_kp:
+            return "ok", 90, details + [
+                f"✅ Excellent kill participation ({real_kp:.0f}% ≥ {target_kp}% target). "
+                f"You're involved in most of your team's kills."
+            ]
+        elif real_kp >= target_kp * 0.8:
+            return "warning", 60, details + [
+                f"⚠️ Kill participation is a bit low ({real_kp:.0f}% vs {target_kp}% target). "
+                f"Look for more opportunities to join fights and assist your carries."
+            ]
+        else:
+            return "poor", 30, details + [
+                f"🔴 Low kill participation ({real_kp:.0f}% vs {target_kp}% target). "
+                f"Roam more, join skirmishes around objectives, and stay near your team in fights."
+            ]
+
+    # Fallback: grade on KDA when team_kills isn't available (legacy matches)
     if kda >= 4.0:
         return "ok", 90, details + [
             f"✅ Excellent KDA ({kda:.1f}). High impact with low deaths.",

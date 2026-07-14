@@ -12,6 +12,7 @@ import logging
 import os
 import signal
 import sys
+import threading
 from datetime import datetime
 from pathlib import Path
 
@@ -88,6 +89,7 @@ class LeagueOverlayApp:
         # Track previous state for change detection
         self._last_team_comp: dict | None = None
         self._poll_count: int = 0
+        self._auto_refresh_scheduled: bool = False
 
     def _load_fonts(self) -> None:
         """Load bundled TTF fonts so Qt can use JetBrains Mono and Martian Mono."""
@@ -185,6 +187,21 @@ class LeagueOverlayApp:
                 ov._target_opacity = 0.0
                 ov._show_until = 0.0
 
+    def _trigger_auto_refresh(self) -> None:
+        """Call the backend's auto-refresh endpoint after a game ends."""
+        try:
+            import requests
+            import urllib3
+            urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+            r = requests.post("http://127.0.0.1:8000/api/v1/matches/auto-refresh", timeout=30)
+            if r.status_code == 200:
+                data = r.json()
+                logger.info("Auto-refresh complete: %s", data.get("message", "done"))
+            else:
+                logger.warning("Auto-refresh returned status %d", r.status_code)
+        except Exception as e:
+            logger.warning("Auto-refresh failed: %s", e)
+
     def _shutdown(self) -> None:
         """Gracefully stop background services."""
         logger.info("Shutting down overlay...")
@@ -221,6 +238,18 @@ class LeagueOverlayApp:
                     team_comp.get("allied_adc", "?"),
                     team_comp.get("allied_jungler", "?"),
                 )
+
+        # Auto-refresh matches ~60s after a game ends
+        if phase.name == "GAME_ENDED" and not self._auto_refresh_scheduled:
+            self._auto_refresh_scheduled = True
+            logger.info("Game ended — scheduling auto-refresh in 60s.")
+            timer = threading.Timer(60.0, self._trigger_auto_refresh)
+            timer.daemon = True
+            timer.start()
+
+        # Reset the flag when a new game starts
+        if phase.name in ("CHAMP_SELECT", "LOADING_SCREEN"):
+            self._auto_refresh_scheduled = False
 
         # Log team comp changes
         if team_comp != self._last_team_comp:

@@ -113,6 +113,7 @@ class LeagueOverlay(QWidget):
 
         self._champion: str = ""
         self._lines: list[str] = []
+        self._spells: list[str] = []
         self._phase: str = "NO_GAME"
         self._show_until: float = 0.0
         self._target_opacity: float = 0.0
@@ -132,11 +133,18 @@ class LeagueOverlay(QWidget):
         champ = team_comp.get(comp_key, "")
         self._champion = champ
 
+        # Enemy summoner spells (only relevant for vs_support panel)
+        if self._panel_key == "vs_support":
+            self._spells = team_comp.get("enemy_support_spells", [])
+        else:
+            self._spells = []
+
         self._lines = []
         if champ:
             ctx = self._strategy.get_champion_context(champ, self._panel_key)
             if ctx:
-                self._lines = self._extract_lines(ctx.get("block", {}))
+                personal_notes = ctx.get("personal_notes", "")
+                self._lines = self._extract_lines(ctx.get("block", {}), personal_notes)
 
         self._prefs = self._strategy.get_global_preferences()
         self._resize_for_content()
@@ -164,10 +172,20 @@ class LeagueOverlay(QWidget):
 
     # ─── Strategy extraction ────────────────────────────────
 
-    def _extract_lines(self, block: dict) -> list[str]:
+    def _extract_lines(self, block: dict, personal_notes: str = "") -> list[str]:
         lines: list[str] = []
+
+        # Personal notes are the highest-value line — show first if present.
+        if personal_notes and personal_notes.strip():
+            notes = personal_notes.strip()
+            if len(notes) > MAX_TIP_LEN:
+                notes = notes[:MAX_TIP_LEN] + "..."
+            lines.append("★ " + notes)
+
         if self._panel_key == "vs_support":
             for tip in block.get("how_to_play", [])[:MAX_TIPS]:
+                if len(lines) >= MAX_TIPS:
+                    break
                 lines.append(tip)
             counters = block.get("counters", [])
             if counters and len(lines) < MAX_TIPS:
@@ -175,14 +193,14 @@ class LeagueOverlay(QWidget):
             if not lines and block.get("more_info"):
                 lines.append(block["more_info"])
         elif self._panel_key == "with_adc":
-            if block.get("gameplan"):
+            if block.get("gameplan") and len(lines) < MAX_TIPS:
                 lines.append(block["gameplan"])
             if block.get("how_to_trade") and len(lines) < MAX_TIPS:
                 lines.append("Trade: " + block["how_to_trade"])
             if block.get("when_to_roam") and len(lines) < MAX_TIPS:
                 lines.append("Roam: " + block["when_to_roam"])
         elif self._panel_key == "with_jungler":
-            if block.get("gameplan"):
+            if block.get("gameplan") and len(lines) < MAX_TIPS:
                 lines.append(block["gameplan"])
             if block.get("synergy") and len(lines) < MAX_TIPS:
                 lines.append("Synergy: " + block["synergy"])
@@ -403,7 +421,20 @@ class LeagueOverlay(QWidget):
                 self._champion, Qt.TextElideMode.ElideRight, usable_width)
             p.drawText(QRect(x, y, usable_width, fm_champ.height()),
                        Qt.AlignmentFlag.AlignLeft, champ_text)
-            y += fm_champ.height() + 6
+            y += fm_champ.height() + 2
+
+            # Summoner spells (vs_support panel only)
+            if self._spells:
+                p.setFont(tip_font)
+                p.setPen(QPen(GOLD_DIM))
+                spell_text = " / ".join(self._spells)
+                spell_text = fm_tip.elidedText(
+                    spell_text, Qt.TextElideMode.ElideRight, usable_width)
+                p.drawText(QRect(x, y, usable_width, fm_tip.height()),
+                           Qt.AlignmentFlag.AlignLeft, spell_text)
+                y += fm_tip.height() + 4
+            else:
+                y += 4
         else:
             p.setFont(tip_font)
             p.setPen(QPen(MUTED))

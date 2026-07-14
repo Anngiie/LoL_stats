@@ -265,12 +265,29 @@ class RiotClient:
         url = f"{base}/lol/match/v5/matches/{match_id}"
         return self._request(url)
 
+    def get_match_timeline(self, match_id: str, region: str = "euw1") -> Optional[dict]:
+        """Get match timeline (events, frames) by match ID."""
+        base = self._regional_base(region)
+        url = f"{base}/lol/match/v5/matches/{match_id}/timeline"
+        return self._request(url)
+
     # ─── League-V4 ───────────────────────────────────────────
 
     def get_ranked_entries(self, summoner_id: str, region: str) -> Optional[list[dict]]:
         """Get all ranked entries for a summoner."""
         base = self._platform_base(region)
         url = f"{base}/lol/league/v4/entries/by-summoner/{summoner_id}"
+        return self._request(url)
+
+    def get_ranked_entries_by_puuid(self, puuid: str, region: str) -> Optional[list[dict]]:
+        """Get all ranked entries for a summoner by PUUID.
+
+        This avoids needing the summonerId from a separate Summoner-V4 call.
+        Returns a list of queue entry dicts (RANKED_SOLO_5x5, RANKED_FLEX_SR, etc.)
+        or None if unranked / API error.
+        """
+        base = self._platform_base(region)
+        url = f"{base}/lol/league/v4/entries/by-puuid/{puuid}"
         return self._request(url)
 
 

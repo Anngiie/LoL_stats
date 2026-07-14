@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS summoners (
     profile_icon_id INTEGER DEFAULT 0,
     summoner_level  INTEGER DEFAULT 0,
     region          TEXT NOT NULL,
+    rank_tier       TEXT DEFAULT '',
     last_updated    TEXT NOT NULL DEFAULT (datetime('now')),
     is_tracked      INTEGER DEFAULT 1,
     created_at      TEXT NOT NULL DEFAULT (datetime('now'))
@@ -98,6 +99,10 @@ CREATE TABLE IF NOT EXISTS matches (
     dragon_kills          INTEGER DEFAULT 0,
     baron_kills           INTEGER DEFAULT 0,
 
+    -- Team / lane context (populated at parse time)
+    team_kills              INTEGER DEFAULT 0,
+    lane_partner_champion   TEXT DEFAULT '',
+
     -- Derived analysis (pre-computed JSON)
     analysis_data   TEXT,
 
@@ -161,7 +166,35 @@ class Database:
         with self.get_connection() as conn:
             conn.executescript(SCHEMA_SQL)
             conn.commit()
+        self._migrate()
         logger.info("Database initialized at %s", self._path)
+
+    def _migrate(self) -> None:
+        """Add columns that were introduced after the initial schema."""
+        match_migrations = [
+            ("team_kills", "INTEGER DEFAULT 0"),
+            ("lane_partner_champion", "TEXT DEFAULT ''"),
+        ]
+        summoner_migrations = [
+            ("rank_tier", "TEXT DEFAULT ''"),
+        ]
+        with self.get_connection() as conn:
+            existing_matches = {row[1] for row in conn.execute("PRAGMA table_info(matches)")}
+            for col_name, col_type in match_migrations:
+                if col_name not in existing_matches:
+                    conn.execute(
+                        f"ALTER TABLE matches ADD COLUMN {col_name} {col_type}"
+                    )
+                    logger.info("Migrated: added column %s to matches", col_name)
+
+            existing_summoners = {row[1] for row in conn.execute("PRAGMA table_info(summoners)")}
+            for col_name, col_type in summoner_migrations:
+                if col_name not in existing_summoners:
+                    conn.execute(
+                        f"ALTER TABLE summoners ADD COLUMN {col_name} {col_type}"
+                    )
+                    logger.info("Migrated: added column %s to summoners", col_name)
+            conn.commit()
 
     # ── Summoner helpers ──
 
@@ -173,21 +206,23 @@ class Database:
         region: str,
         profile_icon_id: int = 0,
         summoner_level: int = 0,
+        rank_tier: str = "",
     ) -> None:
         """Insert or update a summoner record."""
         self.execute(
             """
-            INSERT INTO summoners (puuid, game_name, tag_line, region, profile_icon_id, summoner_level, last_updated)
-            VALUES (?, ?, ?, ?, ?, ?, datetime('now'))
+            INSERT INTO summoners (puuid, game_name, tag_line, region, profile_icon_id, summoner_level, rank_tier, last_updated)
+            VALUES (?, ?, ?, ?, ?, ?, ?, datetime('now'))
             ON CONFLICT(puuid) DO UPDATE SET
                 game_name = excluded.game_name,
                 tag_line = excluded.tag_line,
                 region = excluded.region,
                 profile_icon_id = excluded.profile_icon_id,
                 summoner_level = excluded.summoner_level,
+                rank_tier = excluded.rank_tier,
                 last_updated = datetime('now')
             """,
-            (puuid, game_name, tag_line, region, profile_icon_id, summoner_level),
+            (puuid, game_name, tag_line, region, profile_icon_id, summoner_level, rank_tier),
         )
 
     def summoner_exists(self, puuid: str) -> bool:
@@ -216,6 +251,7 @@ class Database:
             "champ_level", "champ_experience",
             "double_kills", "triple_kills", "quadra_kills", "penta_kills",
             "turret_kills", "inhibitor_kills", "dragon_kills", "baron_kills",
+            "team_kills", "lane_partner_champion",
         ]
         placeholders = ", ".join("?" * len(cols))
         values = tuple(match_data.get(c, 0) for c in cols)

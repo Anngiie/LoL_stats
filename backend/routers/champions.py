@@ -52,9 +52,19 @@ async def list_champions():
 
     # Return as list sorted by name
     return [
-        {"name": name, "id": info["id"], "title": info["title"]}
+        {"name": name, "id": info["id"], "title": info["title"], "key": info["key"]}
         for name, info in sorted(cache.items())
     ]
+
+
+@router.get("/version")
+async def get_version():
+    """Get the current DataDragon version used for icon/tile URLs."""
+    cache = _load_cache()
+    if not cache:
+        raise HTTPException(status_code=502, detail="Champion data not loaded.")
+    version = next(iter(cache.values())).get("version", "")
+    return {"version": version}
 
 
 @router.get("/{champion_name}")
