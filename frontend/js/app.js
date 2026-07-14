@@ -222,12 +222,16 @@ function kdaRatio(k, d, a) {
 }
 
 /**
- * HTML-escape a string.
+ * HTML-escape a string (safe for both text content and double-quoted attributes).
  */
 function escapeHtml(str) {
-    const div = document.createElement('div');
-    div.textContent = str;
-    return div.innerHTML;
+    if (str == null) return '';
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
 }
 
 /**

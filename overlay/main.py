@@ -64,8 +64,12 @@ class LeagueOverlayApp:
         # Load bundled fonts so the overlay uses JetBrains Mono / Martian Mono
         self._load_fonts()
 
-        # Strategy file path (shared with backend)
-        strategy_file = Path(__file__).parent.parent / "shared" / "strategy.json"
+        # Strategy file path (shared with backend) — use AppData when frozen
+        if getattr(sys, 'frozen', False):
+            appdata = os.environ.get("APPDATA", "")
+            strategy_file = Path(appdata) / "LoLStats" / "strategy.json" if appdata else Path(__file__).parent.parent / "shared" / "strategy.json"
+        else:
+            strategy_file = Path(__file__).parent.parent / "shared" / "strategy.json"
 
         logger.info("Strategy file: %s", strategy_file)
         logger.info("Log file: %s", LOG_FILE)
@@ -129,7 +133,6 @@ class LeagueOverlayApp:
         self._tray.setToolTip("LoL Stats Overlay — right-click to quit")
 
         # Context menu
-        menu = QApplication.instance().style()  # dummy to ensure style exists
         from PySide6.QtWidgets import QMenu
         tray_menu = QMenu()
         quit_action = tray_menu.addAction("Quit")

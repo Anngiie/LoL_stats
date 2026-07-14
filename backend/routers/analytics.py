@@ -315,32 +315,35 @@ def _build_coaching(rows: list[dict], role: str) -> list[dict]:
         })
 
     # ── Momentum (win rate trend) ──
-    half = max(n // 2, 1)
-    recent_wr = sum(1 for r in rows[:half] if r.get("win")) / half * 100
-    older_wr = sum(1 for r in rows[half:] if r.get("win")) / max(len(rows) - half, 1) * 100
+    # Only meaningful with a reasonable sample size; with 1-3 games a single
+    # win/loss swing produces absurd claims like "100% → 0%".
+    if n >= 8:
+        half = max(n // 2, 1)
+        recent_wr = sum(1 for r in rows[:half] if r.get("win")) / half * 100
+        older_wr = sum(1 for r in rows[half:] if r.get("win")) / max(len(rows) - half, 1) * 100
 
-    if recent_wr < older_wr - 15:
-        advice.append({
-            "area": "Momentum",
-            "severity": "warning",
-            "metric": f"{recent_wr:.0f}% recent",
-            "target": f"{older_wr:.0f}% previous",
-            "message": (
-                f"Your win rate dropped from {older_wr:.0f}% to {recent_wr:.0f}% in recent games. "
-                f"Consider taking a short break, reviewing replays, or sticking to your comfort champions."
-            ),
-        })
-    elif recent_wr > older_wr + 15:
-        advice.append({
-            "area": "Momentum",
-            "severity": "ok",
-            "metric": f"{recent_wr:.0f}% recent",
-            "target": f"{older_wr:.0f}% previous",
-            "message": (
-                f"Win rate improved from {older_wr:.0f}% to {recent_wr:.0f}% — you're on the "
-                f"right track. Keep up the consistency!"
-            ),
-        })
+        if recent_wr < older_wr - 15:
+            advice.append({
+                "area": "Momentum",
+                "severity": "warning",
+                "metric": f"{recent_wr:.0f}% recent",
+                "target": f"{older_wr:.0f}% previous",
+                "message": (
+                    f"Your win rate dropped from {older_wr:.0f}% to {recent_wr:.0f}% in recent games. "
+                    f"Consider taking a short break, reviewing replays, or sticking to your comfort champions."
+                ),
+            })
+        elif recent_wr > older_wr + 15:
+            advice.append({
+                "area": "Momentum",
+                "severity": "ok",
+                "metric": f"{recent_wr:.0f}% recent",
+                "target": f"{older_wr:.0f}% previous",
+                "message": (
+                    f"Win rate improved from {older_wr:.0f}% to {recent_wr:.0f}% — you're on the "
+                    f"right track. Keep up the consistency!"
+                ),
+            })
 
     # ── Consistency (fallback) ──
     if not any(a["severity"] == "poor" for a in advice):
@@ -384,6 +387,7 @@ async def get_overview(
     puuid: str,
     request: Request,
     limit: int = Query(20, ge=1, le=100),
+    queue: int | None = Query(None, description="Queue filter: 420=ranked solo, 440=flex, 450=ARAM"),
 ):
     """
     Get a full analytics overview for the dashboard.
@@ -391,6 +395,9 @@ async def get_overview(
     Returns time-series data for charts, aggregate summary stats,
     champion pool breakdown, auto-generated coaching advice, and
     recent W/L form — all in one response.
+
+    Pass a queue filter to exclude modes like ARAM/Arena that skew
+    support benchmarks (vision/min is meaningless there).
     """
     state = _get_services(request)
     db = state.db
@@ -398,16 +405,28 @@ async def get_overview(
     if not db.summoner_exists(puuid):
         raise HTTPException(status_code=404, detail="Summoner not found.")
 
-    rows = db.fetch_all(
-        """SELECT match_id, champion_name, win, kills, deaths, assists,
-                  game_duration, game_creation, queue_id,
-                  total_minions_killed, neutral_minions_killed,
-                  vision_score, gold_earned,
-                  total_damage_dealt_to_champions, individual_position
-           FROM matches WHERE puuid = ?
-           ORDER BY game_creation DESC LIMIT ?""",
-        (puuid, limit),
-    )
+    if queue is not None:
+        rows = db.fetch_all(
+            """SELECT match_id, champion_name, win, kills, deaths, assists,
+                      game_duration, game_creation, queue_id,
+                      total_minions_killed, neutral_minions_killed,
+                      vision_score, gold_earned,
+                      total_damage_dealt_to_champions, individual_position
+               FROM matches WHERE puuid = ? AND queue_id = ?
+               ORDER BY game_creation DESC LIMIT ?""",
+            (puuid, queue, limit),
+        )
+    else:
+        rows = db.fetch_all(
+            """SELECT match_id, champion_name, win, kills, deaths, assists,
+                      game_duration, game_creation, queue_id,
+                      total_minions_killed, neutral_minions_killed,
+                      vision_score, gold_earned,
+                      total_damage_dealt_to_champions, individual_position
+               FROM matches WHERE puuid = ?
+               ORDER BY game_creation DESC LIMIT ?""",
+            (puuid, limit),
+        )
 
     rows = [dict(r) for r in rows]
 

@@ -9,14 +9,41 @@ Config lives in backend/data/config.json.
 
 import json
 import logging
+import os
+import sys
 from dataclasses import dataclass, asdict, fields
 from pathlib import Path
 
 logger = logging.getLogger(__name__)
 
-DATA_DIR = Path(__file__).parent / "data"
+
+def _get_data_dir() -> Path:
+    """Return the persistent data directory.
+
+    When running as a frozen PyInstaller EXE, stored under
+    %APPDATA%/LoLStats so that data survives EXE restarts.
+    Otherwise, the default backend/data/ folder.
+    """
+    if getattr(sys, 'frozen', False):
+        appdata = os.environ.get("APPDATA", "")
+        if appdata:
+            return Path(appdata) / "LoLStats"
+    return Path(__file__).parent / "data"
+
+
+def _get_project_root() -> Path:
+    """Return the project root.
+
+    In frozen mode this is sys._MEIPASS (the temp extraction dir).
+    """
+    if getattr(sys, 'frozen', False):
+        return Path(sys._MEIPASS)
+    return Path(__file__).parent.parent
+
+
+DATA_DIR = _get_data_dir()
 CONFIG_FILE = DATA_DIR / "config.json"
-PROJECT_ROOT = Path(__file__).parent.parent
+PROJECT_ROOT = _get_project_root()
 
 
 @dataclass
@@ -50,7 +77,13 @@ class BackendConfig:
         if not self.database_path:
             self.database_path = str(DATA_DIR / "matches.db")
         if not self.strategy_file:
-            self.strategy_file = str(PROJECT_ROOT / "shared" / "strategy.json")
+            # When frozen, store strategy.json in the persistent AppData dir
+            # so dashboard edits survive restarts. _seed_data_dir() copies the
+            # bundled file there on first run.
+            if getattr(sys, 'frozen', False):
+                self.strategy_file = str(DATA_DIR / "strategy.json")
+            else:
+                self.strategy_file = str(PROJECT_ROOT / "shared" / "strategy.json")
 
     def save(self) -> None:
         """Write config to disk."""
@@ -99,9 +132,23 @@ def _find_config_files() -> list[Path]:
     return paths
 
 
+def _seed_data_dir() -> None:
+    """On first frozen run, seed AppData with bundled config and strategy files."""
+    if not getattr(sys, 'frozen', False):
+        return
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
+    for rel_path in ("backend/data/config.json", "shared/strategy.json"):
+        src = Path(sys._MEIPASS) / rel_path
+        dst = DATA_DIR / Path(rel_path).name
+        if src.exists() and not dst.exists():
+            dst.write_text(src.read_text(encoding="utf-8"), encoding="utf-8")
+            logger.info("Seeded %s from bundled file.", dst)
+
+
 def load_config() -> BackendConfig:
     """Load config from disk, checking multiple locations in priority order.
     Falls back to defaults for missing/invalid fields."""
+    _seed_data_dir()
     import os
 
     config = BackendConfig()
