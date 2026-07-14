@@ -141,7 +141,7 @@ def _seed_data_dir() -> None:
         src = Path(sys._MEIPASS) / rel_path
         dst = DATA_DIR / Path(rel_path).name
         if src.exists() and not dst.exists():
-            dst.write_text(src.read_text())
+            dst.write_text(src.read_text(encoding="utf-8"), encoding="utf-8")
             logger.info("Seeded %s from bundled file.", dst)
 
 
