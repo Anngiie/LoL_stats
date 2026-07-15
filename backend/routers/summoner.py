@@ -45,6 +45,17 @@ async def lookup_summoner(region: str, game_name: str, tag_line: str, request: R
     if not summoner_data:
         raise HTTPException(status_code=502, detail="Failed to fetch summoner profile from Riot API.")
 
+    # Fetch ranked solo-queue tier for profile display + rank comparison
+    rank_tier = ""
+    ranked_entries = riot_client.get_ranked_entries_by_puuid(puuid, region)
+    if ranked_entries:
+        for entry in ranked_entries:
+            if entry.get("queueType") == "RANKED_SOLO_5x5":
+                tier = entry.get("tier", "")
+                division = entry.get("rank", "")
+                rank_tier = f"{tier} {division}".strip()
+                break
+
     # Store in database
     db.upsert_summoner(
         puuid=puuid,
@@ -53,11 +64,12 @@ async def lookup_summoner(region: str, game_name: str, tag_line: str, request: R
         region=region.lower(),
         profile_icon_id=summoner_data.get("profileIconId", 0),
         summoner_level=summoner_data.get("summonerLevel", 0),
+        rank_tier=rank_tier,
     )
 
     match_count = db.get_match_count(puuid)
 
-    logger.info("Summoner looked up: %s#%s (%s)", game_name, tag_line, puuid[:8])
+    logger.info("Summoner looked up: %s#%s (%s) rank=%s", game_name, tag_line, puuid[:8], rank_tier or "unranked")
 
     return SummonerResponse(
         puuid=puuid,
@@ -66,6 +78,7 @@ async def lookup_summoner(region: str, game_name: str, tag_line: str, request: R
         region=region.lower(),
         profile_icon_id=summoner_data.get("profileIconId", 0),
         summoner_level=summoner_data.get("summonerLevel", 0),
+        rank_tier=rank_tier,
         last_updated="now",
         is_tracked=True,
         match_count=match_count,
@@ -91,6 +104,7 @@ async def get_cached_summoner(puuid: str, request: Request):
         region=row["region"],
         profile_icon_id=row["profile_icon_id"],
         summoner_level=row["summoner_level"],
+        rank_tier=row["rank_tier"] if "rank_tier" in row.keys() else "",
         last_updated=row["last_updated"],
         is_tracked=bool(row["is_tracked"]),
         match_count=match_count,

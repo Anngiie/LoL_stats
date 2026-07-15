@@ -19,6 +19,7 @@ class SummonerResponse(BaseModel):
     region: str
     profile_icon_id: int = 0
     summoner_level: int = 0
+    rank_tier: str = ""
     last_updated: str = ""
     is_tracked: bool = True
     match_count: int = 0
@@ -87,6 +88,8 @@ class MatchDetail(BaseModel):
     inhibitor_kills: int = 0
     dragon_kills: int = 0
     baron_kills: int = 0
+    team_kills: int = 0
+    lane_partner_champion: str = ""
     analysis_data: Optional[dict] = None
     fetched_at: str = ""
 

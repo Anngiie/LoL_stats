@@ -143,6 +143,14 @@ def _build_summary(rows: list[dict], role: str) -> dict:
     avg_dmg = sum(r.get("total_damage_dealt_to_champions", 0) for r in rows) / n
     avg_dmg_per_min = round(avg_dmg / (total_minutes / n), 1)
 
+    # Real kill participation (when team_kills is available)
+    kp_values = []
+    for r in rows:
+        tk = r.get("team_kills", 0)
+        if tk and tk > 0:
+            kp_values.append(((r.get("kills", 0) + r.get("assists", 0)) / tk) * 100)
+    avg_kp = round(sum(kp_values) / len(kp_values), 1) if kp_values else 0.0
+
     # Trend: compare KDA of recent half vs older half
     half = max(n // 2, 1)
     recent = rows[:half]
@@ -173,6 +181,7 @@ def _build_summary(rows: list[dict], role: str) -> dict:
         "avg_kills": round(avg_kills, 1),
         "avg_deaths": round(avg_deaths, 1),
         "avg_assists": round(avg_assists, 1),
+        "avg_kill_participation": avg_kp,
         "avg_vision_per_min": avg_vision_per_min,
         "avg_gold_per_min": avg_gold_per_min,
         "avg_dmg_per_min": avg_dmg_per_min,
@@ -199,6 +208,36 @@ def _build_champion_stats(rows: list[dict]) -> list[dict]:
         win_rate = round((wins / games) * 100) if games else 0
         stats.append({
             "champion": champ,
+            "games": games,
+            "wins": wins,
+            "losses": losses,
+            "win_rate": win_rate,
+        })
+
+    stats.sort(key=lambda x: x["games"], reverse=True)
+    return stats
+
+
+def _build_duo_synergy(rows: list[dict]) -> list[dict]:
+    """Aggregate win rates per lane partner champion (the other BOTTOM player)."""
+    pool = defaultdict(lambda: {"games": 0, "wins": 0})
+
+    for r in rows:
+        partner = r.get("lane_partner_champion", "") or ""
+        if not partner:
+            continue
+        pool[partner]["games"] += 1
+        if r.get("win"):
+            pool[partner]["wins"] += 1
+
+    stats = []
+    for partner, data in pool.items():
+        games = data["games"]
+        wins = data["wins"]
+        losses = games - wins
+        win_rate = round((wins / games) * 100) if games else 0
+        stats.append({
+            "champion": partner,
             "games": games,
             "wins": wins,
             "losses": losses,
@@ -411,7 +450,8 @@ async def get_overview(
                       game_duration, game_creation, queue_id,
                       total_minions_killed, neutral_minions_killed,
                       vision_score, gold_earned,
-                      total_damage_dealt_to_champions, individual_position
+                      total_damage_dealt_to_champions, individual_position,
+                      team_kills, lane_partner_champion
                FROM matches WHERE puuid = ? AND queue_id = ?
                ORDER BY game_creation DESC LIMIT ?""",
             (puuid, queue, limit),
@@ -422,7 +462,8 @@ async def get_overview(
                       game_duration, game_creation, queue_id,
                       total_minions_killed, neutral_minions_killed,
                       vision_score, gold_earned,
-                      total_damage_dealt_to_champions, individual_position
+                      total_damage_dealt_to_champions, individual_position,
+                      team_kills, lane_partner_champion
                FROM matches WHERE puuid = ?
                ORDER BY game_creation DESC LIMIT ?""",
             (puuid, limit),
@@ -438,6 +479,7 @@ async def get_overview(
     summary = _build_summary(rows, role)
     time_series = _build_time_series(rows)
     champion_stats = _build_champion_stats(rows)
+    duo_synergy = _build_duo_synergy(rows)
     coaching = _build_coaching(rows, role)
     recent_form = ["W" if r.get("win") else "L" for r in rows]
 
@@ -445,6 +487,7 @@ async def get_overview(
         "summary": summary,
         "time_series": time_series,
         "champion_stats": champion_stats,
+        "duo_synergy": duo_synergy,
         "coaching": coaching,
         "recent_form": recent_form,
         "rank_benchmarks": RANK_BENCHMARKS,

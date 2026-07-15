@@ -434,6 +434,30 @@ body::after {
     color: var(--text);
 }
 
+.match-champ-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    vertical-align: middle;
+    flex-shrink: 0;
+}
+
+.match-hero-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 6px;
+    border: 2px solid var(--border-light);
+    margin-bottom: 4px;
+}
+
+.champ-pool-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 3px;
+    flex-shrink: 0;
+}
+
 .match-kda {
     font-family: var(--font-mono);
     font-size: 0.9rem;
@@ -1179,7 +1203,7 @@ body::after {
 /* Bottom row: recent form + champion pool */
 .analytics-bottom {
     display: grid;
-    grid-template-columns: 1fr 1.4fr;
+    grid-template-columns: 1fr 1fr;
     gap: 20px;
 }
 .analytics-mini-card {
@@ -1188,6 +1212,12 @@ body::after {
     border-radius: var(--radius);
     padding: 20px 24px;
     position: relative;
+}
+.analytics-mini-card.full-width {
+    grid-column: 1 / -1;
+}
+.analytics-mini-card .champ-pool-list {
+    min-height: 200px;
 }
 .analytics-mini-card::before,
 .analytics-mini-card::after {

@@ -273,6 +273,17 @@ class RiotClient:
         url = f"{base}/lol/league/v4/entries/by-summoner/{summoner_id}"
         return self._request(url)
 
+    def get_ranked_entries_by_puuid(self, puuid: str, region: str) -> Optional[list[dict]]:
+        """Get all ranked entries for a summoner by PUUID.
+
+        This avoids needing the summonerId from a separate Summoner-V4 call.
+        Returns a list of queue entry dicts (RANKED_SOLO_5x5, RANKED_FLEX_SR, etc.)
+        or None if unranked / API error.
+        """
+        base = self._platform_base(region)
+        url = f"{base}/lol/league/v4/entries/by-puuid/{puuid}"
+        return self._request(url)
+
 
 # ─── DataDragon (static data, no API key needed) ─────────────────
 

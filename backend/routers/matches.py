@@ -25,66 +25,91 @@ def _parse_participant(match_data: dict, puuid: str) -> dict | None:
 
     The Riot API returns a 'info.participants' list with all 10 players.
     We need to find the one matching our puuid and flatten the relevant fields.
+    Also computes team-wide stats (team_kills) and lane context (lane partner).
     """
     info = match_data.get("info", {})
     participants = info.get("participants", [])
 
+    target = None
     for p in participants:
         if p.get("puuid") == puuid:
-            # Build a flat dict matching our DB schema
-            # Summoner spell IDs are in summoner1Id/summoner2Id
-            challenges = p.get("challenges", {})
+            target = p
+            break
 
-            return {
-                "match_id": match_data.get("metadata", {}).get("matchId", ""),
-                "puuid": puuid,
-                "game_creation": info.get("gameCreation", 0),
-                "game_duration": info.get("gameDuration", 0),
-                "game_version": info.get("gameVersion", ""),
-                "queue_id": info.get("queueId", 0),
-                "platform_id": match_data.get("metadata", {}).get("platformId", ""),
-                "champion_id": p.get("championId", 0),
-                "champion_name": p.get("championName", ""),
-                "individual_position": p.get("individualPosition", ""),
-                "team_id": p.get("teamId", 0),
-                "win": 1 if p.get("win", False) else 0,
-                "kills": p.get("kills", 0),
-                "deaths": p.get("deaths", 0),
-                "assists": p.get("assists", 0),
-                "total_damage_dealt_to_champions": p.get("totalDamageDealtToChampions", 0),
-                "total_damage_taken": p.get("totalDamageTaken", 0),
-                "gold_earned": p.get("goldEarned", 0),
-                "total_minions_killed": p.get("totalMinionsKilled", 0),
-                "neutral_minions_killed": p.get("neutralMinionsKilled", 0),
-                "vision_score": p.get("visionScore", 0),
-                "vision_wards_bought": p.get("visionWardsBoughtInGame", 0),
-                "wards_placed": p.get("wardsPlaced", 0),
-                "wards_killed": p.get("wardsKilled", 0),
-                "control_wards_placed": challenges.get("controlWardsPlaced", 0),
-                "item0": p.get("item0", 0),
-                "item1": p.get("item1", 0),
-                "item2": p.get("item2", 0),
-                "item3": p.get("item3", 0),
-                "item4": p.get("item4", 0),
-                "item5": p.get("item5", 0),
-                "item6": p.get("item6", 0),
-                "summoner1_id": p.get("summoner1Id", 0),
-                "summoner2_id": p.get("summoner2Id", 0),
-                "perk_primary_style": p.get("perks", {}).get("styles", [{}])[0].get("style", 0) if p.get("perks", {}).get("styles") else 0,
-                "perk_sub_style": p.get("perks", {}).get("styles", [{}, {}])[1].get("style", 0) if len(p.get("perks", {}).get("styles", [])) > 1 else 0,
-                "champ_level": p.get("champLevel", 0),
-                "champ_experience": p.get("champExperience", 0),
-                "double_kills": p.get("doubleKills", 0),
-                "triple_kills": p.get("tripleKills", 0),
-                "quadra_kills": p.get("quadraKills", 0),
-                "penta_kills": p.get("pentaKills", 0),
-                "turret_kills": p.get("turretKills", 0),
-                "inhibitor_kills": p.get("inhibitorKills", 0),
-                "dragon_kills": p.get("dragonKills", 0),
-                "baron_kills": p.get("baronKills", 0),
-            }
+    if not target:
+        return None
 
-    return None
+    challenges = target.get("challenges", {})
+
+    # ── Compute team kills and lane partner from all participants ──
+    team_id = target.get("teamId", 0)
+    my_position = target.get("individualPosition", "")
+    team_kills = sum(
+        p.get("kills", 0) for p in participants if p.get("teamId") == team_id
+    )
+
+    # Lane partner: the other BOTTOM player on the same team (the ADC,
+    # if the tracked player is support, or vice-versa).
+    lane_partner_champion = ""
+    for p in participants:
+        if p.get("puuid") == puuid:
+            continue
+        if p.get("teamId") != team_id:
+            continue
+        if p.get("individualPosition") == "BOTTOM" and my_position in ("UTILITY", "BOTTOM"):
+            lane_partner_champion = p.get("championName", "")
+            break
+
+    return {
+        "match_id": match_data.get("metadata", {}).get("matchId", ""),
+        "puuid": puuid,
+        "game_creation": info.get("gameCreation", 0),
+        "game_duration": info.get("gameDuration", 0),
+        "game_version": info.get("gameVersion", ""),
+        "queue_id": info.get("queueId", 0),
+        "platform_id": match_data.get("metadata", {}).get("platformId", ""),
+        "champion_id": target.get("championId", 0),
+        "champion_name": target.get("championName", ""),
+        "individual_position": target.get("individualPosition", ""),
+        "team_id": team_id,
+        "win": 1 if target.get("win", False) else 0,
+        "kills": target.get("kills", 0),
+        "deaths": target.get("deaths", 0),
+        "assists": target.get("assists", 0),
+        "total_damage_dealt_to_champions": target.get("totalDamageDealtToChampions", 0),
+        "total_damage_taken": target.get("totalDamageTaken", 0),
+        "gold_earned": target.get("goldEarned", 0),
+        "total_minions_killed": target.get("totalMinionsKilled", 0),
+        "neutral_minions_killed": target.get("neutralMinionsKilled", 0),
+        "vision_score": target.get("visionScore", 0),
+        "vision_wards_bought": target.get("visionWardsBoughtInGame", 0),
+        "wards_placed": target.get("wardsPlaced", 0),
+        "wards_killed": target.get("wardsKilled", 0),
+        "control_wards_placed": challenges.get("controlWardsPlaced", 0),
+        "item0": target.get("item0", 0),
+        "item1": target.get("item1", 0),
+        "item2": target.get("item2", 0),
+        "item3": target.get("item3", 0),
+        "item4": target.get("item4", 0),
+        "item5": target.get("item5", 0),
+        "item6": target.get("item6", 0),
+        "summoner1_id": target.get("summoner1Id", 0),
+        "summoner2_id": target.get("summoner2Id", 0),
+        "perk_primary_style": target.get("perks", {}).get("styles", [{}])[0].get("style", 0) if target.get("perks", {}).get("styles") else 0,
+        "perk_sub_style": target.get("perks", {}).get("styles", [{}, {}])[1].get("style", 0) if len(target.get("perks", {}).get("styles", [])) > 1 else 0,
+        "champ_level": target.get("champLevel", 0),
+        "champ_experience": target.get("champExperience", 0),
+        "double_kills": target.get("doubleKills", 0),
+        "triple_kills": target.get("tripleKills", 0),
+        "quadra_kills": target.get("quadraKills", 0),
+        "penta_kills": target.get("pentaKills", 0),
+        "turret_kills": target.get("turretKills", 0),
+        "inhibitor_kills": target.get("inhibitorKills", 0),
+        "dragon_kills": target.get("dragonKills", 0),
+        "baron_kills": target.get("baronKills", 0),
+        "team_kills": team_kills,
+        "lane_partner_champion": lane_partner_champion,
+    }
 
 
 def _row_to_summary(row: sqlite3.Row) -> MatchSummary:
@@ -156,6 +181,8 @@ def _row_to_detail(row: sqlite3.Row) -> MatchDetail:
         inhibitor_kills=row["inhibitor_kills"] or 0,
         dragon_kills=row["dragon_kills"] or 0,
         baron_kills=row["baron_kills"] or 0,
+        team_kills=row["team_kills"] if "team_kills" in row.keys() else 0,
+        lane_partner_champion=row["lane_partner_champion"] if "lane_partner_champion" in row.keys() else "",
         analysis_data=analysis,
         fetched_at=row["fetched_at"],
     )
@@ -286,3 +313,43 @@ async def get_match_detail(puuid: str, match_id: str, request: Request):
         raise HTTPException(status_code=404, detail="Match not found.")
 
     return _row_to_detail(row)
+
+
+@router.post("/auto-refresh")
+async def auto_refresh_tracked(request: Request):
+    """Auto-refresh matches for the tracked summoner.
+
+    Called by the overlay ~60s after a game ends so the dashboard
+    is current when the player alt-tabs out. Finds the one tracked
+    summoner automatically — no puuid needed.
+    """
+    state = _get_services(request)
+    riot_client = state.riot_client
+    db = state.db
+
+    if not riot_client.has_key:
+        return {"message": "API key not configured.", "new_matches": 0}
+
+    row = db.fetch_one("SELECT puuid, region FROM summoners WHERE is_tracked = 1 LIMIT 1")
+    if not row:
+        return {"message": "No tracked summoner.", "new_matches": 0}
+
+    puuid = row["puuid"]
+    region = row["region"]
+
+    match_ids = riot_client.get_match_ids(puuid, region, count=5)
+    new_count = 0
+    for match_id in match_ids:
+        if db.match_exists(match_id):
+            continue
+        match_data = riot_client.get_match(match_id, region)
+        if not match_data:
+            continue
+        participant = _parse_participant(match_data, puuid)
+        if not participant:
+            continue
+        db.insert_match(participant)
+        new_count += 1
+
+    logger.info("Auto-refresh: %d new matches for %s", new_count, puuid[:8])
+    return {"message": f"Auto-refreshed: {new_count} new matches.", "new_matches": new_count}

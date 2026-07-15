@@ -11,10 +11,20 @@ changes made from the web dashboard without needing a restart.
 import json
 import logging
 import os
+import re
 from pathlib import Path
 from typing import Optional
 
 logger = logging.getLogger(__name__)
+
+
+def _normalize_name(name: str) -> str:
+    """Normalize a champion name for fuzzy matching.
+
+    Strips spaces, apostrophes, hyphens, periods, and lowercases,
+    so 'Kai'Sa' matches 'Kaisa', 'Miss Fortune' matches 'MissFortune', etc.
+    """
+    return re.sub(r"[' .\-&]", "", name).lower()
 
 
 class StrategyReader:
@@ -67,8 +77,11 @@ class StrategyReader:
         """
         Get a specific context block for a champion.
 
+        Uses fuzzy name matching so 'Kai'Sa' matches 'Kaisa',
+        'Miss Fortune' matches 'MissFortune', etc.
+
         Args:
-            champion_name: Champion to look up (case-insensitive).
+            champion_name: Champion to look up.
             context: One of 'vs_support', 'with_adc', 'with_jungler'.
 
         Returns:
@@ -76,8 +89,9 @@ class StrategyReader:
         """
         self.reload()
         champions = self._data.get("champions", {})
+        target = _normalize_name(champion_name)
         for champ_name, champ_data in champions.items():
-            if champ_name.lower() == champion_name.lower():
+            if _normalize_name(champ_name) == target:
                 block = champ_data.get(context, {}) or {}
                 return {
                     "champion": champ_name,
@@ -99,10 +113,11 @@ class StrategyReader:
         champions = self._data.get("champions", {})
 
         for name in enemy_champions:
-            # Case-insensitive lookup
+            # Fuzzy name lookup
             entry = None
+            target = _normalize_name(name)
             for champ_name, champ_data in champions.items():
-                if champ_name.lower() == name.lower():
+                if _normalize_name(champ_name) == target:
                     entry = champ_data
                     name = champ_name  # Use correct casing
                     break

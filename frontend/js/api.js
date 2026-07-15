@@ -113,6 +113,10 @@ const api = {
         return this._fetch(`/champions`);
     },
 
+    async getChampionVersion() {
+        return this._fetch(`/champions/version`);
+    },
+
     // ── Health ────────────────────────────────────────────
     async checkHealth() {
         try {
